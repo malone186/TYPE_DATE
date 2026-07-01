@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TYPE DATE 프로토타입 개발 용역 결과보고서</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background: #f0f0f0;
+      color: #000;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      background: #fff;
+      padding: 30mm 25mm;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    /* ── 표지 ── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 237mm;
+    }
+
+    .cover-box {
+      border: 1.5px solid #222;
+      width: 100%;
+      padding: 40px 50px 60px;
+      margin-bottom: 0;
+    }
+
+    .cover-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 50px;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-info {
+      list-style: disc;
+      padding-left: 24px;
+      margin-bottom: 0;
+    }
+
+    .cover-info li {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .cover-info li span.highlight {
+      color: #2563eb;
+    }
+
+    .cover-footer {
+      width: 100%;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .cover-date {
+      font-size: 15px;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    .cover-sign {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      padding: 0 20px;
+    }
+
+    .cover-sign .sign-label {
+      font-size: 14px;
+      color: #2563eb;
+      min-width: 180px;
+    }
+
+    .cover-sign .sign-stamp {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .cover-recipient {
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 2px;
+    }
+
+    /* ── 본문 ── */
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      border-bottom: 2px solid #222;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      margin-top: 36px;
+    }
+
+    .section-title:first-of-type {
+      margin-top: 0;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 20px 0 8px;
+    }
+
+    p, li {
+      font-size: 13px;
+      line-height: 1.85;
+      color: #111;
+    }
+
+    ul { padding-left: 20px; margin-bottom: 8px; }
+    ul li { margin-bottom: 4px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 13px;
+    }
+
+    table th {
+      background: #f5f5f5;
+      font-weight: 700;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    table td {
+      padding: 7px 12px;
+      border: 1px solid #ccc;
+      vertical-align: top;
+    }
+
+    table td:first-child {
+      font-weight: 600;
+      white-space: nowrap;
+      background: #fafafa;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-ok   { background: #dcfce7; color: #166534; }
+    .badge-warn { background: #fef9c3; color: #854d0e; }
+    .badge-no   { background: #fee2e2; color: #991b1b; }
+
+    .error-block {
+      background: #f9fafb;
+      border-left: 3px solid #6366f1;
+      padding: 12px 16px;
+      margin: 10px 0 18px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .error-block .error-title {
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #3730a3;
+    }
+
+    .error-block p { margin-bottom: 4px; }
+    .error-block .label { font-weight: 600; color: #555; }
+
+    .page-num {
+      position: absolute;
+      bottom: 14mm;
+      width: calc(100% - 50mm);
+      left: 25mm;
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }
+
+    .summary-box {
+      background: #f0f7ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { margin: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     표지 (Page 1)
+════════════════════════════════ -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-box">
+      <div class="cover-title">
+        「TYPE DATE」프로토타입 개발 용역<br>결과보고서
+      </div>
+
+      <ul class="cover-info">
+        <li>사업명 : 「TYPE DATE」 프로토타입 개발 용역</li>
+        <li>제품명 : TYPE DATE (Flutter 소개팅 시뮬레이션 앱)</li>
+        <li>사업비 : &nbsp;<span class="highlight">금 5,000,000원(금오백만원)</span></li>
+      </ul>
+    </div>
+
+    <div class="cover-footer">
+      <div class="cover-date">2026년 &nbsp;7월 &nbsp;&nbsp;&nbsp;일</div>
+
+      <div class="cover-sign">
+        <span class="sign-label">개발사 대표 &nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="sign-stamp">(서명날인)</span>
+      </div>
+
+      <div class="cover-recipient">TYPE DATE 대표 귀하</div>
+    </div>
+  </div>
+  <div class="page-num">- 1 -</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     본문 Page 2 — 사업 개요 & 구현 현황
+════════════════════════════════ -->
+<div class="page">
+
+  <!-- 1. 사업 개요 -->
+  <div class="section-title">1. 사업 개요</div>
+
+  <div class="summary-box">
+    PRD v1.2 및 UI 디자인 명세서 v1.0을 기반으로, 16가지 MBTI 유형 상대와 차례로 소개팅을 진행하고 자신의 소개팅 유형을 분석해주는 Flutter 앱 <strong>「TYPE DATE」</strong>의 1화(ENFP 지수) 데모 프로토타입 개발을 완료하였습니다.
+  </div>
+
+  <table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td>사업명</td><td>「TYPE DATE」 프로토타입 개발 용역</td></tr>
+    <tr><td>제품명</td><td>TYPE DATE (소개팅 시뮬레이션 앱)</td></tr>
+    <tr><td>개발 플랫폼</td><td>Flutter (Web, iOS, Android 크로스플랫폼)</td></tr>
+    <tr><td>기준 문서</td><td>PRD v1.2 / UI 디자인 명세서 v1.0</td></tr>
+    <tr><td>구현 범위</td><td>1화(ENFP 지수) 전체 플로우 — 프롤로그 ~ 에필로그 13턴</td></tr>
+    <tr><td>보고 기준일</td><td>2026년 7월 1일</td></tr>
+  </table>
+
+  <hr class="divider">
+
+  <!-- 2. 구현 완료 현황 -->
+  <div class="section-title">2. 구현 완료 현황</div>
+
+  <h3>2-1. 품질 검증 결과</h3>
+  <table>
+    <tr><th>검증 항목</th><th>결과</th></tr>
+    <tr>
+      <td>flutter analyze</td>
+      <td><span class="badge badge-ok">통과</span>&nbsp; 이슈 0건</td>
+    </tr>
+    <tr>
+      <td>flutter test</td>
+      <td><span class="badge badge-ok">통과</span></td>
+    </tr>
+    <tr>
+      <td>flutter build web --release</td>
+      <td><span class="badge badge-ok">빌드 성공</span>&nbsp; build/web/ 정상 생성</td>
+    </tr>
+    <tr>
+      <td>1화 콘텐츠 (프롤로그~에필로그, 13턴)</td>
+      <td><span class="badge badge-ok">전체 구현 완료</span></td>
+    </tr>
+    <tr>
+      <td>2~16화 캐릭터</td>
+      <td><span class="badge badge-warn">미구현</span>&nbsp; 잠금 슬롯으로 표시</td>
+    </tr>
+    <tr>
+      <td>광고 / 인앱결제 (PRD P1)</td>
+      <td><span class="badge badge-warn">미구현</span>&nbsp; 데모 범위 제외</td>
+    </tr>
+  </table>
+
+  <h3>2-2. 구현된 화면 (총 8개)</h3>
+  <table>
+    <tr><th>#</th><th>화면명</th><th>주요 내용</th></tr>
+    <tr><td>1</td><td>스플래시 / 타이틀</td><td>앱 시작 화면, 브랜드 타이틀</td></tr>
+    <tr><td>2</td><td>프롤로그</td><td>민준 카톡 → 고객센터 AI 채팅 → 온보딩 → 배정 카드</td></tr>
+    <tr><td>3</td><td>캐릭터 선택</td><td>16슬롯 그리드, 1화(지수)만 해금 상태</td></tr>
+    <tr><td>4</td><td>캐릭터 프로필</td><td>지수 프로필 카드 (사진·MBTI·태그·소개)</td></tr>
+    <tr><td>5</td><td>소개팅 채팅</td><td>13턴 메신저형 스레드, ABCD 선택지, 호감도 이펙트</td></tr>
+    <tr><td>6</td><td>결과 보고서</td><td>4축 MBTI 그래프, 엔딩 분기(성공/친구/실패), 궁합 안내</td></tr>
+    <tr><td>7</td><td>SNS 공유 카드</td><td>결과 카드 공유 UI (데모 버전 — 스낵바 안내)</td></tr>
+    <tr><td>8</td><td>에필로그</td><td>민준 카톡 + 2화 예고</td></tr>
+  </table>
+
+  <p style="margin-top:10px; font-size:12px; color:#555;">
+    ※ 라이트/다크 테마, UI 명세서 v1.0 컬러 토큰, Pretendard 폰트 전체 적용 완료.
+  </p>
+
+  <div class="page-num">- 2 -</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     본문 Page 3 — 발생 오류 및 해결
+════════════════════════════════ -->
+<div class="page">
+
+  <div class="section-title">3. 개발 중 발생 오류 및 해결 내용</div>
+
+  <!-- 3-1 -->
+  <div class="error-block">
+    <div class="error-title">【오류 3-1】 Riverpod 3.x API 불일치로 인한 컴파일 에러</div>
+    <p><span class="label">현상</span> &nbsp;: <code>StateNotifier</code>, <code>StateNotifierProvider</code>, <code>StateProvider</code>가 undefined 에러 발생.</p>
+    <p><span class="label">원인</span> &nbsp;: 설치된 <code>flutter_riverpod 3.3.2</code>는 구버전 <code>StateNotifier</code> API를 제거하고 <code>Notifier / NotifierProvider</code> 체계로 대체. <code>StateProvider</code>는 <code>legacy.dart</code>로 이동.</p>
+    <p><span class="label">해결</span> &nbsp;: <code>game_state.dart</code>를 <code>Notifier&lt;T&gt; / NotifierProvider.autoDispose&lt;T&gt;</code> 패턴으로 재작성. 테마 전환용 <code>StateProvider</code>는 <code>legacy.dart</code> import 유지. 이후 <code>flutter analyze</code> 이슈 0건 확인.</p>
+  </div>
+
+  <!-- 3-2 -->
+  <div class="error-block">
+    <div class="error-title">【오류 3-2】 한글 텍스트 빈 네모(tofu) 렌더링</div>
+    <p><span class="label">현상</span> &nbsp;: Flutter Web(CanvasKit)에서 한글 글자가 일시적으로 빈 네모 박스로 표시.</p>
+    <p><span class="label">원인</span> &nbsp;: Pretendard 폰트를 번들링하지 않고 시스템 기본 폰트에 의존. CanvasKit이 없는 글리프를 Google 서버에서 런타임 fetch하는 동안 렌더링 지연 발생.</p>
+    <p><span class="label">해결</span> &nbsp;: Pretendard v1.3.9 OTF 4종(Regular/Medium/SemiBold/Bold)을 <code>assets/fonts/</code>에 번들링하고 <code>pubspec.yaml</code>의 <code>fonts:</code> 섹션 및 <code>ThemeData(fontFamily: 'Pretendard')</code>로 등록. 이후 네트워크 없이 즉시 정상 렌더링 확인.</p>
+  </div>
+
+  <!-- 3-3 -->
+  <div class="error-block">
+    <div class="error-title">【참고 3-3】 Chrome 창 가림 시 타이머 쓰로틀링 (검증 환경 한정)</div>
+    <p><span class="label">현상</span> &nbsp;: 자동화 검증 중 소개팅 채팅 화면의 자동 전환 타이머(1.1~1.3초)가 멈추는 현상.</p>
+    <p><span class="label">원인</span> &nbsp;: 검증용 Chrome 창이 다른 창에 가려질 때 Chrome이 해당 탭을 백그라운드로 간주해 JS 타이머를 강제 쓰로틀링. 실사용 환경에서는 발생하지 않음.</p>
+    <p><span class="label">조치</span> &nbsp;: 코드 수정 없음 — 앱 자체 정상. 검증 환경 주의사항으로만 기록.</p>
+  </div>
+
+  <!-- 3-4 -->
+  <div class="error-block">
+    <div class="error-title">【참고 3-4】 폴더 재배치 후 빈 디렉터리 삭제 실패 (해결 보류)</div>
+    <p><span class="label">현상</span> &nbsp;: 파일 이동 후 빈 <code>type_date_app/</code> 폴더 삭제 시 "다른 프로세스가 사용 중" 오류.</p>
+    <p><span class="label">원인</span> &nbsp;: VSCode Dart Analysis Server가 기존 경로 핸들을 유지하고 있음. 파일 이동 자체는 정상 완료.</p>
+    <p><span class="label">조치</span> &nbsp;: 에디터 재시작 후 삭제 가능. 코드·데이터 영향 없음.</p>
+  </div>
+
+  <!-- 3-5 -->
+  <div class="error-block">
+    <div class="error-title">【오류 3-5】 UX 구조가 PRD 의도와 다르게 구현됨 (수정 완료)</div>
+    <p><span class="label">현상</span> &nbsp;: ① 민준/에필로그 채팅이 탭해야만 다음 메시지 출력. ② 소개팅 채팅이 턴마다 화면 리셋되는 "퀴즈 형태"로 보임.</p>
+    <p><span class="label">원인</span> &nbsp;: PRD 문구 "탭하면 다음 메시지 출력"을 글자 그대로 구현. 실제 의도(실제 만남처럼 자연스러운 흐름)와 괴리.</p>
+    <p><span class="label">해결</span> &nbsp;: 전면 재작업 완료.
+      <br>① <code>kakao_chat_view.dart</code> — 메시지 길이에 비례한 딜레이(0.7~2.2초)로 자동 진행.
+      <br>② <code>blind_date_chat_screen.dart</code> + <code>game_state.dart</code> — 선택한 답변이 실제 말풍선으로 쌓이는 메신저형 스레드 구조로 변경.
+    </p>
+  </div>
+
+  <div class="page-num">- 3 -</div>
+</div>
+
+
+<!-- ════════════════════════════════
+     본문 Page 4 — 미완료 사항 & 실행 방법
+════════════════════════════════ -->
+<div class="page">
+
+  <div class="section-title">4. 미완료 사항 (차기 개발 범위)</div>
+
+  <table>
+    <tr><th>항목</th><th>내용</th><th>비고</th></tr>
+    <tr>
+      <td>2~16화 캐릭터 / 스크립트</td>
+      <td>PRD 1화 외 나머지 15개 에피소드 개발</td>
+      <td><span class="badge badge-warn">미착수</span></td>
+    </tr>
+    <tr>
+      <td>SNS 카드 실제 저장/공유</td>
+      <td>현재 버튼만 존재, "데모 버전" 스낵바 표시</td>
+      <td><span class="badge badge-warn">부분 구현</span></td>
+    </tr>
+    <tr>
+      <td>배너 광고</td>
+      <td>PRD P1 범위, 데모 단계 제외</td>
+      <td><span class="badge badge-no">미구현</span></td>
+    </tr>
+    <tr>
+      <td>인앱결제</td>
+      <td>PRD P1 범위, 데모 단계 제외</td>
+      <td><span class="badge badge-no">미구현</span></td>
+    </tr>
+    <tr>
+      <td>16화 완료 최종 보고서</td>
+      <td>전 에피소드 완료 후 최종 결과 화면</td>
+      <td><span class="badge badge-no">미구현</span></td>
+    </tr>
+  </table>
+
+  <hr class="divider">
+
+  <div class="section-title">5. 실행 방법</div>
+
+  <h3>5-1. 개발 서버 실행</h3>
+  <pre style="background:#f5f5f5; border:1px solid #ddd; border-radius:4px; padding:12px 16px; font-size:12px; margin:8px 0 16px; font-family: 'Consolas', monospace;">cd c:\TYPE_DATE
+flutter run -d chrome</pre>
+
+  <h3>5-2. 정적 빌드 (배포용)</h3>
+  <pre style="background:#f5f5f5; border:1px solid #ddd; border-radius:4px; padding:12px 16px; font-size:12px; margin:8px 0 16px; font-family: 'Consolas', monospace;">flutter build web --release</pre>
+
+  <p>결과물은 <code>build/web/</code>에 생성되며, 해당 폴더를 Vercel / Netlify / GitHub Pages 등에 그대로 업로드하여 배포 가능합니다.</p>
+
+  <hr class="divider">
+
+  <div class="section-title">6. 종합 의견</div>
+
+  <p>
+    본 용역을 통해 PRD v1.2 기준 1화(ENFP 지수) 전체 플로우가 동작하는 Flutter Web 데모 프로토타입을 성공적으로 구현하였습니다.
+    개발 과정에서 발생한 주요 기술적 오류(Riverpod 3.x 마이그레이션, 한글 폰트 렌더링, UX 흐름 재작업)는 모두 해결되었으며,
+    <code>flutter analyze</code>, <code>flutter test</code>, <code>flutter build web --release</code> 전 항목이 정상 통과된 상태입니다.
+  </p>
+  <p style="margin-top:12px;">
+    이후 2~16화 콘텐츠 추가, SNS 공유 기능 완성, 광고 및 인앱결제 연동 등 PRD P1 범위 구현을 통해 정식 출시 버전으로 발전시킬 것을 권고합니다.
+  </p>
+
+  <div style="margin-top: 60px; text-align: right; font-size: 14px; line-height: 2;">
+    <p>이상으로 결과보고서를 제출합니다.</p>
+    <br>
+    <p>개발사 대표 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (서명날인)</p>
+  </div>
+
+  <div class="page-num">- 4 -</div>
+</div>
+
+</body>
+</html>
