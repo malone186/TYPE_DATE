@@ -6,7 +6,7 @@ import '../widgets/kakao_chat_view.dart';
 import '../widgets/common.dart';
 import 'character_select_screen.dart';
 
-/// 프롤로그 — Scene 1(민준) → Scene 2(고객센터) → Scene 3(온보딩) → Scene 4(배정 카드)
+/// 프롤로그 — Scene 1(민준) → Scene 2(온보딩) → Scene 3(배정 카드)
 class PrologueScreen extends StatefulWidget {
   const PrologueScreen({super.key});
 
@@ -14,7 +14,7 @@ class PrologueScreen extends StatefulWidget {
   State<PrologueScreen> createState() => _PrologueScreenState();
 }
 
-enum _PrologueStep { minjun, customerService, onboarding, assignment }
+enum _PrologueStep { minjun, onboarding, assignment }
 
 class _PrologueScreenState extends State<PrologueScreen> {
   _PrologueStep _step = _PrologueStep.minjun;
@@ -27,13 +27,6 @@ class _PrologueScreenState extends State<PrologueScreen> {
           key: const ValueKey('minjun'),
           contactName: '최민준',
           lines: prologueLines,
-          onComplete: () => setState(() => _step = _PrologueStep.customerService),
-        );
-      case _PrologueStep.customerService:
-        return KakaoChatView(
-          key: const ValueKey('customerService'),
-          contactName: 'TYPE DATE 고객센터',
-          lines: customerServiceLines,
           onComplete: () => setState(() => _step = _PrologueStep.onboarding),
         );
       case _PrologueStep.onboarding:
@@ -64,6 +57,7 @@ class _OnboardingScene extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
             children: [
+              const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               const Spacer(flex: 2),
               Image.asset('assets/images/logo.png', width: 100, height: 100),
               const SizedBox(height: 8),
@@ -110,6 +104,7 @@ class _AssignmentScene extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),

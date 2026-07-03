@@ -5,6 +5,7 @@ import '../theme/theme.dart';
 import '../data/episode1_data.dart';
 import '../models/models.dart';
 import '../state/game_state.dart';
+import '../widgets/common.dart';
 import 'character_profile_screen.dart';
 
 /// 캐릭터 선택 화면 — 2열 그리드, 16슬롯, 1화만 해금 (§5-3)
@@ -24,19 +25,7 @@ class CharacterSelectScreen extends ConsumerWidget {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text('소개팅 상대', style: TypeDateTextStyles.screenTitle(c.textPrimary)),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.brightness_6_outlined, color: c.textSecondary),
-            tooltip: '테마 전환',
-            onPressed: () {
-              final current = ref.read(themeModeProvider);
-              final next = current == ThemeMode.light
-                  ? ThemeMode.dark
-                  : (current == ThemeMode.dark ? ThemeMode.system : ThemeMode.light);
-              ref.read(themeModeProvider.notifier).state = next;
-            },
-          ),
-        ],
+        actions: const [ThemeToggleButton()],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),

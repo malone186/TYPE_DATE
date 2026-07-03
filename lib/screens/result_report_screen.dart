@@ -46,6 +46,7 @@ class _ResultReportScreenState extends State<ResultReportScreen>
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Column(
             children: [
+              const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               _DocumentCard(result: widget.result, style: style, now: now, ctrl: _ctrl, c: c),
               const SizedBox(height: 24),
               Row(
@@ -434,26 +435,32 @@ class _DocumentCard extends StatelessWidget {
     final r = result.axisScore[right] ?? 0;
     final total = (l + r) == 0 ? 1 : (l + r);
     final ratio = ((l / total) * ctrl.value + 0.5 * (1 - ctrl.value)).clamp(0.0, 1.0);
+    final leftWins = l >= r;
+
+    TextStyle labelStyle(bool isWinner) => TextStyle(
+          fontFamily: 'Pretendard',
+          fontSize: isWinner ? 14 : 11,
+          color: isWinner ? _accentBlue : _paperSub.withValues(alpha: 0.55),
+          fontWeight: isWinner ? FontWeight.w800 : FontWeight.w500,
+        );
 
     return Row(
       children: [
         SizedBox(
-          width: 14,
-          child: Text(left,
-            style: const TextStyle(fontFamily: 'Pretendard', fontSize: 11, color: _paperSub, fontWeight: FontWeight.w600),
-          ),
+          width: 20,
+          child: Text(left, style: labelStyle(leftWins)),
         ),
         const SizedBox(width: 6),
         Expanded(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(2),
             child: SizedBox(
-              height: 7,
+              height: 8,
               child: Stack(children: [
                 Container(color: const Color(0xFFE2DDD8)),
                 FractionallySizedBox(
                   widthFactor: ratio,
-                  child: Container(color: _paperBorder),
+                  child: Container(color: leftWins ? _accentBlue : _paperBorder),
                 ),
               ]),
             ),
@@ -461,11 +468,8 @@ class _DocumentCard extends StatelessWidget {
         ),
         const SizedBox(width: 6),
         SizedBox(
-          width: 14,
-          child: Text(right,
-            textAlign: TextAlign.right,
-            style: const TextStyle(fontFamily: 'Pretendard', fontSize: 11, color: _paperSub, fontWeight: FontWeight.w600),
-          ),
+          width: 20,
+          child: Text(right, textAlign: TextAlign.right, style: labelStyle(!leftWins)),
         ),
       ],
     );

@@ -34,7 +34,7 @@ class TypeDateTextStyles {
       );
 
   static TextStyle monologue(Color color) => TextStyle(
-        fontSize: 13,
+        fontSize: 15,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.italic,
         height: 1.5,
@@ -42,7 +42,7 @@ class TypeDateTextStyles {
       );
 
   static TextStyle caption(Color color) => TextStyle(
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: FontWeight.w400,
         height: 1.4,
         color: color,
@@ -56,6 +56,19 @@ class TypeDateTextStyles {
       );
 }
 
+/// 화면 전환 시 갑자기 확 바뀌는 느낌(Material3 기본 Zoom 전환)을 없애고
+/// 모든 플랫폼에서 부드럽게 슬라이드되도록 통일.
+const _smoothPageTransitions = PageTransitionsTheme(
+  builders: {
+    TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+    TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+    TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
+    TargetPlatform.linux: CupertinoPageTransitionsBuilder(),
+    TargetPlatform.fuchsia: CupertinoPageTransitionsBuilder(),
+  },
+);
+
 ThemeData buildLightTheme() {
   const t = TypeDateTokens.light;
   return ThemeData(
@@ -63,6 +76,7 @@ ThemeData buildLightTheme() {
     scaffoldBackgroundColor: t.bg,
     brightness: Brightness.light,
     fontFamily: 'Pretendard',
+    pageTransitionsTheme: _smoothPageTransitions,
     colorScheme: ColorScheme.light(
       primary: t.accentCoral,
       secondary: t.accentLavender,
@@ -83,6 +97,7 @@ ThemeData buildDarkTheme() {
     scaffoldBackgroundColor: t.bg,
     brightness: Brightness.dark,
     fontFamily: 'Pretendard',
+    pageTransitionsTheme: _smoothPageTransitions,
     colorScheme: ColorScheme.dark(
       primary: t.accentCoral,
       secondary: t.accentLavender,

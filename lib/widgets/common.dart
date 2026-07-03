@@ -1,6 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../models/models.dart';
+import '../state/game_state.dart';
+
+/// 라이트/다크/시스템 테마를 순환 전환하는 버튼 — 어느 화면에서든 재사용
+class ThemeToggleButton extends ConsumerWidget {
+  const ThemeToggleButton({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final c = context.colors;
+    final mode = ref.watch(themeModeProvider);
+    final icon = switch (mode) {
+      ThemeMode.light => Icons.light_mode_outlined,
+      ThemeMode.dark => Icons.dark_mode_outlined,
+      ThemeMode.system => Icons.brightness_auto_outlined,
+    };
+    return IconButton(
+      icon: Icon(icon, color: c.textSecondary),
+      tooltip: '테마 전환 (${_label(mode)})',
+      onPressed: () {
+        final current = ref.read(themeModeProvider);
+        final next = current == ThemeMode.light
+            ? ThemeMode.dark
+            : (current == ThemeMode.dark ? ThemeMode.system : ThemeMode.light);
+        ref.read(themeModeProvider.notifier).state = next;
+      },
+    );
+  }
+
+  String _label(ThemeMode mode) => switch (mode) {
+        ThemeMode.light => '라이트',
+        ThemeMode.dark => '다크',
+        ThemeMode.system => '시스템',
+      };
+}
 
 /// 원형 프사 — 이미지가 없으면 이니셜 placeholder
 class CharacterAvatar extends StatelessWidget {

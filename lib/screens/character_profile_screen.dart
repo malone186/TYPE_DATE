@@ -19,6 +19,7 @@ class CharacterProfileScreen extends StatelessWidget {
         backgroundColor: c.bg,
         elevation: 0,
         iconTheme: IconThemeData(color: c.textPrimary),
+        actions: const [ThemeToggleButton()],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

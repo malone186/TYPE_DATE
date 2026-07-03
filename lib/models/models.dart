@@ -64,11 +64,13 @@ class BlindDate {
   final String id;
   final TDCharacter character;
   final List<Turn> turns;
+  final List<ChatLine> openingScript; // 도착·인사·착석 — 선택지 없이 자동 진행되는 도입부
 
   const BlindDate({
     required this.id,
     required this.character,
     required this.turns,
+    this.openingScript = const [],
   });
 }
 
@@ -148,11 +150,17 @@ class GameProgress {
   }
 }
 
-/// 카톡 모방 채팅 한 줄 (프롤로그/에필로그용)
+/// 카톡 모방 채팅 한 줄 (프롤로그/에필로그/소개팅 도입부용)
 class ChatLine {
   final String sender; // 'me' or character name
   final String text;
   final bool isSystemNote; // [화면 설명] 류 — 가운데 정렬 안내문
+  final bool isMonologue; // 주인공 속마음 — 이탤릭 가운데 정렬
 
-  const ChatLine(this.sender, this.text, {this.isSystemNote = false});
+  const ChatLine(
+    this.sender,
+    this.text, {
+    this.isSystemNote = false,
+    this.isMonologue = false,
+  });
 }

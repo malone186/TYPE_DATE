@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../data/episode1_data.dart';
 import '../models/models.dart';
 
-final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.system);
+final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
 /// 13턴 동안 쌓이는 한 회차의 진행 상태
 class DateSessionState {
@@ -139,3 +139,25 @@ class GameProgressNotifier extends Notifier<GameProgress> {
 final gameProgressProvider = NotifierProvider<GameProgressNotifier, GameProgress>(
   GameProgressNotifier.new,
 );
+
+/// 사용자가 입력한 이름 — SharedPreferences 로 영속화, 대사에서 "{name}씨" 치환에 사용
+class UserNameNotifier extends Notifier<String> {
+  @override
+  String build() {
+    _load();
+    return '';
+  }
+
+  Future<void> _load() async {
+    final prefs = await SharedPreferences.getInstance();
+    state = prefs.getString('td_user_name') ?? '';
+  }
+
+  Future<void> setName(String name) async {
+    state = name;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('td_user_name', name);
+  }
+}
+
+final userNameProvider = NotifierProvider<UserNameNotifier, String>(UserNameNotifier.new);

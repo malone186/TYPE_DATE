@@ -58,6 +58,7 @@ class _NotificationScene extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
@@ -77,9 +78,6 @@ class _NotificationScene extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TypeDateTextStyles.chatMessage(c.textSecondary),
                     ),
-                    const SizedBox(height: 16),
-                    Text('다음 상대 배정까지: 24시간',
-                        style: TypeDateTextStyles.caption(c.textMuted)),
                   ],
                 ),
               ),
@@ -108,6 +106,7 @@ class _TeaserScene extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
@@ -136,17 +135,8 @@ class _TeaserScene extends StatelessWidget {
                       style: TypeDateTextStyles.chatMessage(c.textPrimary),
                     ),
                     const SizedBox(height: 16),
-                    Text('이 사람이 진짜 인연일까요?',
+                    Text('이 사람이 진짜 인연일까요? 곧 만나볼 수 있어요.',
                         style: TypeDateTextStyles.caption(c.textSecondary)),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Icon(Icons.lock_outline, size: 14, color: c.textMuted),
-                        const SizedBox(width: 6),
-                        Text('잠금 해제까지 23시간 14분',
-                            style: TypeDateTextStyles.caption(c.textMuted)),
-                      ],
-                    ),
                   ],
                 ),
               ),

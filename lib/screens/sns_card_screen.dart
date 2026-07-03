@@ -33,6 +33,7 @@ class SnsCardScreen extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: c.textPrimary),
         title: Text('공유 카드', style: TypeDateTextStyles.screenTitle(c.textPrimary)),
+        actions: const [ThemeToggleButton()],
       ),
       body: SafeArea(
         child: Padding(

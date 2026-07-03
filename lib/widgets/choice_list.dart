@@ -74,11 +74,11 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: _pressed
-                  ? Color.alphaBlend(Colors.black.withValues(alpha: 0.04), c.surface)
-                  : c.surface,
+                  ? c.surface.withValues(alpha: 0.16)
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: widget.isSelected ? c.accentLavenderDeep : c.border,
+                color: widget.isSelected ? c.accentLavenderDeep : c.textPrimary.withValues(alpha: 0.35),
                 width: widget.isSelected ? 1.5 : 1,
               ),
             ),

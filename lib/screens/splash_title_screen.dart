@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
 import '../widgets/common.dart';
-import 'prologue_screen.dart';
+import 'name_input_screen.dart';
 import 'character_select_screen.dart';
 
 class SplashTitleScreen extends StatelessWidget {
@@ -18,6 +18,7 @@ class SplashTitleScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
+              const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               const Spacer(flex: 3),
               Image.asset(
                 'assets/images/소개팅신 배경.png',
@@ -34,7 +35,7 @@ class SplashTitleScreen extends StatelessWidget {
               CoralButton(
                 label: '시작하기',
                 onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const PrologueScreen()),
+                  MaterialPageRoute(builder: (_) => const NameInputScreen()),
                 ),
               ),
               const SizedBox(height: 12),

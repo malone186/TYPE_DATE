@@ -5,8 +5,9 @@ import '../theme/theme.dart';
 import '../models/models.dart';
 import 'common.dart';
 
-/// 프롤로그/고객센터/에필로그용 카카오톡 모방 채팅 뷰.
-/// 사용자 입력 없이 일정 시간마다 자동으로 다음 메시지가 나타남 (건너뛰기 불가).
+/// 프롤로그/에필로그용 카카오톡 모방 채팅 뷰.
+/// 기본은 자동으로 다음 메시지가 나타나고, "건너뛰기"를 누르면 화면을 탭할 때마다
+/// 한 줄씩 즉시 넘어가는 모드로 전환된다 (끝까지 다 봐야 다음 화면으로 넘어감).
 class KakaoChatView extends StatefulWidget {
   final String contactName;
   final List<ChatLine> lines;
@@ -26,6 +27,7 @@ class KakaoChatView extends StatefulWidget {
 class _KakaoChatViewState extends State<KakaoChatView> {
   int _visibleCount = 1;
   bool _typing = false;
+  bool _skipMode = false;
   Timer? _timer;
   final _scrollController = ScrollController();
 
@@ -99,6 +101,24 @@ class _KakaoChatViewState extends State<KakaoChatView> {
     });
   }
 
+  void _enableSkipMode() {
+    _timer?.cancel();
+    setState(() {
+      _skipMode = true;
+      _typing = false;
+    });
+  }
+
+  void _advanceOnTap() {
+    if (!_skipMode) return;
+    if (_visibleCount >= widget.lines.length) {
+      widget.onComplete();
+      return;
+    }
+    setState(() => _visibleCount++);
+    _scrollToBottom();
+  }
+
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
@@ -134,23 +154,39 @@ class _KakaoChatViewState extends State<KakaoChatView> {
                   const SizedBox(width: 12),
                   Text(widget.contactName,
                       style: TypeDateTextStyles.screenTitle(c.textPrimary)),
+                  const Spacer(),
+                  if (!_skipMode)
+                    TextButton(
+                      onPressed: _enableSkipMode,
+                      child: Text('건너뛰기', style: TypeDateTextStyles.caption(c.textMuted)),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text('탭해서 계속', style: TypeDateTextStyles.caption(c.textMuted)),
+                    ),
+                  const ThemeToggleButton(),
                 ],
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                itemCount: visibleLines.length + (_typing ? 1 : 0),
-                itemBuilder: (context, i) {
-                  if (i == visibleLines.length) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: _TypingBubble(senderInitial: _npcInitial),
-                    );
-                  }
-                  return _ChatLineWidget(line: visibleLines[i]);
-                },
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: _skipMode ? _advanceOnTap : null,
+                child: ListView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  itemCount: visibleLines.length + (_typing ? 1 : 0),
+                  itemBuilder: (context, i) {
+                    if (i == visibleLines.length) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: _TypingBubble(senderInitial: _npcInitial),
+                      );
+                    }
+                    return _ChatLineWidget(line: visibleLines[i]);
+                  },
+                ),
               ),
             ),
           ],
