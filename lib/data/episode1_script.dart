@@ -60,7 +60,7 @@ final List<ChatLine> epilogueLines = [
   const ChatLine('민준', '괜찮았음?'),
   const ChatLine('me', '...몰라'),
   const ChatLine('민준', 'ㅋㅋㅋ 결과 캡처해줘'),
-  const ChatLine('me', '[결과 카드 이미지]'),
+  const ChatLine('me', '[결과카드 이미지]'),
   const ChatLine('민준', '오 이게 네 소개팅 스타일이구나'),
   const ChatLine('민준', '다음 화도 계속 해봐'),
   const ChatLine('민준', '16명 다 만나면 진짜 인연 유형 나온다잖아'),
@@ -69,6 +69,32 @@ final List<ChatLine> epilogueLines = [
   const ChatLine('민준', 'ㅋㅋㅋㅋ'),
   const ChatLine('민준', '화이팅'),
 ];
+
+/// 소개팅 마무리 — 13턴 종료 직후, 결과(성공/친구/실패)에 따라 갈리는 짧은 클로징 씬.
+/// 결과보고서 화면으로 넘어가기 전, 같은 채팅 화면 안에서 이어서 재생된다.
+List<ChatLine> closingScriptFor(Ending ending) {
+  switch (ending) {
+    case Ending.success:
+      return const [
+        ChatLine('system', '카페를 나서며 짧은 인사를 나눈다', isSystemNote: true),
+        ChatLine('지수', '오늘 진짜 재밌었어요! 조심히 들어가요'),
+        ChatLine('지수', '저 이따 톡 할게요, 번호 저장했어요ㅎㅎ'),
+        ChatLine('me', '오랜만에 느껴보는 설렘이다.', isMonologue: true),
+      ];
+    case Ending.friend:
+      return const [
+        ChatLine('system', '카페 앞에서 가볍게 인사를 나눈다', isSystemNote: true),
+        ChatLine('지수', '오늘 즐거웠어요! 다음에 편하게 또 봐요'),
+        ChatLine('me', '나쁘지 않았다. 다만 이 감정이 설렘인지는 아직 잘 모르겠다.', isMonologue: true),
+      ];
+    case Ending.fail:
+      return const [
+        ChatLine('system', '어색한 침묵 속에 카페를 나선다', isSystemNote: true),
+        ChatLine('지수', '오늘 감사했어요...'),
+        ChatLine('me', '말이 잘 안 통했던 것 같다. 다음 사람은 다르겠지.', isMonologue: true),
+      ];
+  }
+}
 
 /// 소개팅 도입부 — 도착·인사·착석. 선택지 없이 자동으로 진행되다가
 /// 지수가 자연스럽게 첫 질문(턴1)을 던지는 흐름으로 이어진다.

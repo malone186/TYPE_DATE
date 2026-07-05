@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
+import '../data/episode1_script.dart';
 import '../models/models.dart';
 import '../state/game_state.dart';
 import '../widgets/common.dart';
@@ -46,6 +47,13 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
   bool _openingDone = false;
   bool _openingTyping = false;
   int _openingRevealCount = 0;
+
+  // 마무리(클로징) — 13턴 종료 후, 결과에 따라 갈리는 짧은 연출이 같은 화면에서 이어짐
+  DateResult? _pendingResult;
+  List<ChatLine> _closingLines = const [];
+  int _closingRevealCount = 0;
+  bool _closingTyping = false;
+  bool _closingFinished = false;
 
   @override
   void initState() {
@@ -144,15 +152,58 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
         final session = ref.read(dateSessionProvider);
         if (session.isLastTurn) {
           final result = notifier.buildResult();
-          ref.read(gameProgressProvider.notifier).completeDate(result);
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => ResultReportScreen(result: result)),
-          );
+          _startClosingScene(result);
         } else {
           notifier.advanceTurn();
         }
       });
     });
+  }
+
+  void _startClosingScene(DateResult result) {
+    setState(() {
+      _pendingResult = result;
+      _closingLines = closingScriptFor(result.ending);
+      _closingRevealCount = 0;
+    });
+    _scrollToBottom();
+    _scheduleClosingLine();
+  }
+
+  void _scheduleClosingLine() {
+    if (_closingRevealCount >= _closingLines.length) {
+      setState(() => _closingFinished = true);
+      _scrollToBottom();
+      return;
+    }
+    final next = _closingLines[_closingRevealCount];
+    final isDialogue = !next.isSystemNote && !next.isMonologue;
+    if (isDialogue) {
+      setState(() => _closingTyping = true);
+    }
+    final preDelay =
+        isDialogue ? _typingDelayFor(next.text) : const Duration(milliseconds: 300);
+    _typingTimer = Timer(preDelay, () {
+      if (!mounted) return;
+      setState(() {
+        _closingTyping = false;
+        _closingRevealCount++;
+      });
+      _scrollToBottom();
+      final holdMs = isDialogue ? 700 : 1100;
+      _advanceTimer = Timer(Duration(milliseconds: holdMs), () {
+        if (!mounted) return;
+        _scheduleClosingLine();
+      });
+    });
+  }
+
+  void _goToResult() {
+    final result = _pendingResult!;
+    ref.read(gameProgressProvider.notifier).completeDate(result);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => ResultReportScreen(result: result)),
+    );
   }
 
   void _scrollToBottom() {
@@ -302,6 +353,13 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
                         ],
                       ],
                     ],
+                    if (_pendingResult != null) ...[
+                      const SizedBox(height: 18),
+                      for (final line in _closingLines.take(_closingRevealCount))
+                        _openingLine(character, line, c, userName),
+                      if (_closingTyping)
+                        _TypingRow(character: character, c: c),
+                    ],
                     const SizedBox(height: 24),
                   ],
                 ),
@@ -323,6 +381,11 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
               selected: null,
               onSelect: _onChoiceSelected,
             ),
+          ),
+        if (_closingFinished)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            child: CoralButton(label: '결과 확인하기', onPressed: _goToResult),
           ),
       ],
     );

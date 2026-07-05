@@ -12,14 +12,16 @@ class KakaoChatView extends StatefulWidget {
   final String contactName;
   final List<ChatLine> lines;
   final VoidCallback onComplete;
-  final Widget? myResultCard;
+  // null이면 대화가 끝나자마자 자동으로 onComplete 호출(기존 동작).
+  // 값을 주면 대화가 다 끝난 뒤 이 라벨의 버튼이 나타나고, 눌러야 onComplete 호출.
+  final String? completeButtonLabel;
 
   const KakaoChatView({
     super.key,
     required this.contactName,
     required this.lines,
     required this.onComplete,
-    this.myResultCard,
+    this.completeButtonLabel,
   });
 
   @override
@@ -30,6 +32,7 @@ class _KakaoChatViewState extends State<KakaoChatView> {
   int _visibleCount = 1;
   bool _typing = false;
   bool _skipMode = false;
+  bool _finished = false;
   Timer? _timer;
   final _scrollController = ScrollController();
 
@@ -74,7 +77,11 @@ class _KakaoChatViewState extends State<KakaoChatView> {
 
   void _scheduleNext() {
     if (_visibleCount >= widget.lines.length) {
-      _timer = Timer(const Duration(milliseconds: 900), widget.onComplete);
+      if (widget.completeButtonLabel != null) {
+        setState(() => _finished = true);
+      } else {
+        _timer = Timer(const Duration(milliseconds: 900), widget.onComplete);
+      }
       return;
     }
 
@@ -114,7 +121,11 @@ class _KakaoChatViewState extends State<KakaoChatView> {
   void _advanceOnTap() {
     if (!_skipMode) return;
     if (_visibleCount >= widget.lines.length) {
-      widget.onComplete();
+      if (widget.completeButtonLabel != null) {
+        setState(() => _finished = true);
+      } else {
+        widget.onComplete();
+      }
       return;
     }
     setState(() => _visibleCount++);
@@ -186,14 +197,19 @@ class _KakaoChatViewState extends State<KakaoChatView> {
                         child: _TypingBubble(senderInitial: _npcInitial),
                       );
                     }
-                    return _ChatLineWidget(
-                      line: visibleLines[i],
-                      myResultCard: widget.myResultCard,
-                    );
+                    return _ChatLineWidget(line: visibleLines[i]);
                   },
                 ),
               ),
             ),
+            if (widget.completeButtonLabel != null && _finished)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                child: CoralButton(
+                  label: widget.completeButtonLabel!,
+                  onPressed: widget.onComplete,
+                ),
+              ),
           ],
         ),
       ),
@@ -232,9 +248,8 @@ class _TypingBubble extends StatelessWidget {
 
 class _ChatLineWidget extends StatelessWidget {
   final ChatLine line;
-  final Widget? myResultCard;
 
-  const _ChatLineWidget({required this.line, this.myResultCard});
+  const _ChatLineWidget({required this.line});
 
   @override
   Widget build(BuildContext context) {
@@ -256,8 +271,6 @@ class _ChatLineWidget extends StatelessWidget {
     final isMe = line.sender == 'me';
     final bubbleColor = isMe ? c.accentCoralSoft : c.surface;
     final textColor = isMe ? Colors.white : c.textPrimary;
-    final isResultCardBubble =
-        isMe && line.text == '[결과 카드 이미지]' && myResultCard != null;
     final radius = isMe
         ? const BorderRadius.only(
             topLeft: Radius.circular(16),
@@ -305,23 +318,16 @@ class _ChatLineWidget extends StatelessWidget {
               child: Container(
                 constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.78),
-                padding: isResultCardBubble
-                    ? const EdgeInsets.all(8)
-                    : const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
                 decoration: BoxDecoration(
                   color: bubbleColor,
                   borderRadius: radius,
                   border: isMe ? null : Border.all(color: c.border, width: 0.5),
                 ),
-                child: isResultCardBubble
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: myResultCard!,
-                      )
-                    : Text(
-                        line.text,
-                        style: TypeDateTextStyles.chatMessage(textColor),
-                      ),
+                child: Text(
+                  line.text,
+                  style: TypeDateTextStyles.chatMessage(textColor),
+                ),
               ),
             ),
           ),
