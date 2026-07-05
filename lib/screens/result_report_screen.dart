@@ -67,7 +67,9 @@ class _ResultReportScreenState extends State<ResultReportScreen>
                     child: CoralButton(
                       label: '다음 소개팅',
                       onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => const EpilogueScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => EpilogueScreen(result: widget.result),
+                        ),
                       ),
                     ),
                   ),
@@ -291,17 +293,9 @@ class _DocumentCard extends StatelessWidget {
           // 성격 유형 분석
           _sectionHeader('1.  성격 유형 분석'),
           const SizedBox(height: 12),
+          _axisOverview(),
+          const SizedBox(height: 14),
           _axisGrid(),
-          const SizedBox(height: 6),
-          Text(
-            style.summary,
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontSize: 12,
-              color: _paperSub,
-              height: 1.6,
-            ),
-          ),
 
           _sectionDivider(),
 
@@ -412,6 +406,67 @@ class _DocumentCard extends StatelessWidget {
     );
   }
 
+  Widget _axisOverview() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF6F8FF),
+        border: Border.all(color: const Color(0xFFD8E3FF)),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: _accentBlue,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  result.axisLetters,
+                  style: const TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: 0.8,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  style.title,
+                  style: const TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: _paperText,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            style.summary,
+            style: const TextStyle(
+              fontFamily: 'Pretendard',
+              fontSize: 12,
+              color: _paperSub,
+              height: 1.6,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _axisGrid() {
     return AnimatedBuilder(
       animation: ctrl,
@@ -436,42 +491,103 @@ class _DocumentCard extends StatelessWidget {
     final total = (l + r) == 0 ? 1 : (l + r);
     final ratio = ((l / total) * ctrl.value + 0.5 * (1 - ctrl.value)).clamp(0.0, 1.0);
     final leftWins = l >= r;
+    final leftPercent = ((l / total) * 100).round();
+    final rightPercent = 100 - leftPercent;
+    final dominant = leftWins ? left : right;
 
     TextStyle labelStyle(bool isWinner) => TextStyle(
           fontFamily: 'Pretendard',
-          fontSize: isWinner ? 14 : 11,
+          fontSize: isWinner ? 13 : 12,
           color: isWinner ? _accentBlue : _paperSub.withValues(alpha: 0.55),
           fontWeight: isWinner ? FontWeight.w800 : FontWeight.w500,
         );
 
-    return Row(
-      children: [
-        SizedBox(
-          width: 20,
-          child: Text(left, style: labelStyle(leftWins)),
-        ),
-        const SizedBox(width: 6),
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(2),
-            child: SizedBox(
-              height: 8,
-              child: Stack(children: [
-                Container(color: const Color(0xFFE2DDD8)),
-                FractionallySizedBox(
-                  widthFactor: ratio,
-                  child: Container(color: leftWins ? _accentBlue : _paperBorder),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9F7F4),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: const Color(0xFFE7E1DA)),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  _axisLabel(left),
+                  style: const TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: _paperText,
+                  ),
                 ),
-              ]),
-            ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _accentBlue.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  '$dominant 우세',
+                  style: const TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: _accentBlue,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        const SizedBox(width: 6),
-        SizedBox(
-          width: 20,
-          child: Text(right, textAlign: TextAlign.right, style: labelStyle(!leftWins)),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              SizedBox(
+                width: 40,
+                child: Text('$left  $leftPercent%', style: labelStyle(leftWins)),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(999),
+                  child: SizedBox(
+                    height: 10,
+                    child: Stack(children: [
+                      Container(color: const Color(0xFFE2DDD8)),
+                      FractionallySizedBox(
+                        widthFactor: ratio,
+                        child: Container(color: leftWins ? _accentBlue : _paperBorder),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 40,
+                child: Text(
+                  '$rightPercent%  $right',
+                  textAlign: TextAlign.right,
+                  style: labelStyle(!leftWins),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
+  }
+
+  String _axisLabel(String axis) {
+    return switch (axis) {
+      'E' => '에너지 방향',
+      'N' => '정보 해석 방식',
+      'T' => '판단 기준',
+      'J' => '생활 패턴',
+      _ => axis,
+    };
   }
 }

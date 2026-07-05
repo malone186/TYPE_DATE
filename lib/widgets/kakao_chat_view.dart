@@ -12,12 +12,14 @@ class KakaoChatView extends StatefulWidget {
   final String contactName;
   final List<ChatLine> lines;
   final VoidCallback onComplete;
+  final Widget? myResultCard;
 
   const KakaoChatView({
     super.key,
     required this.contactName,
     required this.lines,
     required this.onComplete,
+    this.myResultCard,
   });
 
   @override
@@ -184,7 +186,10 @@ class _KakaoChatViewState extends State<KakaoChatView> {
                         child: _TypingBubble(senderInitial: _npcInitial),
                       );
                     }
-                    return _ChatLineWidget(line: visibleLines[i]);
+                    return _ChatLineWidget(
+                      line: visibleLines[i],
+                      myResultCard: widget.myResultCard,
+                    );
                   },
                 ),
               ),
@@ -227,7 +232,9 @@ class _TypingBubble extends StatelessWidget {
 
 class _ChatLineWidget extends StatelessWidget {
   final ChatLine line;
-  const _ChatLineWidget({required this.line});
+  final Widget? myResultCard;
+
+  const _ChatLineWidget({required this.line, this.myResultCard});
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +256,8 @@ class _ChatLineWidget extends StatelessWidget {
     final isMe = line.sender == 'me';
     final bubbleColor = isMe ? c.accentCoralSoft : c.surface;
     final textColor = isMe ? Colors.white : c.textPrimary;
+    final isResultCardBubble =
+        isMe && line.text == '[결과 카드 이미지]' && myResultCard != null;
     final radius = isMe
         ? const BorderRadius.only(
             topLeft: Radius.circular(16),
@@ -295,17 +304,24 @@ class _ChatLineWidget extends StatelessWidget {
               ),
               child: Container(
                 constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.72),
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                    maxWidth: MediaQuery.of(context).size.width * 0.78),
+                padding: isResultCardBubble
+                    ? const EdgeInsets.all(8)
+                    : const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
                 decoration: BoxDecoration(
                   color: bubbleColor,
                   borderRadius: radius,
                   border: isMe ? null : Border.all(color: c.border, width: 0.5),
                 ),
-                child: Text(
-                  line.text,
-                  style: TypeDateTextStyles.chatMessage(textColor),
-                ),
+                child: isResultCardBubble
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: myResultCard!,
+                      )
+                    : Text(
+                        line.text,
+                        style: TypeDateTextStyles.chatMessage(textColor),
+                      ),
               ),
             ),
           ),

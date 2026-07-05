@@ -10,21 +10,9 @@ class SnsCardScreen extends StatelessWidget {
   final DateResult result;
   const SnsCardScreen({super.key, required this.result});
 
-  String get _endingEmoji {
-    switch (result.ending) {
-      case Ending.success:
-        return '💘';
-      case Ending.friend:
-        return '🤝';
-      case Ending.fail:
-        return '💨';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final style = styleInfoMap[result.styleType] ?? styleInfoMap['EF']!;
 
     return Scaffold(
       backgroundColor: c.bg,
@@ -44,60 +32,7 @@ class SnsCardScreen extends StatelessWidget {
                 child: Center(
                   child: AspectRatio(
                     aspectRatio: 9 / 16,
-                    child: Container(
-                      padding: const EdgeInsets.all(28),
-                      decoration: BoxDecoration(
-                        color: c.bg,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: c.border, width: 1.5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.08),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.favorite, size: 16, color: c.accentCoral),
-                              const SizedBox(width: 6),
-                              Text('TYPE DATE',
-                                  style: TypeDateTextStyles.choiceLabel(c.textSecondary)),
-                            ],
-                          ),
-                          const Spacer(flex: 2),
-                          Text(style.emoji, style: const TextStyle(fontSize: 40)),
-                          const SizedBox(height: 12),
-                          Text(
-                            style.title,
-                            textAlign: TextAlign.center,
-                            style: TypeDateTextStyles.resultTitle(c.textPrimary),
-                          ),
-                          const SizedBox(height: 20),
-                          Text('추정 유형   ????',
-                              style: TypeDateTextStyles.chatMessage(c.textSecondary)),
-                          const SizedBox(height: 6),
-                          Text('궁합   ${style.compatibilityStars}',
-                              style: TypeDateTextStyles.chatMessage(c.accentCoral)),
-                          const Spacer(flex: 1),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Text(
-                              '"${style.summary}"',
-                              textAlign: TextAlign.center,
-                              style: TypeDateTextStyles.monologue(c.textSecondary),
-                            ),
-                          ),
-                          const Spacer(flex: 2),
-                          Text('$_endingEmoji   1 / 16',
-                              style: TypeDateTextStyles.choiceButton(c.textPrimary)),
-                        ],
-                      ),
-                    ),
+                    child: ResultShareCard(result: result),
                   ),
                 ),
               ),
@@ -131,6 +66,90 @@ class SnsCardScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ResultShareCard extends StatelessWidget {
+  final DateResult result;
+
+  const ResultShareCard({super.key, required this.result});
+
+  String get _endingEmoji {
+    switch (result.ending) {
+      case Ending.success:
+        return '💘';
+      case Ending.friend:
+        return '🤝';
+      case Ending.fail:
+        return '💨';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    final style = styleInfoMap[result.styleType] ?? styleInfoMap['EF']!;
+
+    return Container(
+      padding: const EdgeInsets.all(28),
+      decoration: BoxDecoration(
+        color: c.bg,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: c.border, width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.favorite, size: 16, color: c.accentCoral),
+              const SizedBox(width: 6),
+              Text('TYPE DATE',
+                  style: TypeDateTextStyles.choiceLabel(c.textSecondary)),
+            ],
+          ),
+          const Spacer(flex: 2),
+          Text(style.emoji, style: const TextStyle(fontSize: 40)),
+          const SizedBox(height: 12),
+          Text(
+            style.title,
+            textAlign: TextAlign.center,
+            style: TypeDateTextStyles.resultTitle(c.textPrimary),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            '분석 유형   ${result.axisLetters}',
+            style: TypeDateTextStyles.chatMessage(c.textSecondary),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            '궁합   ${style.compatibilityStars}',
+            style: TypeDateTextStyles.chatMessage(c.accentCoral),
+          ),
+          const Spacer(flex: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              '"${style.summary}"',
+              textAlign: TextAlign.center,
+              style: TypeDateTextStyles.monologue(c.textSecondary),
+            ),
+          ),
+          const Spacer(flex: 2),
+          Text(
+            '$_endingEmoji   1 / 16',
+            style: TypeDateTextStyles.choiceButton(c.textPrimary),
+          ),
+        ],
       ),
     );
   }

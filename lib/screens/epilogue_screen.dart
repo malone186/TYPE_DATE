@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
 import '../data/episode1_data.dart';
+import '../models/models.dart';
 import '../widgets/kakao_chat_view.dart';
 import '../widgets/common.dart';
 import 'character_select_screen.dart';
+import 'sns_card_screen.dart';
 
 /// 에필로그 — Scene 1(알림) → Scene 2(민준 카톡) → Scene 3(2화 예고)
 class EpilogueScreen extends StatefulWidget {
-  const EpilogueScreen({super.key});
+  final DateResult result;
+
+  const EpilogueScreen({super.key, required this.result});
 
   @override
   State<EpilogueScreen> createState() => _EpilogueScreenState();
@@ -30,6 +34,13 @@ class _EpilogueScreenState extends State<EpilogueScreen> {
         return KakaoChatView(
           contactName: '최민준',
           lines: epilogueLines,
+          myResultCard: SizedBox(
+            width: 190,
+            child: AspectRatio(
+              aspectRatio: 9 / 16,
+              child: ResultShareCard(result: widget.result),
+            ),
+          ),
           onComplete: () => setState(() => _step = _EpilogueStep.teaser),
         );
       case _EpilogueStep.teaser:
