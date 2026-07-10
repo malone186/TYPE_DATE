@@ -39,15 +39,26 @@ class _PrologueScreenState extends State<PrologueScreen> {
         return _AssignmentScene(
           onNext: () {
             final navigator = Navigator.of(context);
-            // 목록 화면을 스택 아래에 깔고, 지수 프로필을 바로 띄운다.
-            navigator.pushReplacement(
-              MaterialPageRoute(builder: (_) => const CharacterSelectScreen()),
+            final prologueRoute = ModalRoute.of(context)!;
+            // 프로필 화면을 단일 트랜지션으로 바로 띄운다.
+            final profileRoute = MaterialPageRoute(
+              builder: (_) => const CharacterProfileScreen(character: jisu),
             );
-            navigator.push(
-              MaterialPageRoute(
-                builder: (_) => const CharacterProfileScreen(character: jisu),
-              ),
-            );
+            navigator.push(profileRoute);
+            // 전환 애니메이션이 진행되는 동안에는 아래 화면이 비쳐 보이므로,
+            // 애니메이션이 완전히 끝난 "뒤에" 프롤로그를 목록 화면으로 조용히 바꿔치기한다.
+            // (프로필 화면이 이미 불투명하게 화면을 덮은 상태라 목록의 사진이 보일 일이 없다)
+            late final AnimationStatusListener listener;
+            listener = (status) {
+              if (status == AnimationStatus.completed) {
+                profileRoute.animation!.removeStatusListener(listener);
+                navigator.replace(
+                  oldRoute: prologueRoute,
+                  newRoute: MaterialPageRoute(builder: (_) => const CharacterSelectScreen()),
+                );
+              }
+            };
+            profileRoute.animation!.addStatusListener(listener);
           },
         );
     }
@@ -63,7 +74,8 @@ class _OnboardingScene extends StatelessWidget {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
@@ -95,6 +107,7 @@ class _OnboardingScene extends StatelessWidget {
             ],
           ),
         ),
+        ),
       ),
     );
   }
@@ -109,21 +122,16 @@ class _AssignmentScene extends StatelessWidget {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: c.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: c.border),
-                ),
+              GlassPanel(
+                constraints: const BoxConstraints(minWidth: double.infinity),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -154,6 +162,7 @@ class _AssignmentScene extends StatelessWidget {
               CoralButton(label: '소개팅 출발하기', onPressed: onNext),
             ],
           ),
+        ),
         ),
       ),
     );

@@ -13,11 +13,20 @@ class SplashTitleScreen extends StatelessWidget {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
+              // 폰트 워밍업 — 이모지/특수문자는 Pretendard에 글리프가 없어서 CanvasKit이
+              // Noto 폰트를 런타임에 내려받는다. 앱 중간에 처음 만나면 글자가 깨졌다
+              // 돌아오는 것처럼 보이므로, 스플래시에서 투명 텍스트로 미리 그려
+              // 다운로드와 전역 재레이아웃을 여기서 미리 끝내둔다.
+              const Text(
+                '—「」→─☆★❤️⚡•🌙🌟👀💔💘💨💪🔍🔥😊🤝',
+                style: TextStyle(color: Colors.transparent, fontSize: 1),
+              ),
               const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               const Spacer(flex: 3),
               Image.asset(
@@ -49,6 +58,7 @@ class SplashTitleScreen extends StatelessWidget {
               const SizedBox(height: 32),
             ],
           ),
+        ),
         ),
       ),
     );

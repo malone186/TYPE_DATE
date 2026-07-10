@@ -1,8 +1,109 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../models/models.dart';
 import '../state/game_state.dart';
+
+/// 새벽빛 메시 그라디언트를 이루는 부드러운 원형 글로우 한 덩어리.
+class GlowBlob extends StatelessWidget {
+  final Color color;
+  final double size;
+  const GlowBlob({super.key, required this.color, required this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: RadialGradient(
+            colors: [color.withValues(alpha: 0.38), color.withValues(alpha: 0)],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 앱 전체 공용 배경 — bg 위에 코랄/라벤더 글로우가 떠 있는 새벽빛 무드.
+/// Scaffold body를 이 위젯으로 감싸면 모든 화면이 같은 톤을 공유한다.
+/// [showLogoWatermark]를 켜면 중앙에 TD 로고 마크가 은은하게 깔린다 (채팅 화면용).
+class GlowBackground extends StatelessWidget {
+  final Widget child;
+  final bool showLogoWatermark;
+  const GlowBackground({super.key, required this.child, this.showLogoWatermark = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Container(color: c.bg),
+        Positioned(top: -90, left: -70, child: GlowBlob(color: c.accentCoralSoft, size: 320)),
+        Positioned(top: 10, right: -110, child: GlowBlob(color: c.accentLavender, size: 300)),
+        Positioned(bottom: -140, right: -60, child: GlowBlob(color: c.accentCoralSoft, size: 300)),
+        if (showLogoWatermark)
+          Center(
+            child: IgnorePointer(
+              child: Opacity(
+                // 다크 모드에선 배경이 어두워 로고 색이 덜 비치므로 살짝 더 진하게
+                opacity: isDark ? 0.09 : 0.06,
+                child: FractionallySizedBox(
+                  // 화면 크기에 비례해 큼직하게 — 잘리지 않도록 contain으로 맞춘다
+                  widthFactor: 0.8,
+                  heightFactor: 0.65,
+                  child: Image.asset('assets/images/logo_mark.png', fit: BoxFit.contain),
+                ),
+              ),
+            ),
+          ),
+        child,
+      ],
+    );
+  }
+}
+
+/// 유리질 블러 패널 — 글로우 배경 위에 떠 있는 반투명 카드/말풍선 공용.
+class GlassPanel extends StatelessWidget {
+  final Widget child;
+  final BorderRadius borderRadius;
+  final EdgeInsetsGeometry padding;
+  final BoxConstraints? constraints;
+
+  const GlassPanel({
+    super.key,
+    required this.child,
+    this.borderRadius = const BorderRadius.all(Radius.circular(20)),
+    this.padding = const EdgeInsets.all(24),
+    this.constraints,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: Container(
+          constraints: constraints,
+          padding: padding,
+          decoration: BoxDecoration(
+            color: c.surface.withValues(alpha: 0.72),
+            border: Border.all(color: c.border.withValues(alpha: 0.6), width: 0.5),
+            borderRadius: borderRadius,
+          ),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
 
 /// 라이트/다크/시스템 테마를 순환 전환하는 버튼 — 어느 화면에서든 재사용
 class ThemeToggleButton extends ConsumerWidget {
@@ -37,7 +138,7 @@ class ThemeToggleButton extends ConsumerWidget {
       };
 }
 
-/// 원형 프사 — 이미지가 없으면 이니셜 placeholder
+/// 원형 프사 — 브랜드 그라디언트 글로우 링 + 이미지, 이미지가 없으면 이니셜 placeholder
 class CharacterAvatar extends StatelessWidget {
   final TDCharacter character;
   final double size;
@@ -47,28 +148,40 @@ class CharacterAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    if (character.imagePath != null) {
-      return ClipOval(
-        child: Image.asset(
-          character.imagePath!,
-          width: size,
-          height: size,
-          fit: BoxFit.cover,
-        ),
-      );
-    }
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(color: c.accentCoralSoft, shape: BoxShape.circle),
-      alignment: Alignment.center,
-      child: Text(
-        character.name.isNotEmpty ? character.name.substring(0, 1) : '?',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: size * 0.4,
-          fontWeight: FontWeight.w600,
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: SweepGradient(
+          colors: [
+            c.accentCoral,
+            c.accentCoralSoft,
+            c.accentLavender,
+            c.accentLavenderDeep,
+            c.accentCoral,
+          ],
         ),
+        boxShadow: [
+          BoxShadow(color: c.accentCoral.withValues(alpha: 0.35), blurRadius: 8, spreadRadius: 0.5),
+        ],
+      ),
+      child: ClipOval(
+        child: character.imagePath != null
+            ? Image.asset(character.imagePath!, fit: BoxFit.cover)
+            : Container(
+                color: c.accentCoralSoft,
+                alignment: Alignment.center,
+                child: Text(
+                  character.name.isNotEmpty ? character.name.substring(0, 1) : '?',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: size * 0.4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -94,7 +207,11 @@ class TurnProgressBar extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeOut,
               widthFactor: progress.clamp(0.0, 1.0),
-              child: Container(color: c.accentLavenderDeep),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [c.accentCoral, c.accentLavender]),
+                ),
+              ),
             ),
           ],
         ),

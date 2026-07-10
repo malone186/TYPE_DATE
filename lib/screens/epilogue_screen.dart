@@ -56,21 +56,16 @@ class _NotificationScene extends StatelessWidget {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: c.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: c.border),
-                ),
+              GlassPanel(
+                constraints: const BoxConstraints(minWidth: double.infinity),
                 child: Column(
                   children: [
                     const Text('💘', style: TextStyle(fontSize: 32)),
@@ -90,6 +85,7 @@ class _NotificationScene extends StatelessWidget {
             ],
           ),
         ),
+        ),
       ),
     );
   }
@@ -104,21 +100,16 @@ class _TeaserScene extends StatelessWidget {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: c.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: c.border),
-                ),
+              GlassPanel(
+                constraints: const BoxConstraints(minWidth: double.infinity),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -148,6 +139,7 @@ class _TeaserScene extends StatelessWidget {
               CoralButton(label: '캐릭터 목록으로', onPressed: onNext),
             ],
           ),
+        ),
         ),
       ),
     );

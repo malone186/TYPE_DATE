@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
@@ -234,15 +235,11 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
         (session.currentTurnIndex + (session.choicePending ? 1 : 0)) / session.date.turns.length;
 
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset('assets/images/소개팅신 배경.png', fit: BoxFit.cover),
-          Container(color: c.bg.withValues(alpha: 0.88)),
-          SafeArea(
-            child: _chatBody(context, c, session, turn, character, displayProgress, userName),
-          ),
-        ],
+      body: GlowBackground(
+        showLogoWatermark: true,
+        child: SafeArea(
+          child: _chatBody(context, c, session, turn, character, displayProgress, userName),
+        ),
       ),
     );
   }
@@ -266,13 +263,9 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
 
     return Column(
       children: [
-        // 헤더
+        // 헤더 — 배경 그라디언트 위에 떠 있는 느낌으로, 별도 배경 없이 투명하게
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: c.surface.withValues(alpha: 0.92),
-            border: Border(bottom: BorderSide(color: c.border, width: 0.5)),
-          ),
           child: Column(
             children: [
               Row(
@@ -464,14 +457,20 @@ class _TypingRow extends StatelessWidget {
       children: [
         CharacterAvatar(character: character, size: 24),
         const SizedBox(width: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-          decoration: BoxDecoration(
-            color: c.surface,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: c.border, width: 0.5),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: c.surface.withValues(alpha: 0.72),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: c.border.withValues(alpha: 0.6), width: 0.5),
+              ),
+              child: const TypingIndicator(),
+            ),
           ),
-          child: const TypingIndicator(),
         ),
       ],
     );
@@ -485,6 +484,13 @@ class _NpcBubble extends StatelessWidget {
 
   const _NpcBubble({required this.character, required this.text, required this.c});
 
+  static const _radius = BorderRadius.only(
+    topLeft: Radius.circular(4),
+    topRight: Radius.circular(16),
+    bottomLeft: Radius.circular(16),
+    bottomRight: Radius.circular(16),
+  );
+
   @override
   Widget build(BuildContext context) {
     return _FadeSlideIn(
@@ -494,20 +500,21 @@ class _NpcBubble extends StatelessWidget {
           CharacterAvatar(character: character, size: 24),
           const SizedBox(width: 8),
           Flexible(
-            child: Container(
-              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-              decoration: BoxDecoration(
-                color: c.surface,
-                border: Border.all(color: c.border, width: 0.5),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(4),
-                  topRight: Radius.circular(16),
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
+            child: ClipRRect(
+              borderRadius: _radius,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                  decoration: BoxDecoration(
+                    color: c.surface.withValues(alpha: 0.72),
+                    border: Border.all(color: c.border.withValues(alpha: 0.6), width: 0.5),
+                    borderRadius: _radius,
+                  ),
+                  child: Text(text, style: TypeDateTextStyles.chatMessage(c.textPrimary)),
                 ),
               ),
-              child: Text(text, style: TypeDateTextStyles.chatMessage(c.textPrimary)),
             ),
           ),
         ],

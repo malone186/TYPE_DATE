@@ -41,7 +41,8 @@ class _ResultReportScreenState extends State<ResultReportScreen>
 
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Column(
@@ -77,6 +78,7 @@ class _ResultReportScreenState extends State<ResultReportScreen>
               ),
             ],
           ),
+        ),
         ),
       ),
     );

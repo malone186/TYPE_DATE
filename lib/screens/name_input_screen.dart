@@ -37,7 +37,8 @@ class _NameInputScreenState extends ConsumerState<NameInputScreen> {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Column(
@@ -63,7 +64,7 @@ class _NameInputScreenState extends ConsumerState<NameInputScreen> {
                   hintText: '이름 또는 닉네임',
                   hintStyle: TypeDateTextStyles.chatMessage(c.textMuted),
                   filled: true,
-                  fillColor: c.surface,
+                  fillColor: c.surface.withValues(alpha: 0.72),
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   border: OutlineInputBorder(
@@ -88,6 +89,7 @@ class _NameInputScreenState extends ConsumerState<NameInputScreen> {
               const SizedBox(height: 32),
             ],
           ),
+        ),
         ),
       ),
     );

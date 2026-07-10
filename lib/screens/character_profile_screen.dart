@@ -15,15 +15,17 @@ class CharacterProfileScreen extends StatelessWidget {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: c.bg,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: c.textPrimary),
         actions: const [ThemeToggleButton()],
       ),
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(top: kToolbarHeight),
           child: Column(
             children: [
               const SizedBox(height: 12),
@@ -69,6 +71,7 @@ class CharacterProfileScreen extends StatelessWidget {
               const SizedBox(height: 32),
             ],
           ),
+        ),
         ),
       ),
     );

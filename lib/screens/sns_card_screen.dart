@@ -16,16 +16,18 @@ class SnsCardScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: c.bg,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: c.bg,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: c.textPrimary),
         title: Text('공유 카드', style: TypeDateTextStyles.screenTitle(c.textPrimary)),
         actions: const [ThemeToggleButton()],
       ),
-      body: SafeArea(
+      body: GlowBackground(
+        child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24).copyWith(top: kToolbarHeight + 8),
           child: Column(
             children: [
               Expanded(
@@ -65,6 +67,7 @@ class SnsCardScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
         ),
       ),
     );

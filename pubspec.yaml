@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/images/jisu.png
     - assets/images/logo.png
+    - assets/images/logo_mark.png
     - assets/images/소개팅신 배경.png
 
   fonts:

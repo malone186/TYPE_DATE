@@ -151,16 +151,14 @@ class _KakaoChatViewState extends State<KakaoChatView> {
 
     return Scaffold(
       backgroundColor: c.bg,
-      body: SafeArea(
+      body: GlowBackground(
+        showLogoWatermark: true,
+        child: SafeArea(
         child: Column(
           children: [
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              decoration: BoxDecoration(
-                color: c.surface,
-                border: Border(bottom: BorderSide(color: c.border, width: 0.5)),
-              ),
               child: Row(
                 children: [
                   Icon(Icons.arrow_back_ios_new, size: 16, color: c.textPrimary),
@@ -212,6 +210,7 @@ class _KakaoChatViewState extends State<KakaoChatView> {
               ),
           ],
         ),
+        ),
       ),
     );
   }
@@ -235,9 +234,9 @@ class _TypingBubble extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
           decoration: BoxDecoration(
-            color: c.surface,
+            color: c.surface.withValues(alpha: 0.8),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: c.border, width: 0.5),
+            border: Border.all(color: c.border.withValues(alpha: 0.6), width: 0.5),
           ),
           child: const TypingIndicator(),
         ),
@@ -269,7 +268,7 @@ class _ChatLineWidget extends StatelessWidget {
     }
 
     final isMe = line.sender == 'me';
-    final bubbleColor = isMe ? c.accentCoralSoft : c.surface;
+    final bubbleColor = isMe ? c.accentCoralSoft : c.surface.withValues(alpha: 0.8);
     final textColor = isMe ? Colors.white : c.textPrimary;
     final radius = isMe
         ? const BorderRadius.only(
@@ -322,7 +321,7 @@ class _ChatLineWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: bubbleColor,
                   borderRadius: radius,
-                  border: isMe ? null : Border.all(color: c.border, width: 0.5),
+                  border: isMe ? null : Border.all(color: c.border.withValues(alpha: 0.6), width: 0.5),
                 ),
                 child: Text(
                   line.text,

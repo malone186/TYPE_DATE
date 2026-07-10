@@ -1,7 +1,24 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
 import '../models/models.dart';
+
+/// 선택지 라벨(A/B/C/D)을 브랜드 그라디언트의 한 지점에 매핑 — 점(dot) 색상용.
+Color _dotColorFor(String label, TypeDateTokens c) {
+  switch (label) {
+    case 'A':
+      return c.accentCoral;
+    case 'B':
+      return c.accentCoralSoft;
+    case 'C':
+      return c.accentLavender;
+    case 'D':
+      return c.accentLavenderDeep;
+    default:
+      return c.accentCoral;
+  }
+}
 
 /// 선택지 버튼 (A/B/C/D) — UI 디자인 명세서 §4-3
 class ChoiceList extends StatelessWidget {
@@ -68,44 +85,46 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
           onTapUp: (_) => setState(() => _pressed = false),
           onTapCancel: () => setState(() => _pressed = false),
           onTap: widget.onTap,
-          child: Container(
-            width: double.infinity,
-            constraints: const BoxConstraints(minHeight: 44),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-              color: _pressed
-                  ? c.surface.withValues(alpha: 0.16)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: widget.isSelected ? c.accentLavenderDeep : c.textPrimary.withValues(alpha: 0.35),
-                width: widget.isSelected ? 1.5 : 1,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                width: double.infinity,
+                constraints: const BoxConstraints(minHeight: 44),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: c.surface.withValues(alpha: _pressed ? 0.85 : 0.6),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: widget.isSelected
+                        ? c.accentLavenderDeep
+                        : c.textPrimary.withValues(alpha: 0.08),
+                    width: widget.isSelected ? 1.5 : 0.5,
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 15,
+                      height: 15,
+                      margin: const EdgeInsets.only(top: 2),
+                      decoration: BoxDecoration(
+                        color: _dotColorFor(widget.choice.label, c),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        widget.choice.text,
+                        style: TypeDateTextStyles.choiceButton(c.textPrimary),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 20,
-                  height: 20,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: c.accentLavender,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    widget.choice.label,
-                    style: TypeDateTextStyles.choiceLabel(c.accentLavenderText),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    widget.choice.text,
-                    style: TypeDateTextStyles.choiceButton(c.textPrimary),
-                  ),
-                ),
-              ],
             ),
           ),
         ),

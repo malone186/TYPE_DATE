@@ -20,47 +20,55 @@ class CharacterSelectScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: c.bg,
-      appBar: AppBar(
-        backgroundColor: c.bg,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Text('소개팅 상대', style: TypeDateTextStyles.screenTitle(c.textPrimary)),
-        actions: const [ThemeToggleButton()],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('$completedCount / 16 완료', style: TypeDateTextStyles.caption(c.textSecondary)),
-            const SizedBox(height: 12),
-            Expanded(
-              child: GridView.builder(
-                itemCount: allCharacterSlots.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.8,
+      body: GlowBackground(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Row(
+                    children: [
+                      Text('소개팅 상대', style: TypeDateTextStyles.screenTitle(c.textPrimary)),
+                      const Spacer(),
+                      const ThemeToggleButton(),
+                    ],
+                  ),
                 ),
-                itemBuilder: (context, i) {
-                  final char = allCharacterSlots[i];
-                  return _CharacterSlot(
-                    character: char,
-                    isCompleted: progress.results.containsKey(char.id),
-                    onTap: char.isUnlocked
-                        ? () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const CharacterProfileScreen(character: jisu),
-                              ),
-                            )
-                        : null,
-                  );
-                },
-              ),
+                const SizedBox(height: 4),
+                Text('$completedCount / 16 완료', style: TypeDateTextStyles.caption(c.textSecondary)),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: allCharacterSlots.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemBuilder: (context, i) {
+                      final char = allCharacterSlots[i];
+                      return _CharacterSlot(
+                        character: char,
+                        isCompleted: progress.results.containsKey(char.id),
+                        onTap: char.isUnlocked
+                            ? () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => const CharacterProfileScreen(character: jisu),
+                                  ),
+                                )
+                            : null,
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
             ),
-            const SizedBox(height: 16),
-          ],
+          ),
         ),
       ),
     );
@@ -83,9 +91,9 @@ class _CharacterSlot extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: c.surface,
+          color: c.surface.withValues(alpha: 0.75),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: c.border),
+          border: Border.all(color: c.border.withValues(alpha: 0.6)),
         ),
         clipBehavior: Clip.antiAlias,
         child: Stack(
@@ -95,7 +103,7 @@ class _CharacterSlot extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    color: c.bg,
+                    color: c.bg.withValues(alpha: 0.45),
                     child: locked
                         ? Icon(Icons.person_outline, size: 40, color: c.textMuted)
                         : (character.imagePath != null
