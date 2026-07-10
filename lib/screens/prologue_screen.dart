@@ -4,6 +4,7 @@ import '../theme/theme.dart';
 import '../data/episode1_data.dart';
 import '../widgets/kakao_chat_view.dart';
 import '../widgets/common.dart';
+import 'character_profile_screen.dart';
 import 'character_select_screen.dart';
 
 /// 프롤로그 — Scene 1(민준) → Scene 2(온보딩) → Scene 3(배정 카드)
@@ -36,9 +37,18 @@ class _PrologueScreenState extends State<PrologueScreen> {
         );
       case _PrologueStep.assignment:
         return _AssignmentScene(
-          onNext: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const CharacterSelectScreen()),
-          ),
+          onNext: () {
+            final navigator = Navigator.of(context);
+            // 목록 화면을 스택 아래에 깔고, 지수 프로필을 바로 띄운다.
+            navigator.pushReplacement(
+              MaterialPageRoute(builder: (_) => const CharacterSelectScreen()),
+            );
+            navigator.push(
+              MaterialPageRoute(
+                builder: (_) => const CharacterProfileScreen(character: jisu),
+              ),
+            );
+          },
         );
     }
   }
