@@ -101,13 +101,17 @@ List<ChatLine> closingScriptFor(Ending ending) {
 final List<ChatLine> jisuOpeningScript = [
   const ChatLine('system', '홍대의 한 카페. 창가 자리, 문이 열리고 지수가 먼저 손을 든다', isSystemNote: true),
   const ChatLine('지수', '저 여기 있어요! ㅎㅎ'),
+  const ChatLine('me', '아 네! 안녕하세요, 찾느라 두리번거렸는데 바로 보이네요ㅎㅎ'),
   const ChatLine('me', '사진보다 훨씬 밝은 분위기다.', isMonologue: true),
   const ChatLine('system', '주인공이 맞은편에 앉는다. 지수가 메뉴판을 훑는다', isSystemNote: true),
   const ChatLine('지수', '{name}씨 맞으시죠? 사진이랑은 느낌이 조금 다르네요ㅎㅎ'),
+  const ChatLine('me', '네 맞아요! 반가워요, 지수 씨도 사진이랑 비슷하시네요ㅎㅎ'),
   const ChatLine('지수', '뭐 드시겠어요? 저는 아이스 아메리카노로 할게요'),
+  const ChatLine('me', '저도 아이스 아메리카노로 할게요'),
   const ChatLine('system', '주문 완료. 잠깐 정적이 흐른다', isSystemNote: true),
   const ChatLine('지수', '이런 자리가 처음이라 좀 떨리네요ㅎㅎ 그래도 얘기하다 보면 금방 편해질 것 같아요'),
-  const ChatLine('me', '나도 비슷한데 괜히 티 내는 것 같아서 가만히 있었다.', isMonologue: true),
+  const ChatLine('me', '저도 비슷해요. 근데 지수 씨랑 얘기하다 보니까 벌써 좀 편해지는 것 같아요'),
+  const ChatLine('me', '사실 나도 많이 떨렸는데 괜히 티 내는 게 부끄러워서 웃음으로 넘겼다.', isMonologue: true),
   const ChatLine('system', '커피가 나온다. 지수가 한 모금 마시고 컵을 내려놓으며 편하게 앉는다', isSystemNote: true),
 ];
 

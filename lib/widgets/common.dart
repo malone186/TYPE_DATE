@@ -31,10 +31,17 @@ class GlowBlob extends StatelessWidget {
 /// 앱 전체 공용 배경 — bg 위에 코랄/라벤더 글로우가 떠 있는 새벽빛 무드.
 /// Scaffold body를 이 위젯으로 감싸면 모든 화면이 같은 톤을 공유한다.
 /// [showLogoWatermark]를 켜면 중앙에 TD 로고 마크가 은은하게 깔린다 (채팅 화면용).
+/// [photoBackground]를 켜면 로고 워터마크 대신 카페 사진을 은은하게 깔아 실제 만난 장소 느낌을 준다 (소개팅 채팅 화면용).
 class GlowBackground extends StatelessWidget {
   final Widget child;
   final bool showLogoWatermark;
-  const GlowBackground({super.key, required this.child, this.showLogoWatermark = false});
+  final bool photoBackground;
+  const GlowBackground({
+    super.key,
+    required this.child,
+    this.showLogoWatermark = false,
+    this.photoBackground = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +51,14 @@ class GlowBackground extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Container(color: c.bg),
+        if (photoBackground) ...[
+          Image.asset('assets/images/background.png', fit: BoxFit.cover),
+          Container(color: c.bg.withValues(alpha: isDark ? 0.55 : 0.35)),
+        ],
         Positioned(top: -90, left: -70, child: GlowBlob(color: c.accentCoralSoft, size: 320)),
         Positioned(top: 10, right: -110, child: GlowBlob(color: c.accentLavender, size: 300)),
         Positioned(bottom: -140, right: -60, child: GlowBlob(color: c.accentCoralSoft, size: 300)),
-        if (showLogoWatermark)
+        if (showLogoWatermark && !photoBackground)
           Center(
             child: IgnorePointer(
               child: Opacity(

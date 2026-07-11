@@ -236,7 +236,7 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
 
     return Scaffold(
       body: GlowBackground(
-        showLogoWatermark: true,
+        photoBackground: true,
         child: SafeArea(
           child: _chatBody(context, c, session, turn, character, displayProgress, userName),
         ),
@@ -403,6 +403,12 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
         child: _MonologueBubble(text: line.text, c: c),
       );
     }
+    if (line.sender == 'me') {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 14),
+        child: _PlayerBubble(text: line.text, c: c),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: _NpcBubble(character: character, text: _applyName(line.text, userName), c: c),
@@ -553,47 +559,62 @@ class _PlayerBubble extends StatelessWidget {
   }
 }
 
-/// 주인공 속마음 — 실제로 보내는 채팅처럼 보이되, 흐린 톤 + "속마음" 라벨로
-/// 진짜 메시지와 구분되게 함.
+/// 주인공 속마음 — 실제로 보내는 채팅과 구분되도록 점선 테두리 + 라벨 아이콘 +
+/// 불투명한 유리질 배경을 사용. (배경 사진 위에서도 또렷이 읽히도록 블러+높은 불투명도)
 class _MonologueBubble extends StatelessWidget {
   final String text;
   final TypeDateTokens c;
   const _MonologueBubble({required this.text, required this.c});
+
+  static const _radius = BorderRadius.only(
+    topLeft: Radius.circular(16),
+    topRight: Radius.circular(4),
+    bottomLeft: Radius.circular(16),
+    bottomRight: Radius.circular(16),
+  );
 
   @override
   Widget build(BuildContext context) {
     return _FadeSlideIn(
       child: Align(
         alignment: Alignment.centerRight,
-        child: Container(
-          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.72),
-          padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 14),
-          decoration: BoxDecoration(
-            color: c.accentCoralSoft.withValues(alpha: 0.14),
-            border: Border.all(color: c.accentCoralSoft.withValues(alpha: 0.4)),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(4),
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16),
+        child: ClipRRect(
+          borderRadius: _radius,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: Container(
+              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.72),
+              padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 14),
+              decoration: BoxDecoration(
+                color: c.accentLavender.withValues(alpha: 0.85),
+                border: Border.all(color: c.accentLavenderDeep.withValues(alpha: 0.7), width: 1),
+                borderRadius: _radius,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.cloud_outlined, size: 11, color: Colors.white),
+                      const SizedBox(width: 4),
+                      Text(
+                        '속마음',
+                        style: TypeDateTextStyles.caption(Colors.white)
+                            .copyWith(fontSize: 10, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    text,
+                    textAlign: TextAlign.right,
+                    style: TypeDateTextStyles.monologue(Colors.white),
+                  ),
+                ],
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '속마음',
-                style: TypeDateTextStyles.caption(c.textMuted)
-                    .copyWith(fontSize: 10, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                text,
-                textAlign: TextAlign.right,
-                style: TypeDateTextStyles.monologue(c.textSecondary),
-              ),
-            ],
           ),
         ),
       ),

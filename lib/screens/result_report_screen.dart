@@ -307,6 +307,8 @@ class _DocumentCard extends StatelessWidget {
           _infoBlock(
             '${style.compatibilityStars}  ${style.compatibilityComment}',
           ),
+          const SizedBox(height: 12),
+          _compatibilityAxisGrid(),
 
           _sectionDivider(),
 
@@ -591,5 +593,96 @@ class _DocumentCard extends StatelessWidget {
       'J' => '생활 패턴',
       _ => axis,
     };
+  }
+
+  // ── 나 vs 상대방 성향 비교 ──────────────────────────────────
+  static const _axisKeys = ['E', 'N', 'T', 'J'];
+
+  static const _letterWords = {
+    'E': '외향', 'I': '내향',
+    'N': '직관', 'S': '감각',
+    'T': '사고', 'F': '감정',
+    'J': '계획', 'P': '즉흥',
+  };
+
+  Widget _compatibilityAxisGrid() {
+    final mine = result.axisLetters;
+    final theirs = jisu.mbti;
+    final matchCount =
+        List.generate(4, (i) => mine[i] == theirs[i]).where((m) => m).length;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '나와 ${jisu.name}, 4개 성향 중 $matchCount개 일치',
+          style: const TextStyle(
+            fontFamily: 'Pretendard',
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: _accentBlue,
+          ),
+        ),
+        const SizedBox(height: 8),
+        for (var i = 0; i < _axisKeys.length; i++) ...[
+          _compatibilityRow(
+            _axisLabel(_axisKeys[i]),
+            mine[i],
+            theirs[i],
+          ),
+          if (i != _axisKeys.length - 1) const SizedBox(height: 6),
+        ],
+      ],
+    );
+  }
+
+  Widget _compatibilityRow(String label, String mine, String theirs) {
+    final match = mine == theirs;
+    const diffColor = Color(0xFFB35C00);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      decoration: BoxDecoration(
+        color: match ? _accentBlue.withValues(alpha: 0.06) : const Color(0xFFF7F5F2),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(
+          color: match ? _accentBlue.withValues(alpha: 0.3) : const Color(0xFFE7E1DA),
+        ),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 68,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'Pretendard',
+                fontSize: 11,
+                color: _paperSub,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              '나 $mine(${_letterWords[mine]})  ·  ${jisu.name} $theirs(${_letterWords[theirs]})',
+              style: const TextStyle(
+                fontFamily: 'Pretendard',
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: _paperText,
+              ),
+            ),
+          ),
+          Text(
+            match ? '일치' : '차이',
+            style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontSize: 11,
+              fontWeight: FontWeight.w800,
+              color: match ? _accentBlue : diffColor,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

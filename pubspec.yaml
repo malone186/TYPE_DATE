@@ -64,6 +64,7 @@ flutter:
     - assets/images/logo.png
     - assets/images/logo_mark.png
     - assets/images/소개팅신 배경.png
+    - assets/images/background.png
 
   fonts:
     - family: Pretendard
