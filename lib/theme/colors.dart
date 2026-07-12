@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class TypeDateColors {
   TypeDateColors._();
 
-  // Light
-  static const lightBg = Color(0xFFFFFBF6);
+  // Light — 사진의 라벤더/퍼플 새벽빛 톤
+  static const lightBg = Color(0xFFEAE3F6);
   static const lightSurface = Color(0xFFFFFFFF);
-  static const lightBorder = Color(0xFFECE5DC);
+  static const lightBorder = Color(0xFFE3DCF0);
   static const lightTextPrimary = Color(0xFF2B2723);
   static const lightTextSecondary = Color(0xFF9C948A);
   static const lightTextMuted = Color(0xFFC2BAAF);
@@ -19,10 +19,10 @@ class TypeDateColors {
   static const lightBreakBlue = Color(0xFF8A92A6);
   static const lightSuccess = Color(0xFF1D9E75);
 
-  // Dark
-  static const darkBg = Color(0xFF1F1C1A);
-  static const darkSurface = Color(0xFF2B2725);
-  static const darkBorder = Color(0xFF3D3733);
+  // Dark — 라벤더/퍼플 톤의 밤 버전
+  static const darkBg = Color(0xFF201B30);
+  static const darkSurface = Color(0xFF2C2742);
+  static const darkBorder = Color(0xFF3E3656);
   static const darkTextPrimary = Color(0xFFF5F0EA);
   static const darkTextSecondary = Color(0xFFA39C92);
   static const darkTextMuted = Color(0xFF6E675F);

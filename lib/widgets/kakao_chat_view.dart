@@ -15,6 +15,8 @@ class KakaoChatView extends StatefulWidget {
   // null이면 대화가 끝나자마자 자동으로 onComplete 호출(기존 동작).
   // 값을 주면 대화가 다 끝난 뒤 이 라벨의 버튼이 나타나고, 눌러야 onComplete 호출.
   final String? completeButtonLabel;
+  // 켜면 최상단에 아이폰 상태바(시간·신호·데이터·배터리)를 표시.
+  final bool showStatusBar;
 
   const KakaoChatView({
     super.key,
@@ -22,6 +24,7 @@ class KakaoChatView extends StatefulWidget {
     required this.lines,
     required this.onComplete,
     this.completeButtonLabel,
+    this.showStatusBar = false,
   });
 
   @override
@@ -156,6 +159,7 @@ class _KakaoChatViewState extends State<KakaoChatView> {
         child: SafeArea(
         child: Column(
           children: [
+            if (widget.showStatusBar) const PhoneStatusBar(),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),

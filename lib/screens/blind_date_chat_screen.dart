@@ -279,7 +279,15 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
                   const SizedBox(width: 8),
                   CharacterAvatar(character: character, size: 32),
                   const SizedBox(width: 10),
-                  Text(character.name, style: TypeDateTextStyles.screenTitle(c.textPrimary)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(character.name, style: TypeDateTextStyles.screenTitle(c.textPrimary)),
+                      Text('${character.mbti} · ${character.age}',
+                          style: TypeDateTextStyles.caption(c.textSecondary)),
+                    ],
+                  ),
                   const Spacer(),
                   if (_openingDone)
                     Text('${turn.turnNumber} / ${session.date.turns.length}',
@@ -559,62 +567,24 @@ class _PlayerBubble extends StatelessWidget {
   }
 }
 
-/// 주인공 속마음 — 실제로 보내는 채팅과 구분되도록 점선 테두리 + 라벨 아이콘 +
-/// 불투명한 유리질 배경을 사용. (배경 사진 위에서도 또렷이 읽히도록 블러+높은 불투명도)
+/// 주인공 속마음 — 실제로 보내는 채팅과 구분되도록 회색 이탤릭 텍스트로 은은하게.
+/// 배경 카페 사진 위에서도 읽히도록 옅은 유리질 배경 위에 얹는다.
 class _MonologueBubble extends StatelessWidget {
   final String text;
   final TypeDateTokens c;
   const _MonologueBubble({required this.text, required this.c});
 
-  static const _radius = BorderRadius.only(
-    topLeft: Radius.circular(16),
-    topRight: Radius.circular(4),
-    bottomLeft: Radius.circular(16),
-    bottomRight: Radius.circular(16),
-  );
-
   @override
   Widget build(BuildContext context) {
     return _FadeSlideIn(
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: ClipRRect(
-          borderRadius: _radius,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-            child: Container(
-              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.72),
-              padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 14),
-              decoration: BoxDecoration(
-                color: c.accentLavender.withValues(alpha: 0.85),
-                border: Border.all(color: c.accentLavenderDeep.withValues(alpha: 0.7), width: 1),
-                borderRadius: _radius,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.cloud_outlined, size: 11, color: Colors.white),
-                      const SizedBox(width: 4),
-                      Text(
-                        '속마음',
-                        style: TypeDateTextStyles.caption(Colors.white)
-                            .copyWith(fontSize: 10, fontWeight: FontWeight.w800),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    text,
-                    textAlign: TextAlign.right,
-                    style: TypeDateTextStyles.monologue(Colors.white),
-                  ),
-                ],
-              ),
-            ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        child: SizedBox(
+          width: double.infinity,
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TypeDateTextStyles.monologue(c.textSecondary),
           ),
         ),
       ),

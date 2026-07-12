@@ -22,7 +22,12 @@ class CharacterSelectScreen extends ConsumerWidget {
       backgroundColor: c.bg,
       body: GlowBackground(
         child: SafeArea(
-          child: Padding(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const PhoneStatusBar(),
+              Expanded(
+                child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,6 +73,9 @@ class CharacterSelectScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
               ],
             ),
+          ),
+              ),
+            ],
           ),
         ),
       ),

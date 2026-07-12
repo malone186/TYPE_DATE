@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,17 +48,33 @@ class GlowBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    // 사진의 라벤더→퍼플→핑크 메시 그라디언트.
+    final baseGradient = isDark
+        ? const [Color(0xFF241E38), Color(0xFF1F1A30), Color(0xFF2A2142)]
+        : const [Color(0xFFCCD2F2), Color(0xFFDBCDEE), Color(0xFFEBD3E7)];
+    final blobPeriwinkle = isDark ? const Color(0xFF4A3F7A) : const Color(0xFFB9C2F0);
+    final blobLavender = isDark ? const Color(0xFF5B4A8C) : const Color(0xFFD8C4EC);
+    final blobPink = isDark ? const Color(0xFF6E4A78) : const Color(0xFFEBC8DE);
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(color: c.bg),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: baseGradient,
+            ),
+          ),
+        ),
         if (photoBackground) ...[
           Image.asset('assets/images/background.png', fit: BoxFit.cover),
           Container(color: c.bg.withValues(alpha: isDark ? 0.55 : 0.35)),
         ],
-        Positioned(top: -90, left: -70, child: GlowBlob(color: c.accentCoralSoft, size: 320)),
-        Positioned(top: 10, right: -110, child: GlowBlob(color: c.accentLavender, size: 300)),
-        Positioned(bottom: -140, right: -60, child: GlowBlob(color: c.accentCoralSoft, size: 300)),
+        Positioned(top: -90, left: -70, child: GlowBlob(color: blobPeriwinkle, size: 320)),
+        Positioned(top: 10, right: -110, child: GlowBlob(color: blobLavender, size: 300)),
+        Positioned(bottom: -140, right: -60, child: GlowBlob(color: blobPink, size: 300)),
+        Positioned(bottom: -110, left: -80, child: GlowBlob(color: blobLavender, size: 260)),
         if (showLogoWatermark && !photoBackground)
           Center(
             child: IgnorePointer(
@@ -287,6 +304,120 @@ class _TypingIndicatorState extends State<TypingIndicator>
           );
         }),
       ),
+    );
+  }
+}
+
+/// 아이폰 상단 상태바 모방 — 시간 / 신호 / 데이터 / 배터리 잔량(충전 아님).
+/// SafeArea 안 최상단에 놓아 실제 폰 화면 위에서 앱이 도는 느낌을 준다.
+class PhoneStatusBar extends StatefulWidget {
+  const PhoneStatusBar({super.key});
+
+  @override
+  State<PhoneStatusBar> createState() => _PhoneStatusBarState();
+}
+
+class _PhoneStatusBarState extends State<PhoneStatusBar> {
+  late String _time;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _time = _formatNow();
+    // 분 단위 시계 — 20초마다 확인해 분이 바뀌면 갱신.
+    _timer = Timer.periodic(const Duration(seconds: 20), (_) {
+      final t = _formatNow();
+      if (mounted && t != _time) setState(() => _time = t);
+    });
+  }
+
+  String _formatNow() {
+    final now = DateTime.now();
+    return '${now.hour}:${now.minute.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final fg = context.colors.textPrimary;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 6, 20, 2),
+      child: Row(
+        children: [
+          Text(
+            _time,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.2,
+              color: fg,
+            ),
+          ),
+          const Spacer(),
+          Icon(Icons.signal_cellular_alt, size: 16, color: fg),
+          const SizedBox(width: 6),
+          Icon(Icons.wifi, size: 16, color: fg),
+          const SizedBox(width: 6),
+          _BatteryIndicator(color: fg, level: 0.8),
+        ],
+      ),
+    );
+  }
+}
+
+/// 배터리 잔량 표시 — 퍼센트 숫자 + 채워진 배터리 아이콘(충전 번개 없음).
+class _BatteryIndicator extends StatelessWidget {
+  final Color color;
+  final double level; // 0.0 ~ 1.0
+
+  const _BatteryIndicator({required this.color, required this.level});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          '${(level * 100).round()}%',
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: color),
+        ),
+        const SizedBox(width: 4),
+        // 배터리 몸통
+        Container(
+          width: 24,
+          height: 12,
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(3.5),
+            border: Border.all(color: color.withValues(alpha: 0.5), width: 1),
+          ),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: 20 * level.clamp(0.0, 1.0),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(1.5),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 1),
+        // 배터리 양극 꼭지
+        Container(
+          width: 2,
+          height: 4,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.5),
+            borderRadius: const BorderRadius.horizontal(right: Radius.circular(1)),
+          ),
+        ),
+      ],
     );
   }
 }

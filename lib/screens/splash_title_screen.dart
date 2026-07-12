@@ -15,7 +15,11 @@ class SplashTitleScreen extends StatelessWidget {
       backgroundColor: c.bg,
       body: GlowBackground(
         child: SafeArea(
-        child: Padding(
+        child: Column(
+          children: [
+            const PhoneStatusBar(),
+            Expanded(
+              child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
@@ -30,7 +34,7 @@ class SplashTitleScreen extends StatelessWidget {
               const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
               const Spacer(flex: 3),
               Image.asset(
-                'assets/images/소개팅신 배경.png',
+                'assets/images/logo_mark.png',
                 width: 200,
                 height: 200,
                 fit: BoxFit.contain,
@@ -58,6 +62,9 @@ class SplashTitleScreen extends StatelessWidget {
               const SizedBox(height: 32),
             ],
           ),
+              ),
+            ),
+          ],
         ),
         ),
       ),

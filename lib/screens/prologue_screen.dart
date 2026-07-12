@@ -28,6 +28,7 @@ class _PrologueScreenState extends State<PrologueScreen> {
           key: const ValueKey('minjun'),
           contactName: '최민준',
           lines: prologueLines,
+          showStatusBar: true,
           completeButtonLabel: '다음',
           onComplete: () => setState(() => _step = _PrologueStep.onboarding),
         );
