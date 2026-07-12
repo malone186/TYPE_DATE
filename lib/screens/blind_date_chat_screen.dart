@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
-import '../data/episode1_script.dart';
 import '../models/models.dart';
 import '../state/game_state.dart';
 import '../widgets/common.dart';
@@ -164,7 +163,8 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
   void _startClosingScene(DateResult result) {
     setState(() {
       _pendingResult = result;
-      _closingLines = closingScriptFor(result.ending);
+      _closingLines =
+          ref.read(dateSessionProvider).date.closingScripts[result.ending] ?? const [];
       _closingRevealCount = 0;
     });
     _scrollToBottom();
@@ -279,14 +279,19 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
                   const SizedBox(width: 8),
                   CharacterAvatar(character: character, size: 32),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(character.name, style: TypeDateTextStyles.screenTitle(c.textPrimary)),
-                      Text('${character.mbti} · ${character.age}',
-                          style: TypeDateTextStyles.caption(c.textSecondary)),
-                    ],
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(character.name,
+                            style: TypeDateTextStyles.screenTitle(c.textPrimary),
+                            overflow: TextOverflow.ellipsis),
+                        Text('${character.mbti} · ${character.age}',
+                            style: TypeDateTextStyles.caption(c.textSecondary),
+                            overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   if (_openingDone)

@@ -17,41 +17,18 @@ const jisu = TDCharacter(
   tags: ['#필름카메라', '#즉흥여행', '#카페투어', '#플리마켓', '#맛집탐방'],
   isUnlocked: true,
   imagePath: 'assets/images/jisu.png',
+  facePath: 'assets/images/jisu_face.png',
 );
-
-/// 16개 캐릭터 슬롯 — 1화(지수)만 해금, 나머지는 잠금 placeholder
-final List<TDCharacter> allCharacterSlots = [
-  jisu,
-  const TDCharacter(
-    id: 'date02_intj',
-    name: '???',
-    age: 0,
-    job: '',
-    location: '',
-    mbti: 'INTJ',
-    intro: '차갑다는 말 많이 들어요. 근데 사실 그게 싫어요',
-    tags: [],
-    isUnlocked: false,
-  ),
-  for (int i = 3; i <= 16; i++)
-    TDCharacter(
-      id: 'date${i.toString().padLeft(2, '0')}',
-      name: '???',
-      age: 0,
-      job: '',
-      location: '',
-      mbti: '????',
-      intro: '',
-      tags: const [],
-      isUnlocked: false,
-    ),
-];
 
 final episode1 = BlindDate(
   id: 'date01',
   character: jisu,
   turns: jisuTurns,
   openingScript: jisuOpeningScript,
+  closingScripts: {
+    for (final ending in Ending.values) ending: closingScriptFor(ending),
+  },
+  styleInfo: styleInfoMap,
 );
 
 /// 8-2 유형별 보고서 텍스트

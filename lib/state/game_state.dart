@@ -3,10 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/episode1_data.dart';
+import '../data/episodes.dart';
 import '../models/models.dart';
 
 final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
+
+/// 지금 플레이하려는(또는 플레이 중인) 에피소드 — 프로필 화면에서 설정
+final selectedEpisodeProvider = StateProvider<BlindDate>((ref) => episode1);
 
 /// 13턴 동안 쌓이는 한 회차의 진행 상태
 class DateSessionState {
@@ -56,7 +59,7 @@ class DateSessionState {
 
 class DateSessionNotifier extends Notifier<DateSessionState> {
   @override
-  DateSessionState build() => DateSessionState(date: episode1);
+  DateSessionState build() => DateSessionState(date: ref.watch(selectedEpisodeProvider));
 
   void selectChoice(Choice choice) {
     if (state.choicePending) return;
@@ -116,24 +119,32 @@ class GameProgressNotifier extends Notifier<GameProgress> {
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    final completedJisu = prefs.getBool('td_date01_completed') ?? false;
-    if (completedJisu) {
-      state = state.copyWith(totalCompleted: 1);
+    final completed = <String>{
+      for (final e in allEpisodes)
+        if (prefs.getBool('td_${e.id}_completed') ?? false) e.id,
+    };
+    if (completed.isNotEmpty) {
+      state = state.copyWith(
+        completedIds: completed,
+        totalCompleted: completed.length,
+      );
     }
   }
 
   Future<void> completeDate(DateResult result) async {
     final newResults = Map<String, DateResult>.from(state.results);
     newResults[result.dateId] = result;
+    final newCompleted = {...state.completedIds, result.dateId};
     state = state.copyWith(
       results: newResults,
-      totalCompleted: newResults.length,
+      completedIds: newCompleted,
+      totalCompleted: newCompleted.length,
     );
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('td_${result.dateId}_completed', true);
   }
 
-  bool isCompleted(String dateId) => state.results.containsKey(dateId);
+  bool isCompleted(String dateId) => state.isCompleted(dateId);
 }
 
 final gameProgressProvider = NotifierProvider<GameProgressNotifier, GameProgress>(

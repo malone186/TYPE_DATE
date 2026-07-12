@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
-import '../data/episode1_data.dart';
+import '../data/episodes.dart';
 import '../models/models.dart';
 import '../state/game_state.dart';
 import '../widgets/common.dart';
@@ -56,13 +56,18 @@ class CharacterSelectScreen extends ConsumerWidget {
                     ),
                     itemBuilder: (context, i) {
                       final char = allCharacterSlots[i];
+                      // 순차 해금 — 첫 화는 항상 열려 있고, 이후 화는 직전 화 완료 시 열림
+                      final hasContent = i < allEpisodes.length;
+                      final unlocked = hasContent &&
+                          (i == 0 || progress.isCompleted(allEpisodes[i - 1].id));
                       return _CharacterSlot(
                         character: char,
-                        isCompleted: progress.results.containsKey(char.id),
-                        onTap: char.isUnlocked
+                        locked: !unlocked,
+                        isCompleted: progress.isCompleted(char.id),
+                        onTap: unlocked
                             ? () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (_) => const CharacterProfileScreen(character: jisu),
+                                    builder: (_) => CharacterProfileScreen(character: char),
                                   ),
                                 )
                             : null,
@@ -85,15 +90,20 @@ class CharacterSelectScreen extends ConsumerWidget {
 
 class _CharacterSlot extends StatelessWidget {
   final TDCharacter character;
+  final bool locked;
   final bool isCompleted;
   final VoidCallback? onTap;
 
-  const _CharacterSlot({required this.character, required this.isCompleted, this.onTap});
+  const _CharacterSlot({
+    required this.character,
+    required this.locked,
+    required this.isCompleted,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final locked = !character.isUnlocked;
 
     return GestureDetector(
       onTap: onTap,

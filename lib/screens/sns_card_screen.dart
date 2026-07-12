@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
-import '../data/episode1_data.dart';
+import '../data/episodes.dart';
 import '../models/models.dart';
+import '../state/game_state.dart';
 import '../widgets/common.dart';
 
 /// SNS 공유용 카드 — PRD §8-3
@@ -74,7 +76,7 @@ class SnsCardScreen extends StatelessWidget {
   }
 }
 
-class ResultShareCard extends StatelessWidget {
+class ResultShareCard extends ConsumerWidget {
   final DateResult result;
 
   const ResultShareCard({super.key, required this.result});
@@ -91,9 +93,12 @@ class ResultShareCard extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final c = context.colors;
-    final style = styleInfoMap[result.styleType] ?? styleInfoMap['EF']!;
+    final episode = episodeById(result.dateId);
+    final style =
+        episode.styleInfo[result.styleType] ?? episode.styleInfo['EF']!;
+    final completedCount = ref.watch(gameProgressProvider).totalCompleted;
 
     return Container(
       padding: const EdgeInsets.all(28),
@@ -149,7 +154,7 @@ class ResultShareCard extends StatelessWidget {
           ),
           const Spacer(flex: 2),
           Text(
-            '$_endingEmoji   1 / 16',
+            '$_endingEmoji   $completedCount / 16',
             style: TypeDateTextStyles.choiceButton(c.textPrimary),
           ),
         ],

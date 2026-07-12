@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
+import '../data/episodes.dart';
 import '../models/models.dart';
+import '../state/game_state.dart';
 import '../widgets/common.dart';
 import 'blind_date_chat_screen.dart';
 
 /// 캐릭터 프로필 화면 — §5-4
-class CharacterProfileScreen extends StatelessWidget {
+class CharacterProfileScreen extends ConsumerWidget {
   final TDCharacter character;
   const CharacterProfileScreen({super.key, required this.character});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final c = context.colors;
     return Scaffold(
       backgroundColor: c.bg,
@@ -29,6 +32,35 @@ class CharacterProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 12),
+              if (character.facePath != null) ...[
+                Container(
+                  width: 160,
+                  height: 160,
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: SweepGradient(
+                      colors: [
+                        c.accentCoral,
+                        c.accentCoralSoft,
+                        c.accentLavender,
+                        c.accentLavenderDeep,
+                        c.accentCoral,
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: c.accentCoral.withValues(alpha: 0.35),
+                          blurRadius: 16,
+                          spreadRadius: 1),
+                    ],
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(character.facePath!, fit: BoxFit.cover),
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
               Text('${character.name} · ${character.age}세',
                   style: TypeDateTextStyles.resultTitle(c.textPrimary).copyWith(fontSize: 20)),
               const SizedBox(height: 6),
@@ -64,9 +96,14 @@ class CharacterProfileScreen extends StatelessWidget {
               const SizedBox(height: 32),
               CoralButton(
                 label: '소개팅 시작',
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const BlindDateChatScreen()),
-                ),
+                onPressed: () {
+                  final episode = episodeForCharacter(character);
+                  if (episode == null) return;
+                  ref.read(selectedEpisodeProvider.notifier).state = episode;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const BlindDateChatScreen()),
+                  );
+                },
               ),
               const SizedBox(height: 32),
             ],

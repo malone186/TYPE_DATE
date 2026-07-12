@@ -11,6 +11,7 @@ class TDCharacter {
   final List<String> tags;
   final bool isUnlocked;
   final String? imagePath;
+  final String? facePath; // 얼굴 위주 크롭 — 프로필 사진용
 
   const TDCharacter({
     required this.id,
@@ -23,6 +24,7 @@ class TDCharacter {
     required this.tags,
     this.isUnlocked = false,
     this.imagePath,
+    this.facePath,
   });
 }
 
@@ -65,12 +67,16 @@ class BlindDate {
   final TDCharacter character;
   final List<Turn> turns;
   final List<ChatLine> openingScript; // 도착·인사·착석 — 선택지 없이 자동 진행되는 도입부
+  final Map<Ending, List<ChatLine>> closingScripts; // 13턴 종료 후 결과별 클로징 씬
+  final Map<String, StyleInfo> styleInfo; // EF/ET/IF/IT — 이 상대 기준의 유형별 보고서
 
   const BlindDate({
     required this.id,
     required this.character,
     required this.turns,
     this.openingScript = const [],
+    this.closingScripts = const {},
+    this.styleInfo = const {},
   });
 }
 
@@ -128,22 +134,28 @@ class StyleInfo {
 
 class GameProgress {
   final Map<String, DateResult> results;
+  final Set<String> completedIds; // 완료한 dateId — 앱 재실행 시에도 복원됨
   final int totalCompleted;
   final String? overallStyle;
 
   const GameProgress({
     this.results = const {},
+    this.completedIds = const {},
     this.totalCompleted = 0,
     this.overallStyle,
   });
 
+  bool isCompleted(String dateId) => completedIds.contains(dateId);
+
   GameProgress copyWith({
     Map<String, DateResult>? results,
+    Set<String>? completedIds,
     int? totalCompleted,
     String? overallStyle,
   }) {
     return GameProgress(
       results: results ?? this.results,
+      completedIds: completedIds ?? this.completedIds,
       totalCompleted: totalCompleted ?? this.totalCompleted,
       overallStyle: overallStyle ?? this.overallStyle,
     );

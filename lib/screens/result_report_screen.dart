@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme/colors.dart';
-import '../data/episode1_data.dart';
+import '../data/episodes.dart';
 import '../models/models.dart';
+import '../state/game_state.dart';
 import '../widgets/common.dart';
 import 'sns_card_screen.dart';
 import 'epilogue_screen.dart';
 
-class ResultReportScreen extends StatefulWidget {
+class ResultReportScreen extends ConsumerStatefulWidget {
   final DateResult result;
   const ResultReportScreen({super.key, required this.result});
 
   @override
-  State<ResultReportScreen> createState() => _ResultReportScreenState();
+  ConsumerState<ResultReportScreen> createState() => _ResultReportScreenState();
 }
 
-class _ResultReportScreenState extends State<ResultReportScreen>
+class _ResultReportScreenState extends ConsumerState<ResultReportScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
 
@@ -36,8 +38,11 @@ class _ResultReportScreenState extends State<ResultReportScreen>
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final style = styleInfoMap[widget.result.styleType] ?? styleInfoMap['EF']!;
+    final episode = episodeById(widget.result.dateId);
+    final style =
+        episode.styleInfo[widget.result.styleType] ?? episode.styleInfo['EF']!;
     final now = widget.result.completedAt;
+    final completedCount = ref.watch(gameProgressProvider).totalCompleted;
 
     return Scaffold(
       backgroundColor: c.bg,
@@ -48,7 +53,15 @@ class _ResultReportScreenState extends State<ResultReportScreen>
           child: Column(
             children: [
               const Align(alignment: Alignment.topRight, child: ThemeToggleButton()),
-              _DocumentCard(result: widget.result, style: style, now: now, ctrl: _ctrl, c: c),
+              _DocumentCard(
+                result: widget.result,
+                character: episode.character,
+                style: style,
+                now: now,
+                ctrl: _ctrl,
+                c: c,
+                completedCount: completedCount,
+              ),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -87,17 +100,21 @@ class _ResultReportScreenState extends State<ResultReportScreen>
 
 class _DocumentCard extends StatelessWidget {
   final DateResult result;
+  final TDCharacter character;
   final StyleInfo style;
   final DateTime now;
   final AnimationController ctrl;
   final TypeDateTokens c;
+  final int completedCount;
 
   const _DocumentCard({
     required this.result,
+    required this.character,
     required this.style,
     required this.now,
     required this.ctrl,
     required this.c,
+    required this.completedCount,
   });
 
   static const _paperBg   = Color(0xFFFFFDF9);
@@ -143,7 +160,7 @@ class _DocumentCard extends StatelessWidget {
         children: [
           // 제목
           Text(
-            '「${jisu.name}」 소개팅 결과보고서',
+            '「${character.name}」 소개팅 결과보고서',
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontFamily: 'Pretendard',
@@ -157,7 +174,7 @@ class _DocumentCard extends StatelessWidget {
           const SizedBox(height: 28),
 
           // 불릿 정보
-          _bulletRow('상대방', '${jisu.name} · ${jisu.age}세 (${jisu.mbti})', isHighlight: false),
+          _bulletRow('상대방', '${character.name} · ${character.age}세 (${character.mbti})', isHighlight: false),
           const SizedBox(height: 10),
           _bulletRow('나의 유형', '${style.title} ${style.emoji}', isHighlight: true),
           const SizedBox(height: 10),
@@ -353,7 +370,7 @@ class _DocumentCard extends StatelessWidget {
           // 진행 현황
           Center(
             child: Text(
-              '1 / 16 완료  ·  15명이 기다리고 있어요 👀',
+              '$completedCount / 16 완료  ·  ${16 - completedCount}명이 기다리고 있어요 👀',
               style: const TextStyle(
                 fontFamily: 'Pretendard',
                 fontSize: 11,
@@ -607,7 +624,7 @@ class _DocumentCard extends StatelessWidget {
 
   Widget _compatibilityAxisGrid() {
     final mine = result.axisLetters;
-    final theirs = jisu.mbti;
+    final theirs = character.mbti;
     final matchCount =
         List.generate(4, (i) => mine[i] == theirs[i]).where((m) => m).length;
 
@@ -615,7 +632,7 @@ class _DocumentCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '나와 ${jisu.name}, 4개 성향 중 $matchCount개 일치',
+          '나와 ${character.name}, 4개 성향 중 $matchCount개 일치',
           style: const TextStyle(
             fontFamily: 'Pretendard',
             fontSize: 12,
@@ -663,7 +680,7 @@ class _DocumentCard extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '나 $mine(${_letterWords[mine]})  ·  ${jisu.name} $theirs(${_letterWords[theirs]})',
+              '나 $mine(${_letterWords[mine]})  ·  ${character.name} $theirs(${_letterWords[theirs]})',
               style: const TextStyle(
                 fontFamily: 'Pretendard',
                 fontSize: 12,
