@@ -42,7 +42,7 @@ class _EpilogueScreenState extends ConsumerState<EpilogueScreen> {
       case _EpilogueStep.minjun:
         return KakaoChatView(
           contactName: '최민준',
-          lines: epilogueLines,
+          lines: epilogueLinesByDateId[widget.result.dateId] ?? epilogueLines,
           completeButtonLabel: '다음 화 예고 보기',
           onComplete: () => setState(() => _step = _EpilogueStep.teaser),
         );

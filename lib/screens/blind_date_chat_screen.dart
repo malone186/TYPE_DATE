@@ -35,6 +35,7 @@ class BlindDateChatScreen extends ConsumerStatefulWidget {
 
 class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
   bool _npcMessageRevealed = false;
+  bool _playerPromptRevealed = false;
   bool _showEffect = false;
   bool _reactionTyping = false;
   bool _reactionRevealed = false;
@@ -112,11 +113,29 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
     if (_startedTurnIndex == turnIndex) return;
     _startedTurnIndex = turnIndex;
     _npcMessageRevealed = false;
+    _playerPromptRevealed = false;
     _showEffect = false;
     _reactionTyping = false;
     _reactionRevealed = false;
     _typingTimer?.cancel();
-    final npcMessage = ref.read(dateSessionProvider).date.turns[turnIndex].npcMessage;
+    final turn = ref.read(dateSessionProvider).date.turns[turnIndex];
+    if (turn.isPlayerInitiated && turn.playerPrompt != null) {
+      // 플레이어가 먼저 묻는 장면 — 내 질문 말풍선을 띄운 다음에야 상대가 답한다.
+      _typingTimer = Timer(const Duration(milliseconds: 500), () {
+        if (!mounted) return;
+        setState(() => _playerPromptRevealed = true);
+        _scrollToBottom();
+        _advanceTimer = Timer(const Duration(milliseconds: 700), () {
+          if (!mounted) return;
+          _startNpcTyping(turn.npcMessage);
+        });
+      });
+    } else {
+      _startNpcTyping(turn.npcMessage);
+    }
+  }
+
+  void _startNpcTyping(String npcMessage) {
     _typingTimer = Timer(_typingDelayFor(npcMessage), () {
       if (mounted) {
         setState(() => _npcMessageRevealed = true);
@@ -332,9 +351,16 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
                           userName: userName,
                         ),
                       // 진행 중인 현재 턴
-                      if (!_npcMessageRevealed)
-                        _TypingRow(character: character, c: c)
-                      else ...[
+                      if (turn.isPlayerInitiated && turn.playerPrompt != null) ...[
+                        if (_playerPromptRevealed) ...[
+                          _PlayerBubble(text: turn.playerPrompt!, c: c),
+                          const SizedBox(height: 14),
+                        ],
+                        if (_playerPromptRevealed && !_npcMessageRevealed)
+                          _TypingRow(character: character, c: c),
+                      ] else if (!_npcMessageRevealed)
+                        _TypingRow(character: character, c: c),
+                      if (_npcMessageRevealed) ...[
                         _NpcBubble(
                           character: character,
                           text: _applyName(turn.npcMessage, userName),
@@ -452,6 +478,10 @@ class _CompletedTurnBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (turn.isPlayerInitiated && turn.playerPrompt != null) ...[
+            _PlayerBubble(text: turn.playerPrompt!, c: c),
+            const SizedBox(height: 14),
+          ],
           _NpcBubble(character: character, text: _applyName(turn.npcMessage, userName), c: c),
           const SizedBox(height: 10),
           _MonologueBubble(text: turn.monologue, c: c),

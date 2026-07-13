@@ -51,6 +51,7 @@ class Turn {
   final String npcMessage;
   final String monologue;
   final bool isPlayerInitiated;
+  final String? playerPrompt; // isPlayerInitiated일 때 먼저 보여줄 내 질문
   final List<Choice> choices; // A,B,C,D
 
   const Turn({
@@ -58,6 +59,7 @@ class Turn {
     required this.npcMessage,
     required this.monologue,
     required this.isPlayerInitiated,
+    this.playerPrompt,
     required this.choices,
   });
 }

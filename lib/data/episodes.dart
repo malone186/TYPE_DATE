@@ -12,6 +12,14 @@ export 'episode4_data.dart';
 /// 제작된 에피소드 목록 — 순서가 곧 화 번호(index + 1).
 final List<BlindDate> allEpisodes = [episode1, episode2, episode3, episode4];
 
+/// 에피소드별 에필로그(민준 카톡) 대사 — dateId 기준.
+final Map<String, List<ChatLine>> epilogueLinesByDateId = {
+  episode1.id: epilogueLines,
+  episode2.id: epilogue2Lines,
+  episode3.id: epilogue3Lines,
+  episode4.id: epilogue4Lines,
+};
+
 BlindDate episodeById(String dateId) =>
     allEpisodes.firstWhere((e) => e.id == dateId, orElse: () => episode1);
 
