@@ -10,7 +10,7 @@ import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
 import { GlowBackground, ThemeToggleButton, CoralButton } from '../widgets/common';
 import { useStore } from '../state/store';
-import { allCharacterSlots, episodeForCharacter } from '../data';
+import { characterById, episodeForCharacter } from '../data';
 import { imageSource } from '../assets/images';
 
 // Flutter screens/character_profile_screen.dart 이식.
@@ -19,7 +19,8 @@ export function CharacterProfileScreen({ navigation, route }: NativeStackScreenP
   const setSelectedEpisode = useStore((s) => s.setSelectedEpisode);
   const startSession = useStore((s) => s.startSession);
 
-  const character = allCharacterSlots.find((x) => x.id === route.params.characterId) ?? allCharacterSlots[0];
+  const character = characterById(route.params.characterId);
+  if (!character) return null;
   const face = imageSource(character.facePath);
 
   const start = () => {

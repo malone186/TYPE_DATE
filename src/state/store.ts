@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BlindDate, Choice, DateResult, Ending } from '../types';
-import { allEpisodes, episode1 } from '../data';
+import { allEpisodes, episode1, LineKey } from '../data';
+import { allMaleEpisodes } from '../data/male';
 
 // Flutter game_state.dart (Riverpod) → Zustand 이식.
 // shared_preferences → AsyncStorage.
@@ -26,6 +27,10 @@ interface AppState {
   // 테마 (Flutter themeModeProvider)
   themeMode: ThemeMode;
   cycleThemeMode: () => void;
+
+  // 라인(남/여) — 스플래시 다음 선택 화면에서 결정, AsyncStorage 영속화
+  line: LineKey;
+  setLine: (line: LineKey) => Promise<void>;
 
   // 지금 플레이하려는 에피소드 (Flutter selectedEpisodeProvider)
   selectedEpisode: BlindDate;
@@ -81,6 +86,12 @@ export const useStore = create<AppState>((set, get) => ({
             ? 'system'
             : 'light',
     })),
+
+  line: 'female',
+  setLine: async (line) => {
+    set({ line });
+    await AsyncStorage.setItem('td_line', line);
+  },
 
   selectedEpisode: episode1,
   setSelectedEpisode: (d) => set({ selectedEpisode: d }),
@@ -165,13 +176,15 @@ export const useStore = create<AppState>((set, get) => ({
 
   loadPersisted: async () => {
     const name = (await AsyncStorage.getItem('td_user_name')) ?? '';
+    const savedLine = (await AsyncStorage.getItem('td_line')) as LineKey | null;
     const completed = new Set<string>();
-    for (const e of allEpisodes) {
+    for (const e of [...allEpisodes, ...allMaleEpisodes]) {
       const v = await AsyncStorage.getItem(`td_${e.id}_completed`);
       if (v === 'true') completed.add(e.id);
     }
     set({
       userName: name,
+      line: savedLine === 'male' || savedLine === 'female' ? savedLine : 'female',
       completedIds: completed,
       totalCompleted: completed.size,
     });

@@ -7,7 +7,9 @@ import { useColors } from '../theme/useColors';
 import { TypeDateTextStyles } from '../theme/textStyles';
 import { GlowBackground, GlassPanel, ThemeToggleButton, CoralButton } from '../widgets/common';
 import { KakaoChatView } from '../widgets/KakaoChatView';
-import { prologueLines, episode1 } from '../data';
+import { lineData } from '../data';
+import { useStore } from '../state/store';
+import { TDCharacter } from '../types';
 import { logoImage } from '../assets/images';
 
 // Flutter screens/prologue_screen.dart 이식.
@@ -16,15 +18,16 @@ type Step = 'minjun' | 'onboarding' | 'assignment';
 
 export function PrologueScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'Prologue'>) {
   const [step, setStep] = useState<Step>('minjun');
+  const line = useStore((s) => s.line);
+  const data = lineData(line);
 
   const goToProfile = () => {
-    // Flutter: 프로필(지수)을 띄우고 프롤로그를 목록 화면으로 바꿔치기.
-    // RN: 스택을 [CharacterSelect, CharacterProfile(지수)]로 리셋해 뒤로가기 시 목록으로.
+    // 스택을 [CharacterSelect, CharacterProfile(1화 상대)]로 리셋해 뒤로가기 시 목록으로.
     navigation.reset({
       index: 1,
       routes: [
         { name: 'CharacterSelect' },
-        { name: 'CharacterProfile', params: { characterId: episode1.character.id } },
+        { name: 'CharacterProfile', params: { characterId: data.firstEpisode.character.id } },
       ],
     });
   };
@@ -32,8 +35,8 @@ export function PrologueScreen({ navigation }: NativeStackScreenProps<RootStackP
   if (step === 'minjun') {
     return (
       <KakaoChatView
-        contactName="최민준"
-        lines={prologueLines}
+        contactName={data.prologueContact}
+        lines={data.prologueLines}
         showStatusBar
         completeButtonLabel="다음"
         onComplete={() => setStep('onboarding')}
@@ -43,7 +46,7 @@ export function PrologueScreen({ navigation }: NativeStackScreenProps<RootStackP
   if (step === 'onboarding') {
     return <OnboardingScene onNext={() => setStep('assignment')} />;
   }
-  return <AssignmentScene onNext={goToProfile} />;
+  return <AssignmentScene character={data.firstEpisode.character} onNext={goToProfile} />;
 }
 
 function OnboardingScene({ onNext }: { onNext: () => void }) {
@@ -78,7 +81,7 @@ function OnboardingScene({ onNext }: { onNext: () => void }) {
   );
 }
 
-function AssignmentScene({ onNext }: { onNext: () => void }) {
+function AssignmentScene({ character, onNext }: { character: TDCharacter; onNext: () => void }) {
   const c = useColors();
   return (
     <GlowBackground>
@@ -95,10 +98,10 @@ function AssignmentScene({ onNext }: { onNext: () => void }) {
                 <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>첫 번째 인연</Text>
               </View>
               <View style={{ height: 20 }} />
-              <InfoRow label="상대" value="지수 (26세)" />
-              <InfoRow label="직업" value="콘텐츠 기획자" />
-              <InfoRow label="장소" value="홍대 카페" />
-              <InfoRow label="시간" value="오늘 오후 2시" />
+              <InfoRow label="상대" value={`${character.name} (${character.age}세)`} />
+              <InfoRow label="직업" value={character.job} />
+              <InfoRow label="지역" value={character.location} />
+              <InfoRow label="MBTI" value={character.mbti} />
               <View style={{ height: 16 }} />
               <Text style={TypeDateTextStyles.chatMessage(c.textSecondary)}>
                 "이 사람이 당신의 인연일까요?"

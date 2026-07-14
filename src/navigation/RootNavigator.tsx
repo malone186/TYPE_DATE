@@ -4,6 +4,7 @@ import { RootStackParamList } from './types';
 import { useColors } from '../theme/useColors';
 
 import { SplashTitleScreen } from '../screens/SplashTitleScreen';
+import { LineSelectScreen } from '../screens/LineSelectScreen';
 import { NameInputScreen } from '../screens/NameInputScreen';
 import { PrologueScreen } from '../screens/PrologueScreen';
 import { CharacterSelectScreen } from '../screens/CharacterSelectScreen';
@@ -27,6 +28,7 @@ export function RootNavigator() {
       }}
     >
       <Stack.Screen name="Splash" component={SplashTitleScreen} />
+      <Stack.Screen name="LineSelect" component={LineSelectScreen} />
       <Stack.Screen name="NameInput" component={NameInputScreen} />
       <Stack.Screen name="Prologue" component={PrologueScreen} />
       <Stack.Screen name="CharacterSelect" component={CharacterSelectScreen} />

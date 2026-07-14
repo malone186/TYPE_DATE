@@ -11,6 +11,7 @@ const registry: Record<string, ImageSourcePropType> = {
   'assets/images/harin_face.png': require('../../assets/images/harin_face.png'),
   'assets/images/yujin.png': require('../../assets/images/yujin.png'),
   'assets/images/yujin_face.png': require('../../assets/images/yujin_face.png'),
+  'assets/images/esfp.png': require('../../assets/images/esfp.png'),
   'assets/images/logo.png': require('../../assets/images/logo.png'),
   'assets/images/logo_mark.png': require('../../assets/images/logo_mark.png'),
   'assets/images/background.png': require('../../assets/images/background.png'),

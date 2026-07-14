@@ -8,7 +8,7 @@ import { TypeDateTextStyles } from '../theme/textStyles';
 import { GlowBackground, GlassPanel, ThemeToggleButton, CoralButton } from '../widgets/common';
 import { KakaoChatView } from '../widgets/KakaoChatView';
 import { useStore } from '../state/store';
-import { allEpisodes, epilogueLinesByDateId, episode1 } from '../data';
+import { lineData, lineForDateId, epilogueLinesByDateId, episode1 } from '../data';
 import { TDCharacter } from '../types';
 
 // Flutter screens/epilogue_screen.dart 이식.
@@ -18,11 +18,16 @@ type Step = 'notification' | 'minjun' | 'teaser';
 export function EpilogueScreen({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'Epilogue'>) {
   const { result } = route.params;
   const [step, setStep] = useState<Step>('notification');
-  const completedCount = useStore((s) => s.totalCompleted);
+  const isCompleted = useStore((s) => s.isCompleted);
+  useStore((s) => s.completedIds);
 
-  const episodeIndex = allEpisodes.findIndex((e) => e.id === result.dateId);
+  const line = lineData(lineForDateId(result.dateId));
+  const { episodes } = line;
+  const completedCount = episodes.filter((e) => isCompleted(e.id)).length;
+
+  const episodeIndex = episodes.findIndex((e) => e.id === result.dateId);
   const nextEpisode =
-    episodeIndex >= 0 && episodeIndex + 1 < allEpisodes.length ? allEpisodes[episodeIndex + 1] : null;
+    episodeIndex >= 0 && episodeIndex + 1 < episodes.length ? episodes[episodeIndex + 1] : null;
 
   const goToList = () =>
     navigation.reset({ index: 0, routes: [{ name: 'CharacterSelect' }] });
@@ -33,7 +38,7 @@ export function EpilogueScreen({ navigation, route }: NativeStackScreenProps<Roo
   if (step === 'minjun') {
     return (
       <KakaoChatView
-        contactName="최민준"
+        contactName={line.prologueContact}
         lines={epilogueLinesByDateId[result.dateId] ?? epilogueLinesByDateId[episode1.id]}
         completeButtonLabel="다음 화 예고 보기"
         onComplete={() => setStep('teaser')}

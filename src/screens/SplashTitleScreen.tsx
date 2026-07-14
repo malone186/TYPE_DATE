@@ -26,9 +26,9 @@ export function SplashTitleScreen({ navigation }: NativeStackScreenProps<RootSta
             당신의 진짜 인연을 찾아드립니다
           </Text>
           <View style={{ flex: 4 }} />
-          <CoralButton label="시작하기" onPress={() => navigation.navigate('NameInput')} />
+          <CoralButton label="시작하기" onPress={() => navigation.navigate('LineSelect', { next: 'NameInput' })} />
           <View style={{ height: 12 }} />
-          <CoralButton label="이어하기" outlined onPress={() => navigation.navigate('CharacterSelect')} />
+          <CoralButton label="이어하기" outlined onPress={() => navigation.navigate('LineSelect', { next: 'CharacterSelect' })} />
           <View style={{ height: 32 }} />
         </View>
       </SafeAreaView>

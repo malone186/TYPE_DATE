@@ -9,7 +9,7 @@ import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
 import { GlowBackground, PhoneStatusBar, ThemeToggleButton } from '../widgets/common';
 import { useStore } from '../state/store';
-import { allCharacterSlots, allEpisodes } from '../data';
+import { lineData } from '../data';
 import { imageSource } from '../assets/images';
 import { TDCharacter } from '../types';
 import { Pressable } from 'react-native';
@@ -18,10 +18,13 @@ import { Pressable } from 'react-native';
 // 2열 그리드, 16슬롯, 순차 해금.
 export function CharacterSelectScreen({ navigation }: NativeStackScreenProps<RootStackParamList, 'CharacterSelect'>) {
   const c = useColors();
-  const completedCount = useStore((s) => s.totalCompleted);
+  const line = useStore((s) => s.line);
   const isCompleted = useStore((s) => s.isCompleted);
   // completedIds 변경 시 리렌더 보장
   useStore((s) => s.completedIds);
+
+  const { episodes, slots } = lineData(line);
+  const completedCount = episodes.filter((e) => isCompleted(e.id)).length;
 
   const { width } = useWindowDimensions();
   const itemWidth = (width - 16 * 2 - 16) / 2;
@@ -41,14 +44,14 @@ export function CharacterSelectScreen({ navigation }: NativeStackScreenProps<Roo
           <Text style={TypeDateTextStyles.caption(c.textSecondary)}>{completedCount} / 16 완료</Text>
           <View style={{ height: 12 }} />
           <FlatList
-            data={allCharacterSlots}
+            data={slots}
             keyExtractor={(item) => item.id}
             numColumns={2}
             columnWrapperStyle={{ gap: 16 }}
             contentContainerStyle={{ gap: 16, paddingBottom: 16 }}
             renderItem={({ item, index }) => {
-              const hasContent = index < allEpisodes.length;
-              const unlocked = hasContent && (index === 0 || isCompleted(allEpisodes[index - 1].id));
+              const hasContent = index < episodes.length;
+              const unlocked = hasContent && (index === 0 || isCompleted(episodes[index - 1].id));
               return (
                 <CharacterSlot
                   character={item}
