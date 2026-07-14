@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "TYPE DATE",
+    "slug": "type-date",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/logo_mark.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "typedate",
+    "splash": {
+      "image": "./assets/images/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#EAE3F6"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.typedate.app"
+    },
+    "android": {
+      "package": "com.typedate.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/logo_mark.png",
+        "backgroundColor": "#EAE3F6"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/images/logo_mark.png"
+    },
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}

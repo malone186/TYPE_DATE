@@ -1,0 +1,123 @@
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/types';
+import { useColors } from '../theme/useColors';
+import { TypeDateTextStyles } from '../theme/textStyles';
+import { GlowBackground, GlassPanel, ThemeToggleButton, CoralButton } from '../widgets/common';
+import { KakaoChatView } from '../widgets/KakaoChatView';
+import { useStore } from '../state/store';
+import { allEpisodes, epilogueLinesByDateId, episode1 } from '../data';
+import { TDCharacter } from '../types';
+
+// Flutter screens/epilogue_screen.dart 이식.
+// Scene 1(알림) → Scene 2(민준 카톡) → Scene 3(다음 화 예고)
+type Step = 'notification' | 'minjun' | 'teaser';
+
+export function EpilogueScreen({ navigation, route }: NativeStackScreenProps<RootStackParamList, 'Epilogue'>) {
+  const { result } = route.params;
+  const [step, setStep] = useState<Step>('notification');
+  const completedCount = useStore((s) => s.totalCompleted);
+
+  const episodeIndex = allEpisodes.findIndex((e) => e.id === result.dateId);
+  const nextEpisode =
+    episodeIndex >= 0 && episodeIndex + 1 < allEpisodes.length ? allEpisodes[episodeIndex + 1] : null;
+
+  const goToList = () =>
+    navigation.reset({ index: 0, routes: [{ name: 'CharacterSelect' }] });
+
+  if (step === 'notification') {
+    return <NotificationScene completedCount={completedCount} onNext={() => setStep('minjun')} />;
+  }
+  if (step === 'minjun') {
+    return (
+      <KakaoChatView
+        contactName="최민준"
+        lines={epilogueLinesByDateId[result.dateId] ?? epilogueLinesByDateId[episode1.id]}
+        completeButtonLabel="다음 화 예고 보기"
+        onComplete={() => setStep('teaser')}
+      />
+    );
+  }
+  return (
+    <TeaserScene episodeNumber={episodeIndex + 2} nextCharacter={nextEpisode?.character ?? null} onNext={goToList} />
+  );
+}
+
+function NotificationScene({ completedCount, onNext }: { completedCount: number; onNext: () => void }) {
+  const c = useColors();
+  const remaining = 16 - completedCount;
+  return (
+    <GlowBackground>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 24, justifyContent: 'center' }}>
+          <View style={{ alignSelf: 'flex-end' }}>
+            <ThemeToggleButton />
+          </View>
+          <GlassPanel style={{ width: '100%' }}>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontSize: 32 }}>💘</Text>
+              <View style={{ height: 8 }} />
+              <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>{completedCount}/16 완료</Text>
+              <View style={{ height: 16 }} />
+              <Text style={[TypeDateTextStyles.chatMessage(c.textSecondary), { textAlign: 'center' }]}>
+                이번 만남이 끝났어요.{'\n'}{remaining}명이 더 기다리고 있어요.{'\n'}{'\n'}진짜 인연은 아직 시작도 안 했을 수 있어요 👀
+              </Text>
+            </View>
+          </GlassPanel>
+          <View style={{ height: 32 }} />
+          <CoralButton label="계속" onPress={onNext} />
+        </View>
+      </SafeAreaView>
+    </GlowBackground>
+  );
+}
+
+function TeaserScene({
+  episodeNumber,
+  nextCharacter,
+  onNext,
+}: {
+  episodeNumber: number;
+  nextCharacter: TDCharacter | null;
+  onNext: () => void;
+}) {
+  const c = useColors();
+  return (
+    <GlowBackground>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 24, justifyContent: 'center' }}>
+          <View style={{ alignSelf: 'flex-end' }}>
+            <ThemeToggleButton />
+          </View>
+          <GlassPanel style={{ width: '100%' }}>
+            <View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: 22 }}>💘</Text>
+                <View style={{ width: 8 }} />
+                <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>다음 인연</Text>
+              </View>
+              <View style={{ height: 20 }} />
+              <Text style={[TypeDateTextStyles.choiceButton(c.accentLavenderDeep), { fontFamily: 'Pretendard-Bold' }]}>
+                {nextCharacter != null ? `${episodeNumber}화 — ${nextCharacter.mbti} ???` : `${episodeNumber}화 — ????`}
+              </Text>
+              <View style={{ height: 8 }} />
+              <Text style={TypeDateTextStyles.chatMessage(c.textPrimary)}>
+                {nextCharacter != null ? `"${nextCharacter.intro}"` : '다음 인연을 준비 중이에요.'}
+              </Text>
+              <View style={{ height: 16 }} />
+              <Text style={TypeDateTextStyles.caption(c.textSecondary)}>
+                {nextCharacter != null
+                  ? '이 사람이 진짜 인연일까요? 캐릭터 목록에서 해금됐어요.'
+                  : '업데이트를 기다려주세요!'}
+              </Text>
+            </View>
+          </GlassPanel>
+          <View style={{ height: 32 }} />
+          <CoralButton label="캐릭터 목록으로" onPress={onNext} />
+        </View>
+      </SafeAreaView>
+    </GlowBackground>
+  );
+}
