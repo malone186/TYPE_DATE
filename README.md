@@ -1,17 +1,48 @@
-# type_date
+# TYPE DATE — React Native (Expo)
 
-소개팅을 진행하고 자신과 맞는 성격 유형을 파악하고 선택지로 호감도도 쌓을 수 있는 소개팅 시뮬레이션 게임.
+Flutter(Dart) 프로토타입을 **React Native + TypeScript(Expo)** 로 이식한 버전입니다.
+기능·대본·이미지·폰트는 원본과 동일하며, 언어/프레임워크만 교체했습니다.
 
-## Getting Started
+## 기술 스택 매핑 (Flutter → RN)
 
-This project is a starting point for a Flutter application.
+| Flutter | React Native |
+|---|---|
+| Dart | TypeScript |
+| Widget | React 컴포넌트 |
+| Riverpod | Zustand (`src/state/store.ts`) |
+| shared_preferences | AsyncStorage |
+| MaterialPageRoute / Navigator | React Navigation (native-stack) |
+| ThemeData / ThemeExtension | 테마 토큰 + `useColors` 훅 (`src/theme/`) |
+| BackdropFilter blur | expo-blur (BlurView) |
+| Gradient | expo-linear-gradient / react-native-svg |
+| Material Icons | @expo/vector-icons |
+| pubspec.yaml | package.json |
 
-A few resources to get you started if this is your first Flutter project:
+## 실행
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+npm install
+npx expo start          # QR로 Expo Go 실행 (iOS/Android)
+npx expo start --web    # 웹
+npm run typecheck       # tsc 타입 체크
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 웹 정적 빌드 (Vercel/Netlify 배포용)
+
+```bash
+npx expo export -p web  # dist/ 생성
+```
+
+## 구조
+
+```
+src/
+  types/        데이터 모델 (models.dart 이식)
+  theme/        컬러 토큰 · 텍스트 스타일 · useColors 훅
+  state/        Zustand 스토어 (game_state.dart 이식)
+  data/         16화 대본 데이터 (episode*.ts) + index
+  widgets/      공용 컴포넌트 (common, ChoiceList, KakaoChatView, LikeEffectOverlay)
+  screens/      9개 화면
+  navigation/   RootNavigator + 라우트 타입
+assets/         images · fonts (Pretendard)
+```

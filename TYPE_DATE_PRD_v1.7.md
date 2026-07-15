@@ -1,9 +1,9 @@
 # TYPE DATE — PRD (Product Requirements Document)
 
 > 작성일: 2026.06 (최종 업데이트 2026.07)
-> 버전: v1.7
-> 플랫폼: Android / iOS / Web (Flutter)
-> 상태: 프로토타입 구현 중 (1화 기준, Flutter Web 데모 배포됨)
+> 버전: v1.7 (React Native 에디션)
+> 플랫폼: Android / iOS / Web (React Native / Expo)
+> 상태: 프로토타입 구현 중 (1화 기준, React Native Web (Expo) 데모 배포됨)
 
 ---
 
@@ -104,7 +104,7 @@
 | F-009 | 호감도 이펙트 | P0 | 선택 직후 화면 테두리 플래시 + 파편 애니메이션. 호감(❤️)은 코랄색 플래시 + 하트 버스트, 비호감(💔)은 회색 플래시 + 깨진 하트·파편 |
 | F-010 | 결과 보고서 화면 | P0 | 분석형 — 점수, 엔딩, 유형, 4축 그래프(우세 축 강조 표시) |
 | F-011 | SNS 카드 생성 | P0 | 이미지 카드 생성 → 저장 / 공유 |
-| F-012 | 진행상황 저장 | P0 | SharedPreferences로 로컬 저장 (이름, 완료한 화, 테마 설정 포함) |
+| F-012 | 진행상황 저장 | P0 | AsyncStorage(@react-native-async-storage/async-storage)로 로컬 저장 (이름, 완료한 화, 테마 설정 포함) |
 | F-013 | 에필로그 화면 | P0 | 화 종료 후 민준 카톡 + 다음화 예고. 대기 시간(24시간 등) 문구 없이 즉시 재플레이 가능. 민준과의 대화가 끝까지 재생되면 자동 전환 대신 "다음 화 예고 보기" 버튼이 나타나고, 눌러야 예고 화면으로 이동 (v1.5) |
 | F-014 | 다크/라이트 테마 전환 | P0 | 모든 화면 상단에 테마 토글 버튼 배치. 라이트 → 다크 → 시스템 순환, 기본값은 라이트 모드 |
 | F-015 | 배너 광고 | P1 | 다운로드 1만 이후 결과 화면 하단 배너 |
@@ -186,7 +186,7 @@
 **전 화면 공통**
 - 테마 토글 버튼을 모든 화면 상단(앱바 또는 화면 우상단)에 배치. 기본값은 라이트 모드
 - **(v1.7)** 앱 전역 배경을 라벤더 → 퍼플 → 핑크 대각선 그라디언트로 통일 (좌상단 페리윙클 → 중앙 라벤더 → 우하단 핑크, 쿨톤 글로우 블롭 포함). 기존 새벽빛 크림/코랄 톤 대신 라벤더 계열로 배경 컬러 토큰(bg/border)까지 이동. 라이트/다크 각각의 퍼플 버전 제공. 소개팅 채팅 화면은 카페 사진 배경 유지(그 위 스크림도 라벤더 톤)
-- **(v1.7)** 아이폰 상단 상태바 모방 위젯(`PhoneStatusBar`): 좌측에 현재 시각(분 단위 자동 갱신), 우측에 신호·데이터(Wi-Fi)·배터리 잔량(퍼센트 + 채워진 아이콘, 충전 상태 아님). 색상은 테마에 따라 자동 대응. **스플래시/타이틀, 소개팅 상대 선택, 프롤로그 민준 대화 화면에만** 적용하고 소개팅 채팅 화면과 에필로그 민준 카톡에는 넣지 않는다
+- **(v1.7)** 아이폰 상단 상태바 모방 컴포넌트(`PhoneStatusBar`): 좌측에 현재 시각(분 단위 자동 갱신), 우측에 신호·데이터(Wi-Fi)·배터리 잔량(퍼센트 + 채워진 아이콘, 충전 상태 아님). 색상은 테마에 따라 자동 대응. **스플래시/타이틀, 소개팅 상대 선택, 프롤로그 민준 대화 화면에만** 적용하고 소개팅 채팅 화면과 에필로그 민준 카톡에는 넣지 않는다
 - **(v1.7)** 스플래시/타이틀 화면 로고를 흰 배경이 박힌 이미지 대신 투명 배경 로고(`assets/images/logo_mark.png`)로 교체해 배경 그라디언트 위에 로고만 떠 보이게 함
 
 ---
@@ -280,7 +280,8 @@
 [다음]
 ```
 
-입력한 이름은 SharedPreferences로 저장되며, 이후 소개팅 대사 중 "{name}씨" 토큰이 이 이름으로 치환되어 노출된다. (예: "혹시 정우씨는 낯선 사람이랑 쉽게 얘기하는 편이에요?")
+
+입력한 이름은 AsyncStorage로 저장되며, 이후 소개팅 대사 중 "{name}씨" 토큰이 이 이름으로 치환되어 노출된다. (예: "혹시 정우씨는 낯선 사람이랑 쉽게 얘기하는 편이에요?")
 
 ---
 
@@ -868,7 +869,7 @@
 민준:  화이팅
 ```
 
-> **(v1.5 변경)** "[결과카드 이미지]" 줄은 실제 결과 카드 위젯을 렌더링하던 이전 구현을 걷어내고, 다른 대사와 동일한 일반 텍스트 말풍선으로 표시한다 (연출 단순화).
+> **(v1.5 변경)** "[결과카드 이미지]" 줄은 실제 결과 카드 컴포넌트를 렌더링하던 이전 구현을 걷어내고, 다른 대사와 동일한 일반 텍스트 말풍선으로 표시한다 (연출 단순화).
 
 ---
 
@@ -1008,15 +1009,15 @@
 
 | 항목 | 선택 |
 |---|---|
-| 프레임워크 | Flutter |
-| 언어 | Dart |
-| 상태관리 | Riverpod — 테마 모드(`themeModeProvider`), 사용자 이름(`userNameProvider`), 진행 상황(`gameProgressProvider`), 세션 상태(`dateSessionProvider`) 등 NotifierProvider/StateProvider로 관리 |
-| 로컬 저장 | SharedPreferences (이름, 완료한 화 기록) |
+| 프레임워크 | React Native (Expo) |
+| 언어 | TypeScript |
+| 상태관리 | Zustand — 테마 모드(`theme` 슬라이스), 사용자 이름(`userName`), 진행 상황(`gameProgress`), 세션 상태(`dateSession`) 등을 하나의 store(`src/state/store.ts`)에 슬라이스로 두고 `useStore` 훅으로 구독 |
+| 로컬 저장 | AsyncStorage — @react-native-async-storage/async-storage (이름, 완료한 화 기록) |
 | 이미지 리소스 | AI 생성 실사풍 (Gemini / Flux) |
-| 공유 기능 | share_plus + screenshot 패키지 |
-| 광고 (P1) | Google Mobile Ads (AdMob) |
-| 인앱결제 (P1) | in_app_purchase 패키지 |
-| 플랫폼 | Android 우선, iOS 병행. 현재 프로토타입은 Flutter Web으로 데모 배포 |
+| 공유 기능 | expo-sharing + react-native-view-shot (화면 캡처) |
+| 광고 (P1) | react-native-google-mobile-ads (AdMob) |
+| 인앱결제 (P1) | expo-in-app-purchases (또는 react-native-iap) |
+| 플랫폼 | Android 우선, iOS 병행. 현재 프로토타입은 React Native Web (Expo, `npx expo start --web` / `npx expo export -p web`)으로 데모 배포 |
 
 ### 9-2. 성능 요구사항
 
@@ -1038,78 +1039,78 @@
 
 ## 10. 데이터 모델
 
-```dart
+```typescript
 // 캐릭터
-class TDCharacter {
-  String id;            // 'date01_jisu'
-  String name;          // 지수
-  int age;              // 26
-  String job;           // 콘텐츠 기획자
-  String location;      // 인천
-  String mbti;          // ENFP
-  String intro;         // 한 줄 소개
-  List<String> tags;    // 관심사 태그
-  bool isUnlocked;      // 해금 여부
-  String? imagePath;    // 프사 이미지 경로
+interface TDCharacter {
+  id: string;            // 'date01_jisu'
+  name: string;          // 지수
+  age: number;           // 26
+  job: string;           // 콘텐츠 기획자
+  location: string;      // 인천
+  mbti: string;          // ENFP
+  intro: string;         // 한 줄 소개
+  tags: string[];        // 관심사 태그
+  isUnlocked: boolean;   // 해금 여부
+  imagePath?: string;    // 프사 이미지 경로
 }
 
 // 카톡 모방 채팅 한 줄 (프롤로그/에필로그/소개팅 도입부·클로징 씬용)
-class ChatLine {
-  String sender;         // 'me' 또는 캐릭터 이름 / 'system'
-  String text;
-  bool isSystemNote;     // 화면 설명 — 가운데 정렬 안내문
-  bool isMonologue;      // 주인공 속마음 — 채팅 버블 + "속마음" 라벨
+interface ChatLine {
+  sender: string;         // 'me' 또는 캐릭터 이름 / 'system'
+  text: string;
+  isSystemNote: boolean;  // 화면 설명 — 가운데 정렬 안내문
+  isMonologue: boolean;   // 주인공 속마음 — 채팅 버블 + "속마음" 라벨
 }
 
 // 결과(Ending)별 소개팅 클로징 씬 대본 반환 (v1.5)
-// List<ChatLine> closingScriptFor(Ending ending)
+// closingScriptFor(ending: Ending): ChatLine[]
 
 // 선택지 (2개 축 동시 기록)
-class Choice {
-  String label;           // A/B/C/D
-  String text;            // 선택지 텍스트
-  String primaryAxis;     // 'E', 'I', 'N', 'S', 'T', 'F', 'J', 'P'
-  String secondaryAxis;   // 'E', 'I', 'N', 'S', 'T', 'F', 'J', 'P'
-  int likeScore;          // +1 또는 -1
-  String npcReaction;     // 상대방 반응 텍스트
+interface Choice {
+  label: string;           // A/B/C/D
+  text: string;            // 선택지 텍스트
+  primaryAxis: string;     // 'E', 'I', 'N', 'S', 'T', 'F', 'J', 'P'
+  secondaryAxis: string;   // 'E', 'I', 'N', 'S', 'T', 'F', 'J', 'P'
+  likeScore: number;       // +1 또는 -1
+  npcReaction: string;     // 상대방 반응 텍스트
 }
 
 // 턴
-class Turn {
-  int turnNumber;         // 1 ~ 13
-  String npcMessage;      // 상대 메시지 ("{name}씨" 토큰 포함 가능)
-  String monologue;       // 주인공 내면 독백
-  bool isPlayerInitiated; // 주인공 질문형 여부
-  List<Choice> choices;   // A, B, C, D
+interface Turn {
+  turnNumber: number;         // 1 ~ 13
+  npcMessage: string;         // 상대 메시지 ("{name}씨" 토큰 포함 가능)
+  monologue: string;          // 주인공 내면 독백
+  isPlayerInitiated: boolean; // 주인공 질문형 여부
+  choices: Choice[];          // A, B, C, D
 }
 
 // 소개팅
-class BlindDate {
-  String id;                     // 'date01'
-  TDCharacter character;
-  List<Turn> turns;              // 13턴
-  List<ChatLine> openingScript;  // 도입부(도착·인사·착석) — 선택지 없이 자동 진행
+interface BlindDate {
+  id: string;                    // 'date01'
+  character: TDCharacter;
+  turns: Turn[];                 // 13턴
+  openingScript: ChatLine[];     // 도입부(도착·인사·착석) — 선택지 없이 자동 진행
 }
 
 // 소개팅 결과
-class DateResult {
-  String dateId;                    // 'date01'
-  int likeScore;                    // 호감도 합계 (-13 ~ +13)
-  Ending ending;                    // success / friend / fail
-  Map<String, int> axisScore;       // {'E':4, 'I':2, 'N':5, 'S':1, 'T':3, 'F':4, 'J':2, 'P':5}
-  String styleType;                 // 'EF' / 'ET' / 'IF' / 'IT'
-  DateTime completedAt;
+interface DateResult {
+  dateId: string;                    // 'date01'
+  likeScore: number;                 // 호감도 합계 (-13 ~ +13)
+  ending: Ending;                    // success / friend / fail
+  axisScore: Record<string, number>; // {'E':4, 'I':2, 'N':5, 'S':1, 'T':3, 'F':4, 'J':2, 'P':5}
+  styleType: string;                 // 'EF' / 'ET' / 'IF' / 'IT'
+  completedAt: Date;
 }
 
 // 전체 진행 상황
-class GameProgress {
-  Map<String, DateResult> results;  // dateId → DateResult
-  int totalCompleted;               // 완료한 소개팅 수
-  String? overallStyle;             // 전체 스타일 유형 (16화 완료 시)
+interface GameProgress {
+  results: Record<string, DateResult>; // dateId → DateResult
+  totalCompleted: number;              // 완료한 소개팅 수
+  overallStyle?: string;               // 전체 스타일 유형 (16화 완료 시)
 }
 ```
 
-콘텐츠 파일 구조(구현 기준): 캐릭터/데이터 조립은 `episode1_data.dart`, 실제 대사·연출 대본(프롤로그/도입부/13턴/에필로그)은 `episode1_script.dart`로 분리해 대본만 수정할 때 다른 파일을 건드리지 않도록 했다.
+콘텐츠 파일 구조(구현 기준): 캐릭터/데이터 조립은 `src/data/episode1Data.ts`, 실제 대사·연출 대본(프롤로그/도입부/13턴/에필로그)은 `src/data/episode1Script.ts`로 분리해 대본만 수정할 때 다른 파일을 건드리지 않도록 했다.
 
 ---
 
@@ -1166,7 +1167,7 @@ class GameProgress {
 ### Phase 1.8 — 라벤더 테마 & 폰 UI 마감 (v1.7, 완료)
 ```
 [x] 앱 전역 배경을 라벤더→퍼플→핑크 그라디언트로 통일 (배경 컬러 토큰 라벤더 계열로 이동, 라이트/다크 각각 퍼플 버전)
-[x] 아이폰 상태바(PhoneStatusBar: 시각/신호/데이터/배터리 잔량) 위젯 추가 — 스플래시·소개팅 상대 선택·프롤로그 민준 대화에만 적용 (소개팅 채팅·에필로그 카톡 제외)
+[x] 아이폰 상태바(PhoneStatusBar: 시각/신호/데이터/배터리 잔량) 컴포넌트 추가 — 스플래시·소개팅 상대 선택·프롤로그 민준 대화에만 적용 (소개팅 채팅·에필로그 카톡 제외)
 [x] 소개팅 채팅 헤더에 'MBTI · 나이' 부제 추가
 [x] 속마음(독백)을 라벤더 유리질 버블에서 회색 이탤릭 중앙 텍스트로 변경, 배경 제거로 사진 위 가독성 확보
 [x] 스플래시 로고를 흰 배경 이미지에서 투명 배경 로고(logo_mark.png)로 교체
@@ -1210,6 +1211,6 @@ class GameProgress {
 | PRD v1.1 | 2026.06 | 제품 비전 수정 ("나를 알아간다" → "진짜 인연을 찾는다"). 민준 설득 논리, 앱 온보딩 텍스트, 주인공 독백 톤 전면 수정 |
 | PRD v1.2 | 2026.06 | "에피소드" 용어 전면 제거. Episode → BlindDate, GameResult → DateResult, episodeId → dateId로 교체. 고객센터 대화 내 에피소드 표현 수정 |
 | PRD v1.3 | 2026.06 | 소개팅 시작 시 바로 선택지로 들어가지 않도록 도입부(도착·인사·착석, 선택 없음) 설계. 지수 반응 대사 중 "?"로 끝나는 정면 수정. BlindDate 데이터 모델에 openingScript 필드 추가 |
-| PRD v1.4 | 2026.07 | 프로토타입 실제 구현 반영 대규모 업데이트 — 이름 입력 화면, 테마 전환 전 화면 배치, 소개팅 도입부 실장, 프롤로그/에필로그 대화 건너뛰기 기능, 채팅 페이싱(타이핑 인디케이터) 개선, 호감도 이펙트 리디자인, 선택지 UI를 하단 고정·배경 투명으로 개편, 독백을 "속마음" 채팅 버블로 표시, 결과 보고서 축 그래프 가시성 개선, 24시간 대기 문구·고객센터 신 삭제, 대본 전반 "ㅋㅋ" 정리 및 턴10 선택지 논리 수정, 대본 콘텐츠를 episode1_script.dart로 분리 |
+| PRD v1.4 | 2026.07 | 프로토타입 실제 구현 반영 대규모 업데이트 — 이름 입력 화면, 테마 전환 전 화면 배치, 소개팅 도입부 실장, 프롤로그/에필로그 대화 건너뛰기 기능, 채팅 페이싱(타이핑 인디케이터) 개선, 호감도 이펙트 리디자인, 선택지 UI를 하단 고정·배경 투명으로 개편, 독백을 "속마음" 채팅 버블로 표시, 결과 보고서 축 그래프 가시성 개선, 24시간 대기 문구·고객센터 신 삭제, 대본 전반 "ㅋㅋ" 정리 및 턴10 선택지 논리 수정, 대본 콘텐츠를 episode1Script.ts로 분리 |
 | PRD v1.5 | 2026.07 | 13턴 종료 직후 결과별(성공/친구/실패) 소개팅 클로징 씬 추가(같은 채팅 화면에서 이어서 재생, `closingScriptFor(Ending)`), 클로징 씬·에필로그 민준 대화 모두 자동 전환 대신 버튼(결과 확인하기 / 다음 화 예고 보기)으로 진행 게이팅, 에필로그 결과 카드 전송을 실제 이미지 렌더링에서 일반 텍스트 말풍선으로 단순화 |
 | PRD v1.6 | 2026.07 | 소개팅 채팅 화면 배경을 카페 사진으로 교체하고 속마음 버블을 블러+불투명 라벤더 톤으로 재설계(가독성 확보), 도입부 대사의 발화자 렌더링 버그 수정 및 지수의 모든 질문에 실제 대사로 응답하도록 스크립트 보강, 결과 보고서 궁합 섹션에 4축(E/I·N/S·T/F·J/P) 나 vs 상대 비교 그리드 추가 |
