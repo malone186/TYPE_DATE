@@ -65,7 +65,11 @@ export function GlowBackground({
       />
       {photoBackground && (
         <>
-          <Image source={backgroundImage} resizeMode="cover" style={StyleSheet.absoluteFill} />
+          <Image
+            source={backgroundImage}
+            resizeMode="cover"
+            style={[StyleSheet.absoluteFill, { width: '100%', height: '100%' }]}
+          />
           <View style={[StyleSheet.absoluteFill, { backgroundColor: withAlpha(c.bg, isDark ? 0.55 : 0.35) }]} />
         </>
       )}

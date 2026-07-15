@@ -13,7 +13,7 @@ export const episode5: BlindDate = {
     tags: ['#독립서점', '#필사노트', '#재독파', '#골목산책', '#서랍속소설'],
     isUnlocked: true,
     imagePath: 'assets/images/INFP.png',
-    facePath: 'assets/images/INFP.png',
+    facePath: 'assets/images/INFP_face.png',
   },
   turns: [
     {

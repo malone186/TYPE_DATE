@@ -22,9 +22,6 @@ export function CharacterProfileScreen({ navigation, route }: NativeStackScreenP
   const character = characterById(route.params.characterId);
   if (!character) return null;
   const face = imageSource(character.facePath);
-  // 세로 인물사진은 위 정렬로 크롭해 머리 위 여백을 남긴다(정사각형 얼굴컷은 1:1이라 그대로 꽉 참).
-  const faceSrc = face ? Image.resolveAssetSource(face) : null;
-  const faceAspect = faceSrc && faceSrc.height ? faceSrc.width / faceSrc.height : 1;
 
   const start = () => {
     const episode = episodeForCharacter(character);
@@ -65,7 +62,7 @@ export function CharacterProfileScreen({ navigation, route }: NativeStackScreenP
                 }}
               >
                 <View style={{ flex: 1, borderRadius: 80, overflow: 'hidden' }}>
-                  <Image source={face} resizeMode="cover" style={{ width: '100%', aspectRatio: faceAspect }} />
+                  <Image source={face} resizeMode="cover" style={{ width: '100%', height: '100%' }} />
                 </View>
               </LinearGradient>
               <View style={{ height: 20 }} />

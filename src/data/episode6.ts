@@ -13,7 +13,7 @@ export const episode6: BlindDate = {
     tags: ['#서핑', '#스노보드', '#새벽라이딩', '#캠핑', '#즉흥여행'],
     isUnlocked: true,
     imagePath: 'assets/images/ESTP.png',
-    facePath: 'assets/images/ESTP.png',
+    facePath: 'assets/images/ESTP_face.png',
   },
   turns: [
     {

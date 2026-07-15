@@ -13,7 +13,7 @@ export const episode9: BlindDate = {
     tags: ['#드립커피', '#홈로스팅', '#올드카복원', '#라이딩', '#과묵'],
     isUnlocked: true,
     imagePath: 'assets/images/ISTP.png',
-    facePath: 'assets/images/ISTP.png',
+    facePath: 'assets/images/ISTP_face.png',
   },
   turns: [
     {

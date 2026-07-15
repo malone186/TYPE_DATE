@@ -13,7 +13,7 @@ export const episode7: BlindDate = {
     tags: ['#3교대생존러', '#디저트오픈런', '#홈베이킹', '#식물집사', '#손편지'],
     isUnlocked: true,
     imagePath: 'assets/images/ISFJ.png',
-    facePath: 'assets/images/ISFJ.png',
+    facePath: 'assets/images/ISFJ_face.png',
   },
   turns: [
     {

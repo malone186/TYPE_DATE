@@ -15,7 +15,7 @@ export const maleEpisodeEsfp: BlindDate = {
     tags: ['#디저트', '#감성플레이팅', '#즉흥레시피', '#사람구경', '#분위기메이커'],
     isUnlocked: true,
     imagePath: 'assets/images/esfp.png',
-    facePath: 'assets/images/esfp.png',
+    facePath: 'assets/images/esfp_face.png',
   },
   turns: [
     {
