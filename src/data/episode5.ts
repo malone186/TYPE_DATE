@@ -12,8 +12,8 @@ export const episode5: BlindDate = {
     intro: '말수는 적은데, 좋아하는 얘기가 나오면 문장이 길어져요',
     tags: ['#독립서점', '#필사노트', '#재독파', '#골목산책', '#서랍속소설'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/INFP.png',
+    facePath: 'assets/images/INFP.png',
   },
   turns: [
     {

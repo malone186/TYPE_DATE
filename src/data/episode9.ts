@@ -12,8 +12,8 @@ export const episode9: BlindDate = {
     intro: '말은 아끼는 편인데, 마음은 행동으로 나가요',
     tags: ['#드립커피', '#홈로스팅', '#올드카복원', '#라이딩', '#과묵'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ISTP.png',
+    facePath: 'assets/images/ISTP.png',
   },
   turns: [
     {

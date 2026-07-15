@@ -12,8 +12,8 @@ export const episode6: BlindDate = {
     intro: '고민할 시간에 일단 부딪혀보는 편이에요. 물은 들어가봐야 알거든요',
     tags: ['#서핑', '#스노보드', '#새벽라이딩', '#캠핑', '#즉흥여행'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ESTP.png',
+    facePath: 'assets/images/ESTP.png',
   },
   turns: [
     {

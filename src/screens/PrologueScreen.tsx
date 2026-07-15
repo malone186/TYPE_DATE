@@ -37,7 +37,7 @@ export function PrologueScreen({ navigation }: NativeStackScreenProps<RootStackP
       <KakaoChatView
         contactName={data.prologueContact}
         lines={data.prologueLines}
-        showStatusBar
+        showStatusBar={line === 'female'}
         completeButtonLabel="다음"
         onComplete={() => setStep('onboarding')}
       />

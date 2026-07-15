@@ -12,8 +12,8 @@ export const episode7: BlindDate = {
     intro: '기억력이 좋아요. 특히 사람에 대한 건요',
     tags: ['#3교대생존러', '#디저트오픈런', '#홈베이킹', '#식물집사', '#손편지'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ISFJ.png',
+    facePath: 'assets/images/ISFJ.png',
   },
   turns: [
     {
