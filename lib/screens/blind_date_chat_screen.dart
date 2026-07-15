@@ -49,7 +49,7 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
   bool _openingTyping = false;
   int _openingRevealCount = 0;
 
-  // 마무리(클로징) — 13턴 종료 후, 결과에 따라 갈리는 짧은 연출이 같은 화면에서 이어짐
+  // 마무리(클로징) — 10턴 종료 후, 결과에 따라 갈리는 짧은 연출이 같은 화면에서 이어짐
   DateResult? _pendingResult;
   List<ChatLine> _closingLines = const [];
   int _closingRevealCount = 0;
@@ -427,13 +427,7 @@ class _BlindDateChatScreenState extends ConsumerState<BlindDateChatScreen> {
     if (line.isSystemNote) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Center(
-          child: Text(
-            line.text,
-            textAlign: TextAlign.center,
-            style: TypeDateTextStyles.caption(c.textMuted),
-          ),
-        ),
+        child: Center(child: _SystemNoteChip(text: line.text, c: c)),
       );
     }
     if (line.isMonologue) {
@@ -612,14 +606,55 @@ class _MonologueBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _FadeSlideIn(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-        child: SizedBox(
-          width: double.infinity,
+      child: Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(14),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+              decoration: BoxDecoration(
+                color: c.surface.withValues(alpha: 0.72),
+                border: Border.all(color: c.border.withValues(alpha: 0.6), width: 0.5),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TypeDateTextStyles.monologue(c.textSecondary),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 화면 설명 — [상황 안내] 류의 짧은 나레이션. 사진 배경 위에서도 읽히도록
+/// 옅은 유리질 배경 위에 얹는다.
+class _SystemNoteChip extends StatelessWidget {
+  final String text;
+  final TypeDateTokens c;
+  const _SystemNoteChip({required this.text, required this.c});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          decoration: BoxDecoration(
+            color: c.surface.withValues(alpha: 0.6),
+            border: Border.all(color: c.border.withValues(alpha: 0.5), width: 0.5),
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: TypeDateTextStyles.monologue(c.textSecondary),
+            style: TypeDateTextStyles.caption(c.textMuted),
           ),
         ),
       ),

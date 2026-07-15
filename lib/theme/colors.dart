@@ -9,8 +9,8 @@ class TypeDateColors {
   static const lightSurface = Color(0xFFFFFFFF);
   static const lightBorder = Color(0xFFE3DCF0);
   static const lightTextPrimary = Color(0xFF2B2723);
-  static const lightTextSecondary = Color(0xFF9C948A);
-  static const lightTextMuted = Color(0xFFC2BAAF);
+  static const lightTextSecondary = Color(0xFF6E655A);
+  static const lightTextMuted = Color(0xFF8F8577);
   static const lightAccentCoral = Color(0xFFFF6F5E);
   static const lightAccentCoralSoft = Color(0xFFF0997B);
   static const lightAccentLavender = Color(0xFFB8A8E8);

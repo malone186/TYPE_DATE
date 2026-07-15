@@ -1,6 +1,6 @@
 import '../models/models.dart';
 
-/// 4화(유진) 대본 — 소개팅 도입부 / 13턴 스크립트 / 결과별 클로징 씬.
+/// 4화(유진) 대본 — 소개팅 도입부 / 10턴 스크립트 / 결과별 클로징 씬.
 /// 캐릭터·데이터 모델 정의는 episode4_data.dart 에 있고, 이 파일은 대사·연출 내용만 담는다.
 
 /// 소개팅 도입부 — 도착·인사·착석. 선택지 없이 자동으로 진행되다가
@@ -38,7 +38,7 @@ final List<ChatLine> epilogue4Lines = [
   const ChatLine('민준', '화이팅'),
 ];
 
-/// 13턴 소개팅 스크립트
+/// 10턴 소개팅 스크립트
 final List<Turn> yujinTurns = [
   Turn(
     turnNumber: 1,
@@ -83,47 +83,6 @@ final List<Turn> yujinTurns = [
   ),
   Turn(
     turnNumber: 2,
-    isPlayerInitiated: false,
-    npcMessage:
-        '저는 마케팅 팀장 3년 차인데, 팀 성과는 어디 가서도 자신 있게 말해요. 작년에 광고비 반으로 줄이고 매출은 올렸거든요. 근데 문득 궁금하네요. 일할 때 뭘 제일 중요하게 생각해요?',
-    monologue: '자기 일 얘기를 이렇게 재밌게 하는 사람은 오랜만이다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '분위기? 같이 일하는 사람들이랑 잘 맞으면 웬만한 일은 다 할 만하더라고요',
-        primaryAxis: 'S',
-        secondaryAxis: 'P',
-        likeScore: -1,
-        npcReaction: '사람 좋은 것도 중요하죠. 근데 분위기 좋고 성과 없는 팀도 많이 봐서요. 저는 둘 다 갖고 싶어요',
-      ),
-      Choice(
-        label: 'B',
-        text: '재미요. 일이 재밌으면 알아서 몰입하게 되고, 그러다 보면 새로운 방식도 나오는 것 같아요',
-        primaryAxis: 'N',
-        secondaryAxis: 'P',
-        likeScore: -1,
-        npcReaction: '재미라... 틀린 말은 아닌데, 일은 재미없는 구간을 버티는 게 8할이라서요. 거기서 사람이 갈리더라고요',
-      ),
-      Choice(
-        label: 'C',
-        text: '방향이요. 이 일이 어디로 가는지 그림이 그려져야 힘이 나요. 목표가 분명하면 과정이 힘들어도 버텨지고요',
-        primaryAxis: 'N',
-        secondaryAxis: 'J',
-        likeScore: 1,
-        npcReaction: '오, 방향 얘기 좋네요. 저도 팀원들한테 숫자보다 지도를 먼저 보여주려고 하거든요. 얘기 통하는데요?',
-      ),
-      Choice(
-        label: 'D',
-        text: '결국 실행이 다인 것 같아요. 아이디어가 아무리 좋아도 마감 안에 결과물로 만들어내는 사람이 진짜죠',
-        primaryAxis: 'S',
-        secondaryAxis: 'J',
-        likeScore: 1,
-        npcReaction: '와, 정답. 저 회의 때마다 하는 말이에요. 아이디어는 넘치는데 손이 안 움직이는 사람이 제일 답답하거든요',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 3,
     isPlayerInitiated: true,
     playerPrompt: '유진 씨는 주말에 좀 쉬어요? 안 힘들어요?',
     npcMessage:
@@ -165,7 +124,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 4,
+    turnNumber: 3,
     isPlayerInitiated: false,
     npcMessage:
         '저 플래너 없으면 못 살아요. 월간 계획, 주간 계획 다 쓰고 운동이랑 약속도 시간 단위로 넣어놔요. 오늘 이 자리도 2주 전부터 캘린더에 있었어요 ㅋㅋ 이런 저, 좀 피곤해 보여요?',
@@ -206,7 +165,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 5,
+    turnNumber: 4,
     isPlayerInitiated: true,
     playerPrompt: '유진 씨는 운동 같은 거 해요?',
     npcMessage:
@@ -248,48 +207,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 6,
-    isPlayerInitiated: false,
-    npcMessage:
-        '{name}씨한테는 왠지 말해도 될 것 같은데... 저 요즘 고민이 하나 있어요. 팀원들이 저를 어려워하는 것 같아요. 회식 때도 제 옆자리가 제일 늦게 차고, 제가 자리 뜨면 그제야 다들 편하게 웃더라고요. 일은 잘 돌아가는데, 이상하게 그게 마음에 남아요',
-    monologue: '단단해 보이던 사람이 처음으로 틈을 보였다. 여기서 답을 고쳐주려 들면 안 될 것 같다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '팀원 입장에선 평가자니까 어려운 게 당연해요. 일대일로 밥이라도 먹으면서 거리를 좁혀보면 어때요?',
-        primaryAxis: 'T',
-        secondaryAxis: 'I',
-        likeScore: -1,
-        npcReaction: '방법은 저도 알아요. 일대일 면담도 하고 있고요. 근데... 지금 듣고 싶었던 건 해결책이 아니었던 것 같아요',
-      ),
-      Choice(
-        label: 'B',
-        text: '리더는 원래 좀 외로운 자리잖아요. 성과 잘 나오고 있으니 팀원들도 결국엔 알아줄 거예요',
-        primaryAxis: 'T',
-        secondaryAxis: 'E',
-        likeScore: -1,
-        npcReaction: '...그 말, 제가 저한테 매일 하는 말이에요. 근데 오늘은 그 말 말고 다른 말이 듣고 싶었나 봐요',
-      ),
-      Choice(
-        label: 'C',
-        text: '그거 되게 서운했겠다... 잘하려고 애쓴 만큼 더요. 유진 씨 잘못이라기보다, 아직 서로 시간을 못 쌓은 것뿐이라고 생각해요',
-        primaryAxis: 'F',
-        secondaryAxis: 'E',
-        likeScore: 1,
-        npcReaction: '서운했겠다는 말... 맞아요, 저 서운했나 봐요. 그걸 지금 알았네요. 이 얘기 꺼내길 잘했다',
-      ),
-      Choice(
-        label: 'D',
-        text: '일이 잘 돌아가는데도 마음에 남는다는 건, 유진 씨가 팀원들을 그만큼 아낀다는 뜻이잖아요. 저는 그 마음이 좋아 보여요',
-        primaryAxis: 'F',
-        secondaryAxis: 'I',
-        likeScore: 1,
-        npcReaction: '...이상하다, 그 말 듣는데 왜 코끝이 시큰하지. 저 이런 얘기 하고 우는 사람 아닌데 ㅋㅋ 고마워요, 진짜로',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 7,
+    turnNumber: 5,
     isPlayerInitiated: true,
     playerPrompt: '우리 이제 좀 가벼운 얘기 할까요? 유진 씨는 뭐 좋아해요?',
     npcMessage:
@@ -331,7 +249,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 8,
+    turnNumber: 6,
     isPlayerInitiated: false,
     npcMessage:
         '여행도 그래요, 저는. 항공권 뜨면 바로 엑셀부터 켜요. 동선, 예약, 예산 다 짜두고 가서는 그대로 움직여요. 작년 오사카 3박 4일은 오차가 20분이었어요 ㅋㅋ 이런 여행 어떻게 생각해요?',
@@ -372,7 +290,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 9,
+    turnNumber: 7,
     isPlayerInitiated: false,
     npcMessage:
         '연애 얘기도 해볼까요. 저는 연락은 빠르고 명확한 게 좋아요. 읽고 반나절 뒤에 답 오는 거, 약속을 "언제 한번" 이러면서 흐리는 거, 그런 게 제일 답답해요. 연락 스타일 어때요?',
@@ -413,9 +331,9 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 10,
+    turnNumber: 8,
     isPlayerInitiated: true,
-    playerPrompt: '아까 팀 얘기도 그렇고, 요즘 또 다른 고민 있어요? 편하게 말해봐요',
+    playerPrompt: '유진 씨는 요즘 고민 있어요? 있으면 편하게 말해봐요',
     npcMessage:
         '사실 저 얼마 전에 십년지기랑 좀 틀어졌어요. 걔가 힘들다고 해서 제 딴에는 해결 방법을 쭉 정리해줬거든요? 근데 걔가 "넌 꼭 그렇게 답을 내려야 하냐"고 하더라고요. 저는 도와주려던 건데... 제가 잘못한 걸까요?',
     monologue: '아이러니하다. 나한테는 명확한 답을 원하던 사람이, 같은 이유로 상처를 주고받고 있다니.',
@@ -438,11 +356,11 @@ final List<Turn> yujinTurns = [
       ),
       Choice(
         label: 'C',
-        text: '친구분은 답이 아니라 유진 씨가 그냥 들어주길 바랐던 것 같아요. 유진 씨도 아까 그랬잖아요, 해결책 말고 다른 말이 듣고 싶었다고',
+        text: '친구분은 답이 아니라 유진 씨가 그냥 들어주길 바랐던 것 같아요. 힘들다는 말에 바로 해결책부터 나오면, 감정은 들어줄 새도 없이 넘어가버리잖아요',
         primaryAxis: 'F',
         secondaryAxis: 'J',
         likeScore: 1,
-        npcReaction: '......방금 소름 돋았어요. 맞네요, 제가 아까 딱 그 마음이었는데. 저도 걔한테 똑같이 한 거네요. 오늘 집 가면서 전화해야겠다',
+        npcReaction: '......방금 소름 돋았어요. 맞네요, 저 원래 그런 편이거든요. 저도 걔한테 똑같이 한 거네요. 오늘 집 가면서 전화해야겠다',
       ),
       Choice(
         label: 'D',
@@ -455,48 +373,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 11,
-    isPlayerInitiated: false,
-    npcMessage:
-        '분위기 바꿔서 미래 얘기 해봐요. 저는 3년 안에 팀 하나 더 맡고, 5년 안엔 제 브랜드를 런칭하는 게 목표예요. 필요한 숫자까지 다 세워놨어요 ㅋㅋ 앞으로 어떻게 살고 싶은지, 그런 그림 있어요?',
-    monologue: '이 질문엔 대충 답하면 바로 들킬 것 같다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '거창한 건 없어요. 좋아하는 사람들이랑 자주 밥 먹고 1년에 두 번은 여행 가는 삶이요. 그거 지키려고 여행 통장도 따로 만들었어요',
-        primaryAxis: 'S',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '여행 통장 ㅋㅋ 소박한데 구체적인 거 너무 좋네요. 큰 꿈보다 지켜지는 계획이 진짜죠. 그 삶 왠지 그려져요',
-      ),
-      Choice(
-        label: 'B',
-        text: '아직 잘 모르겠어요. 세상이 워낙 빨리 변하니까, 계획보다는 그때그때 오는 기회를 잡는 게 낫지 않나 싶기도 하고요',
-        primaryAxis: 'N',
-        secondaryAxis: 'T',
-        likeScore: -1,
-        npcReaction: '기회는 준비된 사람 눈에만 보이던데요. 흐름에 맡긴다는 말은 저한테는 조금 위험하게 들려요',
-      ),
-      Choice(
-        label: 'C',
-        text: '저는 2년 안에 이직해서 연봉이랑 직급을 한 단계 올리는 게 목표예요. 거기서 역산해서 지금 할 일을 정해두고 움직이고 있어요',
-        primaryAxis: 'S',
-        secondaryAxis: 'T',
-        likeScore: 1,
-        npcReaction: '역산!! 그 단어 나오는 순간 반했어요 ㅋㅋ 목표에서 거꾸로 계산하는 사람 진짜 드물거든요. 대화가 되는 사람이네',
-      ),
-      Choice(
-        label: 'D',
-        text: '구체적인 계획보다는, 10년 뒤에도 지금처럼 궁금한 게 많은 사람이고 싶어요. 그럼 뭘 하든 괜찮을 것 같아서요',
-        primaryAxis: 'N',
-        secondaryAxis: 'F',
-        likeScore: -1,
-        npcReaction: '멋진 말이긴 한데... 궁금한 게 많은 사람도 월세는 내야 하잖아요 ㅋㅋ 저는 그림 밑에 계획이 깔려 있어야 안심돼요',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 12,
+    turnNumber: 9,
     isPlayerInitiated: false,
     npcMessage:
         '벌써 두 시간이 넘었네요. 저 원래 소개팅은 한 시간 반 컷이라는 원칙이 있는데, 오늘 처음 깼어요 ㅋㅋ 그러니까 단도직입적으로 물을게요. 우리 다음에 또 볼까요?',
@@ -537,7 +414,7 @@ final List<Turn> yujinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 13,
+    turnNumber: 10,
     isPlayerInitiated: false,
     npcMessage:
         '마지막으로 저도 하나 궁금한 거요. {name}씨 눈에 오늘 저 어땠어요? 포장하지 말고 말해줘요. 저 칭찬보다 정확한 피드백에 더 설레는 사람이에요 ㅋㅋ',
@@ -579,7 +456,7 @@ final List<Turn> yujinTurns = [
   ),
 ];
 
-/// 소개팅 마무리 — 13턴 종료 직후, 결과(성공/친구/실패)에 따라 갈리는 짧은 클로징 씬.
+/// 소개팅 마무리 — 10턴 종료 직후, 결과(성공/친구/실패)에 따라 갈리는 짧은 클로징 씬.
 final Map<Ending, List<ChatLine>> yujinClosingScripts = {
   Ending.success: const [
     ChatLine('system', '카페 앞. 유진이 먼저 손을 내밀고, 이번 악수는 처음보다 한 박자 길다', isSystemNote: true),

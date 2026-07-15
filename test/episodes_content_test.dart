@@ -7,8 +7,8 @@ void main() {
     expect(allEpisodes.length, 4);
 
     for (final episode in allEpisodes) {
-      // 13턴, 턴 번호 1~13
-      expect(episode.turns.length, 13, reason: '${episode.id} 턴 수');
+      // 10턴, 턴 번호 1~10
+      expect(episode.turns.length, 10, reason: '${episode.id} 턴 수');
       for (var i = 0; i < episode.turns.length; i++) {
         final turn = episode.turns[i];
         expect(turn.turnNumber, i + 1, reason: '${episode.id} 턴 번호');

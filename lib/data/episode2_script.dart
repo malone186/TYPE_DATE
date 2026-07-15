@@ -1,6 +1,6 @@
 import '../models/models.dart';
 
-/// 2화(서윤) 대본 — 소개팅 도입부 / 13턴 스크립트 / 클로징.
+/// 2화(서윤) 대본 — 소개팅 도입부 / 10턴 스크립트 / 클로징.
 /// 캐릭터·데이터 조립은 episode2_data.dart 에 있고, 이 파일은 대사·연출 내용만 담는다.
 
 /// 소개팅 도입부 — 서촌의 조용한 북카페. 선택지 없이 자동 진행.
@@ -36,7 +36,7 @@ final List<ChatLine> epilogue2Lines = [
   const ChatLine('민준', '화이팅'),
 ];
 
-/// 13턴 소개팅 스크립트
+/// 10턴 소개팅 스크립트
 final List<Turn> seoyunTurns = [
   Turn(
     turnNumber: 1,
@@ -81,47 +81,6 @@ final List<Turn> seoyunTurns = [
   ),
   Turn(
     turnNumber: 2,
-    isPlayerInitiated: false,
-    npcMessage:
-        '주말엔 주로 책 읽고 전시 봐요. 요즘은 도시 설계에 관한 책을 읽고 있어요. 왜 이 골목은 이렇게 생겼을까, 그런 거요. 재미없어 보이죠?',
-    monologue: '재미없다고 말하면서 눈은 반짝이고 있다. 시험인가.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '재미없긴요. 하나에 그렇게 깊게 들어가는 사람은 뭘 좋아하게 되는 과정 자체가 궁금해져요',
-        primaryAxis: 'N',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '과정이 궁금하다는 말은 처음 들어봐요. 보통은 결론만 물어보거든요. 이 책이 재밌냐 아니냐',
-      ),
-      Choice(
-        label: 'B',
-        text: '주말엔 역시 몸을 움직여야죠. 저는 책상 앞에 오래 앉아 있으면 좀이 쑤셔서요ㅎㅎ',
-        primaryAxis: 'S',
-        secondaryAxis: 'E',
-        likeScore: -1,
-        npcReaction: '건강한 주말이네요. 저랑은 주말의 모양이 많이 다르긴 하지만요',
-      ),
-      Choice(
-        label: 'C',
-        text: '아뇨, 저도 길 걷다가 이 동네는 왜 이런 모양일까 궁금했던 적 있어요. 답을 아는 사람이 옆에 있으면 재밌겠는데요',
-        primaryAxis: 'N',
-        secondaryAxis: 'P',
-        likeScore: 1,
-        npcReaction: '오늘 걸어오신 길도 사연이 있는 골목이에요. 나가면서 알려드릴게요. 이런 얘기 들어주는 사람 오랜만이라서요',
-      ),
-      Choice(
-        label: 'D',
-        text: '저는 책은 실용서 위주로만 읽어요. 바로 써먹을 수 있는 게 아니면 손이 잘 안 가더라고요',
-        primaryAxis: 'S',
-        secondaryAxis: 'J',
-        likeScore: -1,
-        npcReaction: '효율적이시네요. 저는 당장 쓸모없는 걸 알아가는 시간이 제일 사치스럽고 좋던데, 사람마다 다르니까요',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 3,
     isPlayerInitiated: true,
     playerPrompt: '서윤 씨는 스스로를 어떤 사람이라고 생각해요?',
     npcMessage:
@@ -163,7 +122,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 4,
+    turnNumber: 3,
     isPlayerInitiated: false,
     npcMessage:
         '저는 여행 가면 동선을 시간 단위로 다 짜요. 근데 지난번에 같이 간 친구가 그러더라고요. 너랑 여행 오면 숨 막힌다고. 그 말이 좀 걸렸어요',
@@ -204,7 +163,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 5,
+    turnNumber: 4,
     isPlayerInitiated: true,
     playerPrompt: '서윤 씨는 약속 같은 거 자주 잡는 편이에요?',
     npcMessage:
@@ -246,48 +205,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 6,
-    isPlayerInitiated: false,
-    npcMessage:
-        '저 사실 실수하는 걸 잘 못 견뎌요. 지난주에 보고서에 오타 하나 낸 걸 아직도 생각하고 있어요. 피곤하게 사는 거 맞죠',
-    monologue: '스스로를 놀리듯 말하지만 눈은 웃고 있지 않다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '실수 안 하는 사람은 없어요. 체크리스트 같은 시스템으로 방지하면 되죠',
-        primaryAxis: 'T',
-        secondaryAxis: 'S',
-        likeScore: -1,
-        npcReaction: '체크리스트는 이미 세 개나 있어요. 시스템 문제가 아니라 마음 문제라서 꺼낸 얘기였는데요',
-      ),
-      Choice(
-        label: 'B',
-        text: '오타 하나까지 기억한다는 건 그만큼 일을 아낀다는 거잖아요. 근데 그 정성의 반만큼은 서윤 씨 자신한테도 써줘요',
-        primaryAxis: 'F',
-        secondaryAxis: 'N',
-        likeScore: 1,
-        npcReaction: '나한테도 쓰라는 말은... 생각 못 해봤네요. 저는 항상 저를 제일 뒤에 두거든요',
-      ),
-      Choice(
-        label: 'C',
-        text: '에구... 진짜 힘들었겠다. 너무 스트레스받지 마요, 네?',
-        primaryAxis: 'F',
-        secondaryAxis: 'S',
-        likeScore: -1,
-        npcReaction: '아... 네. 위로 감사해요. 근데 저 그렇게까지 불쌍한 상황은 아니에요',
-      ),
-      Choice(
-        label: 'D',
-        text: '냉정하게 보면 오타 하나가 서윤 씨 평가를 바꾸진 못해요. 쌓아온 게 있는데, 그게 그렇게 약할 리 없잖아요',
-        primaryAxis: 'T',
-        secondaryAxis: 'N',
-        likeScore: 1,
-        npcReaction: '쌓아온 게 있으니까 안 무너진다... 논리적인데 이상하게 위로가 되네요. 이런 위로가 저한테는 잘 맞아요',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 7,
+    turnNumber: 5,
     isPlayerInitiated: true,
     playerPrompt: '서윤 씨는 쉴 때 보통 뭐 해요? 취미 같은 거 있어요?',
     npcMessage:
@@ -329,7 +247,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 8,
+    turnNumber: 6,
     isPlayerInitiated: false,
     npcMessage:
         '사실 오늘 원래 예약해둔 카페가 갑자기 휴무 공지를 올려서 여기로 바꿨어요. 오는 길 내내 신경 쓰였어요. 이런 변수에 무던한 사람들이 가끔 부러워요',
@@ -370,7 +288,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 9,
+    turnNumber: 7,
     isPlayerInitiated: false,
     npcMessage:
         '미리 말해두고 싶은 게 있어요. 저는 연락을 자주 하는 편이 아니에요. 대신 답할 땐 성의 있게 해요. 근데 이게 서운하다는 말을 들은 적이 있어서요. {name}씨는 어떤 스타일이에요?',
@@ -411,7 +329,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 10,
+    turnNumber: 8,
     isPlayerInitiated: true,
     playerPrompt: '혹시 요즘 고민 있어요? 있으면 편하게 말해봐요',
     npcMessage:
@@ -453,48 +371,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 11,
-    isPlayerInitiated: false,
-    npcMessage:
-        '저는 10년 뒤 제 모습을 꽤 구체적으로 그려놨어요. 직급, 사는 동네, 통장 잔고까지요. 근데 가끔 그 그림이 감옥 같다는 생각도 해요. 계획 밖의 인생도 있을 텐데',
-    monologue: '완벽한 설계도를 들고 길을 잃은 사람 같은 표정이다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '감옥이라뇨, 배부른 소리예요. 요즘 계획 있는 사람이 얼마나 귀한데요',
-        primaryAxis: 'S',
-        secondaryAxis: 'F',
-        likeScore: -1,
-        npcReaction: '귀하다는 칭찬은 감사한데, 배부른 소리라고 하면 얘기를 더 하기가 어려워져요',
-      ),
-      Choice(
-        label: 'B',
-        text: '계획은 지도지 감옥이 아니잖아요. 지도가 있는 사람만 안심하고 샛길로 빠질 수 있는 거고요',
-        primaryAxis: 'N',
-        secondaryAxis: 'T',
-        likeScore: 1,
-        npcReaction: '지도가 있어야 샛길도 있다... 그렇게 생각하면 제 10년 치 지도가 덜 답답해 보이네요. 그 관점 마음에 들어요',
-      ),
-      Choice(
-        label: 'C',
-        text: '10년 뒤를 어떻게 알아요~ 저는 다음 달 계획도 없는데요ㅋㅋ 그냥 오늘 재밌으면 되는 거 아니에요?',
-        primaryAxis: 'S',
-        secondaryAxis: 'T',
-        likeScore: -1,
-        npcReaction: '오늘만 재밌으면 된다는 건... 저한테는 제일 무서운 문장이에요. 부럽다는 뜻이기도 하고요',
-      ),
-      Choice(
-        label: 'D',
-        text: '그 10년 계획에 오늘 같은 날도 들어 있었어요? 계획 밖에서 시작된 것들이 의외로 제일 오래 남던데요',
-        primaryAxis: 'N',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '...오늘은 계획에 없던 종류의 날이 맞아요. 방금 그 말, 꽤 치사하네요. 반박할 수가 없어서요',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 12,
+    turnNumber: 9,
     isPlayerInitiated: false,
     npcMessage:
         '오늘 생각보다 대화가 잘 이어졌네요. 저는 이런 경우가 드물어서 조금 놀라는 중이에요. 다음이 있다면, 어떻게 하는 게 좋을까요',
@@ -510,7 +387,7 @@ final List<Turn> seoyunTurns = [
       ),
       Choice(
         label: 'B',
-        text: '다음 주 토요일 어때요? 서윤 씨가 좋아할 것 같은 전시를 하나 봐뒀어요. 아까 도시 설계 얘기 듣고 생각났거든요',
+        text: '다음 주 토요일 어때요? 서윤 씨가 좋아할 것 같은 전시를 하나 봐뒀어요. 아까 체스 복기 얘기 듣고 생각났거든요',
         primaryAxis: 'J',
         secondaryAxis: 'N',
         likeScore: 1,
@@ -535,7 +412,7 @@ final List<Turn> seoyunTurns = [
     ],
   ),
   Turn(
-    turnNumber: 13,
+    turnNumber: 10,
     isPlayerInitiated: false,
     npcMessage:
         '마지막으로 하나만요. 오늘 제 인상이 어땠는지 듣고 싶어요. 좋게 포장하지 않아도 돼요. 그런 건 어차피 금방 티가 나거든요',

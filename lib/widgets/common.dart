@@ -147,7 +147,15 @@ class ThemeToggleButton extends ConsumerWidget {
       ThemeMode.system => Icons.brightness_auto_outlined,
     };
     return IconButton(
-      icon: Icon(icon, color: c.textSecondary),
+      icon: Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: c.surface.withValues(alpha: 0.8),
+          border: Border.all(color: c.border, width: 1),
+        ),
+        child: Icon(icon, size: 18, color: c.textPrimary),
+      ),
       tooltip: '테마 전환 (${_label(mode)})',
       onPressed: () {
         final current = ref.read(themeModeProvider);
@@ -215,7 +223,7 @@ class CharacterAvatar extends StatelessWidget {
   }
 }
 
-/// 13턴 진행 바 — UI 디자인 명세서 §4-5
+/// 10턴 진행 바 — UI 디자인 명세서 §4-5
 class TurnProgressBar extends StatelessWidget {
   final double progress; // 0.0 ~ 1.0
 
