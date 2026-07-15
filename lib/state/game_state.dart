@@ -11,7 +11,7 @@ final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 /// 지금 플레이하려는(또는 플레이 중인) 에피소드 — 프로필 화면에서 설정
 final selectedEpisodeProvider = StateProvider<BlindDate>((ref) => episode1);
 
-/// 13턴 동안 쌓이는 한 회차의 진행 상태
+/// 10턴 동안 쌓이는 한 회차의 진행 상태
 class DateSessionState {
   final BlindDate date;
   final int currentTurnIndex; // 0-based

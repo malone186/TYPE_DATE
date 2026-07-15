@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/theme.dart';
@@ -6,8 +7,8 @@ import '../models/models.dart';
 import 'common.dart';
 
 /// 프롤로그/에필로그용 카카오톡 모방 채팅 뷰.
-/// 기본은 자동으로 다음 메시지가 나타나고, "건너뛰기"를 누르면 화면을 탭할 때마다
-/// 한 줄씩 즉시 넘어가는 모드로 전환된다 (끝까지 다 봐야 다음 화면으로 넘어감).
+/// 기본은 자동으로 다음 메시지가 나타나고, "건너뛰기"를 누르면 남은 대화가
+/// 전부 즉시 펼쳐진 뒤 "다음" 버튼을 눌러야 다음 화면으로 넘어간다.
 class KakaoChatView extends StatefulWidget {
   final String contactName;
   final List<ChatLine> lines;
@@ -113,25 +114,16 @@ class _KakaoChatViewState extends State<KakaoChatView> {
     });
   }
 
+  /// 건너뛰기 — 한 줄씩 기다릴 필요 없이 남은 대화를 전부 즉시 펼치고,
+  /// "다음" 버튼을 눌러야 다음 화면으로 넘어가게 한다.
   void _enableSkipMode() {
     _timer?.cancel();
     setState(() {
       _skipMode = true;
       _typing = false;
+      _visibleCount = widget.lines.length;
+      _finished = true;
     });
-  }
-
-  void _advanceOnTap() {
-    if (!_skipMode) return;
-    if (_visibleCount >= widget.lines.length) {
-      if (widget.completeButtonLabel != null) {
-        setState(() => _finished = true);
-      } else {
-        widget.onComplete();
-      }
-      return;
-    }
-    setState(() => _visibleCount++);
     _scrollToBottom();
   }
 
@@ -170,50 +162,67 @@ class _KakaoChatViewState extends State<KakaoChatView> {
                   Text(widget.contactName,
                       style: TypeDateTextStyles.screenTitle(c.textPrimary)),
                   const Spacer(),
-                  if (!_skipMode)
-                    TextButton(
-                      onPressed: _enableSkipMode,
-                      child: Text('건너뛰기', style: TypeDateTextStyles.caption(c.textMuted)),
-                    )
-                  else
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text('탭해서 계속', style: TypeDateTextStyles.caption(c.textMuted)),
-                    ),
+                  if (!_skipMode) _SkipButton(onPressed: _enableSkipMode, c: c),
                   const ThemeToggleButton(),
                 ],
               ),
             ),
             Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: _skipMode ? _advanceOnTap : null,
-                child: ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  itemCount: visibleLines.length + (_typing ? 1 : 0),
-                  itemBuilder: (context, i) {
-                    if (i == visibleLines.length) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: _TypingBubble(senderInitial: _npcInitial),
-                      );
-                    }
-                    return _ChatLineWidget(line: visibleLines[i]);
-                  },
-                ),
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                itemCount: visibleLines.length + (_typing ? 1 : 0),
+                itemBuilder: (context, i) {
+                  if (i == visibleLines.length) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: _TypingBubble(senderInitial: _npcInitial),
+                    );
+                  }
+                  return _ChatLineWidget(line: visibleLines[i]);
+                },
               ),
             ),
-            if (widget.completeButtonLabel != null && _finished)
+            if (_finished)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                 child: CoralButton(
-                  label: widget.completeButtonLabel!,
+                  label: widget.completeButtonLabel ?? '다음',
                   onPressed: widget.onComplete,
                 ),
               ),
           ],
         ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 건너뛰기 버튼 — 배경 위에서도 눈에 띄도록 테두리 있는 칩 형태로.
+class _SkipButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final TypeDateTokens c;
+  const _SkipButton({required this.onPressed, required this.c});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 4),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: onPressed,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: c.surface.withValues(alpha: 0.8),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: c.border, width: 1),
+            ),
+            child: Text('건너뛰기', style: TypeDateTextStyles.caption(c.textPrimary)),
+          ),
         ),
       ),
     );
@@ -262,10 +271,24 @@ class _ChatLineWidget extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Center(
-          child: Text(
-            '— ${line.text} —',
-            textAlign: TextAlign.center,
-            style: TypeDateTextStyles.monologue(c.textMuted),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: c.surface.withValues(alpha: 0.6),
+                  border: Border.all(color: c.border.withValues(alpha: 0.5), width: 0.5),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '— ${line.text} —',
+                  textAlign: TextAlign.center,
+                  style: TypeDateTextStyles.monologue(c.textMuted),
+                ),
+              ),
+            ),
           ),
         ),
       );

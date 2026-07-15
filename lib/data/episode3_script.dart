@@ -1,6 +1,6 @@
 import '../models/models.dart';
 
-/// 3화(하린) 대본 — 소개팅 도입부 / 13턴 스크립트 / 결과별 클로징 씬.
+/// 3화(하린) 대본 — 소개팅 도입부 / 10턴 스크립트 / 결과별 클로징 씬.
 /// 캐릭터·데이터 모델 정의는 episode3_data.dart 에 있고, 이 파일은 대사·연출 내용만 담는다.
 
 /// 소개팅 도입부 — 도착·인사·착석. 선택지 없이 자동으로 진행되다가
@@ -39,7 +39,7 @@ final List<ChatLine> epilogue3Lines = [
   const ChatLine('민준', '화이팅'),
 ];
 
-/// 13턴 소개팅 스크립트
+/// 10턴 소개팅 스크립트
 final List<Turn> harinTurns = [
   Turn(
     turnNumber: 1,
@@ -84,47 +84,6 @@ final List<Turn> harinTurns = [
   ),
   Turn(
     turnNumber: 2,
-    isPlayerInitiated: false,
-    npcMessage:
-        '일은... 책 삽화나 브랜드 그림 같은 거 그려요. 집에서 혼자 작업하고요. 좋아하는 걸 일로 하니까 좋은데, 가끔 기분이 이상해질 때도 있어요',
-    monologue: '좋아하는 게 일이 된 사람의 표정이라는 게 있구나.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '아까 그리시던 것도 작업이었어요? 잠깐 봤는데 색이 되게 예쁘더라고요. 손으로 뭔가 만드는 사람 멋있어요',
-        primaryAxis: 'S',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '아... 보셨구나. 부끄럽네요 ㅎㅎ 그래도 색 예쁘다는 말은... 좋아요',
-      ),
-      Choice(
-        label: 'B',
-        text: '프리랜서면 수입이 들쑥날쑥하지 않아요? 현실적으로 힘든 점 많다던데',
-        primaryAxis: 'S',
-        secondaryAxis: 'T',
-        likeScore: -1,
-        npcReaction: '아... 네, 뭐 힘들 때도 있죠. (컵만 만지작거린다)',
-      ),
-      Choice(
-        label: 'C',
-        text: '어떤 게 이상해요? 좋아하는 마음이랑 일하는 마음이 섞이는 느낌인가',
-        primaryAxis: 'N',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '어... 맞아요, 딱 그 느낌이에요. 그걸 바로 알아들으시네요...',
-      ),
-      Choice(
-        label: 'D',
-        text: '그림으로 나중에 뭘 하고 싶은지도 궁금해요. 개인전이라든가, 큰 목표 같은 거요',
-        primaryAxis: 'N',
-        secondaryAxis: 'J',
-        likeScore: -1,
-        npcReaction: '목표... 라고 물어보시면 좀 어렵네요. 저는 그냥 오늘 그릴 걸 그리는 편이라...',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 3,
     isPlayerInitiated: true,
     playerPrompt: '아, 맞다. 아까 프로필에 고양이 태그 있던데, 하린 씨 고양이예요?',
     npcMessage:
@@ -166,7 +125,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 4,
+    turnNumber: 3,
     isPlayerInitiated: false,
     npcMessage:
         '저 작업할 때 플레이리스트가 진짜 중요하거든요. 비 오는 날 플리, 새벽 플리, 다 따로 있어요. 노래가 안 맞으면 그림도 안 나와요 ㅎㅎ',
@@ -207,7 +166,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 5,
+    turnNumber: 4,
     isPlayerInitiated: true,
     playerPrompt: '하린 씨는 주말엔 보통 뭐 하면서 보내요?',
     npcMessage:
@@ -249,48 +208,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 6,
-    isPlayerInitiated: false,
-    npcMessage:
-        '사실 저 다음 달에 첫 단체전이 있어요. 근데 요즘 그림이 마음처럼 안 나와서... 밤에 잠을 좀 설쳐요. 아, 처음 만난 분한테 이런 얘기까지 ㅎㅎ',
-    monologue: '이런 얘기를 꺼냈다는 것 자체가 마음을 조금 연 것 같다. 잘 받아주고 싶다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '첫 전시니까 너무 완벽하려고 안 해도 돼요. 어차피 신인한테 기대치가 그렇게 높지 않아요',
-        primaryAxis: 'T',
-        secondaryAxis: 'S',
-        likeScore: -1,
-        npcReaction: '...위로해 주시려는 건 알겠는데, 기대치라는 말이 조금 아프네요 ㅎㅎ',
-      ),
-      Choice(
-        label: 'B',
-        text: '마감에서 역산해서 하루 작업량을 정해두면 불안이 좀 줄어요. 저도 일할 때 그렇게 하거든요',
-        primaryAxis: 'T',
-        secondaryAxis: 'J',
-        likeScore: -1,
-        npcReaction: '아... 네. 계획 세우는 게 맞긴 한데, 그림은 계획대로 안 나와서요...',
-      ),
-      Choice(
-        label: 'C',
-        text: '잠 설칠 정도면 진짜 힘든 건데, 오늘 이렇게 나와줘서 고마워요. 잠깐이라도 숨 돌리는 시간이면 좋겠어요',
-        primaryAxis: 'F',
-        secondaryAxis: 'E',
-        likeScore: 1,
-        npcReaction: '(잠깐 말이 없다가) ...사실 나올까 말까 고민했거든요. 나오길 잘했네요',
-      ),
-      Choice(
-        label: 'D',
-        text: '마음처럼 안 나올 때가 제일 괴롭죠... 근데 그렇게까지 애쓰는 마음은 그림에도 분명 묻어날 거예요',
-        primaryAxis: 'F',
-        secondaryAxis: 'N',
-        likeScore: 1,
-        npcReaction: '...그 말, 오늘 들은 말 중에 제일 좋네요. 어디 적어두고 싶다',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 7,
+    turnNumber: 5,
     isPlayerInitiated: true,
     playerPrompt: '하린 씨는 여행 갈 때 어떤 스타일이에요?',
     npcMessage:
@@ -332,7 +250,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 8,
+    turnNumber: 6,
     isPlayerInitiated: false,
     npcMessage:
         '그림 계정이 있긴 한데... 요즘 잘 못 올리겠어요. 올리면 반응을 자꾸 보게 되고, 반응을 보면 다음 그림이 눈치를 봐요. 이상하죠 ㅎㅎ',
@@ -373,7 +291,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 9,
+    turnNumber: 7,
     isPlayerInitiated: false,
     npcMessage:
         '저 미리 말해두고 싶은 게 있는데요... 저 답장이 좀 느려요. 카톡 봐놓고 한참 있다가 답할 때도 있고. 그것 때문에 오해도 많이 받았어요. {name}씨는 연락 어떤 편이에요?',
@@ -414,7 +332,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 10,
+    turnNumber: 8,
     isPlayerInitiated: true,
     playerPrompt: '혹시 요즘 고민 있어요? 있으면 편하게 말해봐요',
     npcMessage:
@@ -456,48 +374,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 11,
-    isPlayerInitiated: false,
-    npcMessage:
-        '저는 되게 사소한 걸로 행복해지는 사람이에요. 오늘 아침엔 창문으로 빛이 예쁘게 들어와서, 그것만으로 나오기 전까지 기분이 좋았어요. 시시하죠 ㅎㅎ',
-    monologue: '시시하다고 말하면서 하나도 시시하지 않게 웃는다.',
-    choices: const [
-      Choice(
-        label: 'A',
-        text: '시시하긴요. 저는 커피 첫 모금, 갓 마른 빨래 냄새 그런 걸로 버텨요. 그런 순간 모으면 하루가 꽤 괜찮아지잖아요',
-        primaryAxis: 'S',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '갓 마른 빨래... 그거 진짜 좋은데. 그런 순간을 모은다고 표현하는 것도 좋네요',
-      ),
-      Choice(
-        label: 'B',
-        text: '소소한 행복도 좋은데, 저는 큰 목표를 이뤄냈을 때의 행복이 진짜라고 생각하는 편이에요',
-        primaryAxis: 'N',
-        secondaryAxis: 'J',
-        likeScore: -1,
-        npcReaction: '진짜 행복이랑 가짜 행복이 따로 있는 건가요...? 저는 잘 모르겠어서요 ㅎㅎ',
-      ),
-      Choice(
-        label: 'C',
-        text: '저는 그런 감흥이 좀 무딘 편이에요. 바쁘다 보면 하늘 볼 새도 없잖아요',
-        primaryAxis: 'S',
-        secondaryAxis: 'T',
-        likeScore: -1,
-        npcReaction: '바쁘면 그렇죠... 근데 조금 아깝네요. 오늘 하늘 진짜 예뻤는데',
-      ),
-      Choice(
-        label: 'D',
-        text: '아침 빛 얘기 좋네요. 그런 순간도 그림으로 남겨요? 하린 씨 눈에 보이는 세상은 무슨 색일지 궁금해지네요',
-        primaryAxis: 'N',
-        secondaryAxis: 'F',
-        likeScore: 1,
-        npcReaction: '오늘 그 빛... 사실 나오기 전에 폰으로 찍어놨어요. 그리려고요. 어떻게 아셨지 ㅎㅎ',
-      ),
-    ],
-  ),
-  Turn(
-    turnNumber: 12,
+    turnNumber: 9,
     isPlayerInitiated: false,
     npcMessage:
         '벌써 시간이 이렇게 됐네요... 저 원래 처음 본 사람이랑 이렇게 오래 얘기 못 하는데. 오늘은 이상하게... (말끝을 흐리며 컵만 만지작거린다) 아쉽네요',
@@ -538,7 +415,7 @@ final List<Turn> harinTurns = [
     ],
   ),
   Turn(
-    turnNumber: 13,
+    turnNumber: 10,
     isPlayerInitiated: false,
     npcMessage:
         '가기 전에... 하나만 물어봐도 돼요? 저 오늘 재미없지 않았어요? 말도 느리고, 얘기도 자꾸 그림이랑 고양이로 새고... {name}씨가 느낀 대로 솔직하게 말해줘요',
@@ -580,7 +457,7 @@ final List<Turn> harinTurns = [
   ),
 ];
 
-/// 소개팅 마무리 — 13턴 종료 직후, 결과(성공/친구/실패)에 따라 갈리는 짧은 클로징 씬.
+/// 소개팅 마무리 — 10턴 종료 직후, 결과(성공/친구/실패)에 따라 갈리는 짧은 클로징 씬.
 final Map<Ending, List<ChatLine>> harinClosingScripts = {
   Ending.success: const [
     ChatLine('system', '카페 앞 골목, 하린이 가방끈을 만지작거리다가 고개를 든다', isSystemNote: true),

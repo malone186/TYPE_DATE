@@ -69,7 +69,7 @@ class BlindDate {
   final TDCharacter character;
   final List<Turn> turns;
   final List<ChatLine> openingScript; // 도착·인사·착석 — 선택지 없이 자동 진행되는 도입부
-  final Map<Ending, List<ChatLine>> closingScripts; // 13턴 종료 후 결과별 클로징 씬
+  final Map<Ending, List<ChatLine>> closingScripts; // 10턴 종료 후 결과별 클로징 씬
   final Map<String, StyleInfo> styleInfo; // EF/ET/IF/IT — 이 상대 기준의 유형별 보고서
 
   const BlindDate({
