@@ -24,6 +24,8 @@ export function EpilogueScreen({ navigation, route }: NativeStackScreenProps<Roo
   const line = lineData(lineForDateId(result.dateId));
   const { episodes } = line;
   const completedCount = episodes.filter((e) => isCompleted(e.id)).length;
+  // 16명 전부 완료 → 다음 화 예고 대신 최종 에필로그(최고 매칭 상대와의 엔딩)로 넘어간다.
+  const allDone = completedCount >= episodes.length;
 
   const episodeIndex = episodes.findIndex((e) => e.id === result.dateId);
   const nextEpisode =
@@ -40,8 +42,14 @@ export function EpilogueScreen({ navigation, route }: NativeStackScreenProps<Roo
       <KakaoChatView
         contactName={line.prologueContact}
         lines={epilogueLinesByDateId[result.dateId] ?? epilogueLinesByDateId[episode1.id]}
-        completeButtonLabel="다음 화 예고 보기"
-        onComplete={() => setStep('teaser')}
+        completeButtonLabel={allDone ? '마지막 이야기 보기' : '다음 화 예고 보기'}
+        onComplete={() => {
+          if (allDone) {
+            navigation.replace('FinalEpilogue');
+          } else {
+            setStep('teaser');
+          }
+        }}
       />
     );
   }
@@ -67,7 +75,9 @@ function NotificationScene({ completedCount, onNext }: { completedCount: number;
               <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>{completedCount}/16 완료</Text>
               <View style={{ height: 16 }} />
               <Text style={[TypeDateTextStyles.chatMessage(c.textSecondary), { textAlign: 'center' }]}>
-                이번 만남이 끝났어요.{'\n'}{remaining}명이 더 기다리고 있어요.{'\n'}{'\n'}진짜 인연은 아직 시작도 안 했을 수 있어요 👀
+                {remaining > 0
+                  ? `이번 만남이 끝났어요.\n${remaining}명이 더 기다리고 있어요.\n\n진짜 인연은 아직 시작도 안 했을 수 있어요 👀`
+                  : '열여섯 번의 만남이 전부 끝났어요.\n\n그런데, 이 이야기의 진짜 마지막은\n지금부터예요.'}
               </Text>
             </View>
           </GlassPanel>

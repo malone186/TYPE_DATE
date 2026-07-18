@@ -164,6 +164,8 @@ export const useStore = create<AppState>((set, get) => ({
       totalCompleted: newCompleted.size,
     });
     await AsyncStorage.setItem(`td_${result.dateId}_completed`, 'true');
+    // 최종 에필로그(최고 매칭 상대 선정)에 호감도가 필요하므로 결과 전체를 영속화.
+    await AsyncStorage.setItem(`td_${result.dateId}_result`, JSON.stringify(result));
   },
 
   isCompleted: (dateId) => get().completedIds.has(dateId),
@@ -178,15 +180,25 @@ export const useStore = create<AppState>((set, get) => ({
     const name = (await AsyncStorage.getItem('td_user_name')) ?? '';
     const savedLine = (await AsyncStorage.getItem('td_line')) as LineKey | null;
     const completed = new Set<string>();
+    const savedResults: Record<string, DateResult> = {};
     for (const e of [...allEpisodes, ...allMaleEpisodes]) {
       const v = await AsyncStorage.getItem(`td_${e.id}_completed`);
       if (v === 'true') completed.add(e.id);
+      const raw = await AsyncStorage.getItem(`td_${e.id}_result`);
+      if (raw != null) {
+        try {
+          savedResults[e.id] = JSON.parse(raw) as DateResult;
+        } catch {
+          // 손상된 저장값은 무시 — 완료 플래그만으로 진행 가능
+        }
+      }
     }
     set({
       userName: name,
       line: savedLine === 'male' || savedLine === 'female' ? savedLine : 'female',
       completedIds: completed,
       totalCompleted: completed.size,
+      results: savedResults,
     });
   },
 }));

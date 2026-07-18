@@ -14,12 +14,37 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Svg, { Circle, Defs, RadialGradient, Stop } from 'react-native-svg';
 
 import { TypeDateColors, withAlpha } from '../theme/colors';
+import { TypeDateTextStyles } from '../theme/textStyles';
 import { useColors, useIsDark } from '../theme/useColors';
 import { useStore } from '../state/store';
 import { TDCharacter } from '../types';
 import { backgroundImage, imageSource, logoMarkImage } from '../assets/images';
 
 // Flutter widgets/common.dart 이식.
+
+/// 주인공 속마음/내레이션 공용 렌더 — 이탤릭 텍스트에 반투명 필 배경을 깔아
+/// 그라디언트·사진 등 어떤 배경 위에서도 라이트/다크 모두 읽히게 한다.
+export function MonologuePill({ text, muted = false }: { text: string; muted?: boolean }) {
+  const c = useColors();
+  const isDark = useIsDark();
+  const textColor = isDark ? c.textSecondary : withAlpha(c.textPrimary, muted ? 0.6 : 0.72);
+  return (
+    <View style={{ alignItems: 'center' }}>
+      <View
+        style={{
+          borderRadius: 10,
+          paddingVertical: 4,
+          paddingHorizontal: 12,
+          backgroundColor: withAlpha(c.surface, isDark ? 0.35 : 0.6),
+        }}
+      >
+        <Text style={[TypeDateTextStyles.monologue(textColor), { textAlign: 'center' }]}>
+          {text}
+        </Text>
+      </View>
+    </View>
+  );
+}
 
 /// 새벽빛 메시 그라디언트를 이루는 부드러운 원형 글로우 한 덩어리.
 export function GlowBlob({ color, size, gid }: { color: string; size: number; gid: string }) {

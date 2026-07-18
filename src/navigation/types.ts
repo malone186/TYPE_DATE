@@ -12,4 +12,5 @@ export type RootStackParamList = {
   ResultReport: { result: DateResult };
   SnsCard: { result: DateResult };
   Epilogue: { result: DateResult };
+  FinalEpilogue: undefined;
 };

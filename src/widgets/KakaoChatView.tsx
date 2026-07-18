@@ -12,7 +12,7 @@ import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
 import { useColors } from '../theme/useColors';
 import { ChatLine } from '../types';
-import { GlowBackground, PhoneStatusBar, ThemeToggleButton, TypingIndicator, CoralButton } from './common';
+import { GlowBackground, MonologuePill, PhoneStatusBar, ThemeToggleButton, TypingIndicator, CoralButton } from './common';
 
 // Flutter widgets/kakao_chat_view.dart 이식.
 // 프롤로그/에필로그용 카카오톡 모방 채팅 뷰. 기본 자동 진행, "건너뛰기" 누르면 탭 진행 모드.
@@ -216,8 +216,15 @@ function ChatLineWidget({ line }: { line: ChatLine }) {
 
   if (line.isSystemNote) {
     return (
-      <View style={{ paddingVertical: 12, alignItems: 'center' }}>
-        <Text style={[TypeDateTextStyles.monologue(c.textMuted), { textAlign: 'center' }]}>— {line.text} —</Text>
+      <View style={{ paddingVertical: 12 }}>
+        <MonologuePill text={`— ${line.text} —`} muted />
+      </View>
+    );
+  }
+  if (line.isMonologue) {
+    return (
+      <View style={{ paddingVertical: 12 }}>
+        <MonologuePill text={line.text} />
       </View>
     );
   }

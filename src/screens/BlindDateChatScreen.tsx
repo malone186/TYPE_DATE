@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
@@ -14,6 +14,7 @@ import { TDCharacter, Turn, Choice, ChatLine, DateResult } from '../types';
 import {
   GlowBackground,
   CharacterAvatar,
+  MonologuePill,
   TurnProgressBar,
   TypingIndicator,
   ThemeToggleButton,
@@ -34,6 +35,19 @@ function applyName(text: string, userName: string): string {
 /// 메시지 길이에 비례한 "입력 중..." 표시 시간 — 카카오톡 대화창과 같은 리듬을 주기 위함.
 function typingDelayFor(text: string): number {
   return Math.max(900, Math.min(2600, 500 + text.length * 32));
+}
+
+/// 선택지 표시 순서를 턴마다 무작위로 섞는다 — 데이터상 좋은 답이 앞자리에 몰려 있어도
+/// 위치만으로 정답을 외울 수 없게. 라벨(A~D)은 섞인 뒤 위치 기준으로 다시 붙여
+/// 점(dot) 색상 그라디언트가 항상 위에서 아래 순서를 유지하게 한다.
+function shuffleChoices(choices: Choice[]): Choice[] {
+  const arr = [...choices];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  const labels = ['A', 'B', 'C', 'D'];
+  return arr.map((ch, i) => ({ ...ch, label: labels[i] ?? ch.label }));
 }
 
 const NPC_RADII = {
@@ -272,6 +286,13 @@ export function BlindDateChatScreen({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openingDone, session.currentTurnIndex]);
 
+  // 현재 턴 동안은 순서가 유지되고, 턴이 바뀔 때마다 새로 섞인다.
+  const shuffledChoices = useMemo(
+    () => shuffleChoices(turn.choices),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [session.date.id, session.currentTurnIndex],
+  );
+
   const opening = session.date.openingScript;
   const openingVisible = opening.slice(0, openingRevealCount);
   const showChoices =
@@ -415,7 +436,7 @@ export function BlindDateChatScreen({
         {/* 선택지 — 화면 하단에 고정, 배경은 투명 */}
         {showChoices && (
           <View style={{ paddingHorizontal: 16, paddingTop: 8, paddingBottom: 16 }}>
-            <ChoiceList choices={turn.choices} selected={null} onSelect={onChoiceSelected} />
+            <ChoiceList choices={shuffledChoices} selected={null} onSelect={onChoiceSelected} />
           </View>
         )}
         {closingFinished && (
@@ -580,17 +601,12 @@ function PlayerBubble({ text }: { text: string }) {
   );
 }
 
-/// 주인공 속마음 — 실제로 보내는 채팅과 구분되도록 회색 이탤릭 텍스트로 은은하게.
+/// 주인공 속마음 — 실제로 보내는 채팅과 구분되도록 이탤릭 텍스트로 은은하게.
 function MonologueBubble({ text }: { text: string }) {
-  const c = useColors();
   return (
     <FadeSlideIn>
       <View style={{ paddingVertical: 2, paddingHorizontal: 8 }}>
-        <Text
-          style={[TypeDateTextStyles.monologue(c.textSecondary), { textAlign: 'center', width: '100%' }]}
-        >
-          {text}
-        </Text>
+        <MonologuePill text={text} />
       </View>
     </FadeSlideIn>
   );

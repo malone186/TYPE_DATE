@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useColors } from '../theme/useColors';
 import { TypeDateTextStyles } from '../theme/textStyles';
-import { GlowBackground, GlassPanel, ThemeToggleButton, CoralButton } from '../widgets/common';
+import { GlowBackground, GlassPanel, MonologuePill, ThemeToggleButton, CoralButton } from '../widgets/common';
 import { KakaoChatView } from '../widgets/KakaoChatView';
 import { lineData } from '../data';
 import { useStore } from '../state/store';
@@ -69,9 +69,7 @@ function OnboardingScene({ onNext }: { onNext: () => void }) {
             16가지 유형의 상대를 만나보세요.{'\n'}16번의 만남이 끝날 때,{'\n'}당신이 진짜 설레는 인연 유형이 밝혀집니다.
           </Text>
           <View style={{ height: 28 }} />
-          <Text style={[TypeDateTextStyles.monologue(c.textMuted), { textAlign: 'center' }]}>
-            ...혹시 진짜 있긴 한 건가.
-          </Text>
+          <MonologuePill text="...혹시 진짜 있긴 한 건가." />
           <View style={{ flex: 3 }} />
           <CoralButton label="시작하기" onPress={onNext} />
           <View style={{ height: 32 }} />
@@ -109,9 +107,7 @@ function AssignmentScene({ character, onNext }: { character: TDCharacter; onNext
             </View>
           </GlassPanel>
           <View style={{ height: 16 }} />
-          <Text style={[TypeDateTextStyles.monologue(c.textMuted), { textAlign: 'center' }]}>
-            ...뭐, 한번 보긴 해야겠지.
-          </Text>
+          <MonologuePill text="...뭐, 한번 보긴 해야겠지." />
           <View style={{ height: 32 }} />
           <CoralButton label="소개팅 출발하기" onPress={onNext} />
         </View>

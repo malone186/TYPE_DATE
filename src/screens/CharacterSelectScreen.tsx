@@ -7,7 +7,7 @@ import { RootStackParamList } from '../navigation/types';
 import { useColors } from '../theme/useColors';
 import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
-import { GlowBackground, PhoneStatusBar, ThemeToggleButton } from '../widgets/common';
+import { CoralButton, GlowBackground, PhoneStatusBar, ThemeToggleButton } from '../widgets/common';
 import { useStore } from '../state/store';
 import { lineData } from '../data';
 import { imageSource } from '../assets/images';
@@ -42,6 +42,15 @@ export function CharacterSelectScreen({ navigation }: NativeStackScreenProps<Roo
           </View>
           <View style={{ height: 4 }} />
           <Text style={TypeDateTextStyles.caption(c.textSecondary)}>{completedCount} / 16 완료</Text>
+          {completedCount >= episodes.length && (
+            <>
+              <View style={{ height: 10 }} />
+              <CoralButton
+                label="💘 마지막 이야기 다시 보기"
+                onPress={() => navigation.navigate('FinalEpilogue')}
+              />
+            </>
+          )}
           <View style={{ height: 12 }} />
           <FlatList
             data={slots}

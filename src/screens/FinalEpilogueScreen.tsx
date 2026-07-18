@@ -1,0 +1,141 @@
+import React, { useMemo, useState } from 'react';
+import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/types';
+import { useColors } from '../theme/useColors';
+import { TypeDateTextStyles } from '../theme/textStyles';
+import { GlowBackground, GlassPanel, ThemeToggleButton, CoralButton, CharacterAvatar } from '../widgets/common';
+import { KakaoChatView } from '../widgets/KakaoChatView';
+import { useStore } from '../state/store';
+import { lineData } from '../data';
+import { pickBestMatch, buildFinalEpilogueLines, FinalMatch } from '../data/finalEpilogue';
+
+// 16화 완주 후 최종 에필로그 — 최고 매칭 상대와 연애를 시작하는 엔딩 시퀀스.
+// Scene 1(발표 카드) → Scene 2(상대의 고백 카톡) → Scene 3(연애 시작 카드)
+type Step = 'reveal' | 'chat' | 'ending';
+
+export function FinalEpilogueScreen({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'FinalEpilogue'>) {
+  const [step, setStep] = useState<Step>('reveal');
+  const line = useStore((s) => s.line);
+  const results = useStore((s) => s.results);
+  const userName = useStore((s) => s.userName);
+
+  const { episodes } = lineData(line);
+  const match = useMemo(() => pickBestMatch(episodes, results), [episodes, results]);
+
+  const goToList = () =>
+    navigation.reset({ index: 0, routes: [{ name: 'CharacterSelect' }] });
+
+  // 결과가 하나도 저장돼 있지 않으면(이론상 도달 불가) 목록으로 되돌린다.
+  if (match == null) {
+    return <RevealScene match={null} onNext={goToList} />;
+  }
+
+  if (step === 'reveal') {
+    return <RevealScene match={match} onNext={() => setStep('chat')} />;
+  }
+  if (step === 'chat') {
+    return (
+      <KakaoChatView
+        contactName={match.episode.character.name}
+        lines={buildFinalEpilogueLines(match, userName)}
+        completeButtonLabel="계속"
+        onComplete={() => setStep('ending')}
+      />
+    );
+  }
+  return <EndingScene match={match} onNext={goToList} />;
+}
+
+/// Scene 1 — 16번의 만남이 끝났고, 가장 오래 남은 한 사람을 공개하는 카드.
+function RevealScene({ match, onNext }: { match: FinalMatch | null; onNext: () => void }) {
+  const c = useColors();
+  const partner = match?.episode.character;
+  return (
+    <GlowBackground>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 24, justifyContent: 'center' }}>
+          <View style={{ alignSelf: 'flex-end' }}>
+            <ThemeToggleButton />
+          </View>
+          <GlassPanel style={{ width: '100%' }}>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontSize: 32 }}>💘</Text>
+              <View style={{ height: 8 }} />
+              <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>16 / 16 완료</Text>
+              <View style={{ height: 16 }} />
+              {partner != null ? (
+                <Text
+                  style={[TypeDateTextStyles.chatMessage(c.textSecondary), { textAlign: 'center' }]}
+                >
+                  열여섯 번의 소개팅이 모두 끝났어요.{'\n'}
+                  유형 분석도, 궁합 리포트도 다 나왔지만{'\n'}
+                  그것보다 확실한 게 하나 있었어요.{'\n'}{'\n'}
+                  가장 오래 마음에 남은 사람 — {partner.name}
+                </Text>
+              ) : (
+                <Text
+                  style={[TypeDateTextStyles.chatMessage(c.textSecondary), { textAlign: 'center' }]}
+                >
+                  저장된 결과가 없어요.{'\n'}소개팅을 먼저 진행해주세요.
+                </Text>
+              )}
+            </View>
+          </GlassPanel>
+          <View style={{ height: 32 }} />
+          <CoralButton label={partner != null ? '그 밤의 이야기' : '목록으로'} onPress={onNext} />
+        </View>
+      </SafeAreaView>
+    </GlowBackground>
+  );
+}
+
+/// Scene 3 — 연애 시작 카드. 상대 정보와 함께 여정의 마침표를 찍는다.
+function EndingScene({ match, onNext }: { match: FinalMatch; onNext: () => void }) {
+  const c = useColors();
+  const partner = match.episode.character;
+  const style = match.episode.styleInfo[match.result.styleType];
+  return (
+    <GlowBackground>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 24, justifyContent: 'center' }}>
+          <View style={{ alignSelf: 'flex-end' }}>
+            <ThemeToggleButton />
+          </View>
+          <GlassPanel style={{ width: '100%' }}>
+            <View style={{ alignItems: 'center' }}>
+              <CharacterAvatar character={partner} size={72} />
+              <View style={{ height: 12 }} />
+              <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>연애 시작</Text>
+              <View style={{ height: 6 }} />
+              <Text style={TypeDateTextStyles.chatMessage(c.accentLavenderDeep)}>
+                {`${partner.name} · ${partner.mbti}`}
+              </Text>
+              <View style={{ height: 4 }} />
+              <Text style={TypeDateTextStyles.caption(c.textSecondary)}>{partner.job}</Text>
+              {style != null && (
+                <>
+                  <View style={{ height: 16 }} />
+                  <Text
+                    style={[TypeDateTextStyles.chatMessage(c.textSecondary), { textAlign: 'center' }]}
+                  >
+                    {style.compatibilityComment}
+                  </Text>
+                </>
+              )}
+              <View style={{ height: 16 }} />
+              <Text style={[TypeDateTextStyles.caption(c.textMuted), { textAlign: 'center' }]}>
+                16번의 소개팅 끝에, 앱이 아니라 사람이 남았다.
+              </Text>
+            </View>
+          </GlassPanel>
+          <View style={{ height: 32 }} />
+          <CoralButton label="처음 목록으로" onPress={onNext} />
+        </View>
+      </SafeAreaView>
+    </GlowBackground>
+  );
+}

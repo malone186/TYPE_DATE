@@ -13,6 +13,7 @@ import { BlindDateChatScreen } from '../screens/BlindDateChatScreen';
 import { ResultReportScreen } from '../screens/ResultReportScreen';
 import { SnsCardScreen } from '../screens/SnsCardScreen';
 import { EpilogueScreen } from '../screens/EpilogueScreen';
+import { FinalEpilogueScreen } from '../screens/FinalEpilogueScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,6 +38,7 @@ export function RootNavigator() {
       <Stack.Screen name="ResultReport" component={ResultReportScreen} />
       <Stack.Screen name="SnsCard" component={SnsCardScreen} />
       <Stack.Screen name="Epilogue" component={EpilogueScreen} />
+      <Stack.Screen name="FinalEpilogue" component={FinalEpilogueScreen} />
     </Stack.Navigator>
   );
 }
