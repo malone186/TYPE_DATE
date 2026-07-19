@@ -555,7 +555,7 @@ export const episode7: BlindDate = {
     },
   ],
   openingScript: [
-    { sender: 'system', text: '서촌 골목 안쪽의 작은 디저트 카페. 창가 구석 자리에 앉아 있던 수민이 문에 달린 종이 울리자 조용히 일어선다', isSystemNote: true },
+    { sender: 'system', text: '삼청동 골목 안쪽의 작은 디저트 카페. 창가 구석 자리에 앉아 있던 수민이 문에 달린 종이 울리자 조용히 일어선다', isSystemNote: true },
     { sender: '수민', text: '{name}씨 맞으시죠? 안녕하세요, 수민이에요' },
     { sender: 'me', text: '안녕하세요! 많이 일찍 오셨네요' },
     { sender: '수민', text: '나이트 근무 끝나고 한숨 자고 나왔더니 생각보다 일찍 도착했어요. 아, 걱정 마세요. 푹 자서 멀쩡해요 ㅎㅎ' },

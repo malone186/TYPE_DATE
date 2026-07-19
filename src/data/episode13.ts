@@ -555,7 +555,7 @@ export const episode13: BlindDate = {
     },
   ],
   openingScript: [
-    { sender: 'system', text: '서촌 골목 안쪽의 정갈한 한정식집. 미닫이문 너머 예약석에서 은서가 찻잔을 정리하다가 고개를 든다', isSystemNote: true },
+    { sender: 'system', text: '인사동 골목 안쪽의 정갈한 한정식집. 미닫이문 너머 예약석에서 은서가 찻잔을 정리하다가 고개를 든다', isSystemNote: true },
     { sender: '은서', text: '{name}씨죠? 안녕하세요, 은서예요. 예약이 7시였는데 정확히 맞춰 오셨네요' },
     { sender: 'system', text: '자리에서 일어나 가볍게 목례한다. 상 위에는 이미 따뜻한 차가 두 잔 놓여 있다', isSystemNote: true },
     { sender: 'me', text: '안녕하세요! 어, 차가 벌써... 언제 시키신 거예요?' },

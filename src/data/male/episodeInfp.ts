@@ -14,8 +14,8 @@ export const maleEpisodeInfp: BlindDate = {
     intro: '말이 느린 편이에요. 느린 거지 없는 게 아니에요. 오늘은 문 닫은 서점에서 천천히 얘기해요',
     tags: ['#독립서점', '#일러스트', '#손님관찰', '#후암동산책', '#말은느리지만'],
     isUnlocked: true,
-    imagePath: 'assets/images/INFP.png',
-    facePath: 'assets/images/INFP_face.png',
+    imagePath: 'assets/images/INFP_male.png',
+    facePath: null,
   },
   turns: [
     {

@@ -555,7 +555,7 @@ export const episode16: BlindDate = {
     },
   ],
   openingScript: [
-    { sender: 'system', text: '호텔 23층 라운지 바. 통유리 너머로 서울의 야경이 펼쳐지고, 태린은 바 안쪽 소파 자리에서 탄산수를 앞에 두고 노트북을 닫는 중이다', isSystemNote: true },
+    { sender: 'system', text: '여의도의 호텔 23층 라운지 바. 통유리 너머로 서울의 야경이 펼쳐지고, 태린은 바 안쪽 소파 자리에서 탄산수를 앞에 두고 노트북을 닫는 중이다', isSystemNote: true },
     { sender: 'me', text: '열여섯 번째. 마지막 소개팅이다. 처음 나가던 날엔 손이 떨렸는데, 지금은 이상하게 차분하다.', isMonologue: true },
     { sender: '태린', text: '{name}씨? 반가워요, 태린이에요. 방금 노트북 닫는 거 봤죠? 못 본 걸로 해줘요 ㅋㅋ' },
     { sender: 'me', text: 'ㅋㅋ 봤어요. 근데 닫으셨으니까 봐드릴게요' },

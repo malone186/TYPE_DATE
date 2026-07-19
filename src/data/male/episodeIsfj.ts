@@ -14,8 +14,8 @@ export const maleEpisodeIsfj: BlindDate = {
     intro: '오전에 코커스패니얼 귀 세정을 하고 와서 옷에 털이 좀 있을 수 있어요. 미리 사과드릴게요',
     tags: ['#수의사', '#기억력장인', '#사과가버릇', '#다리세개초코', '#진상보호자생존기'],
     isUnlocked: true,
-    imagePath: 'assets/images/ISFJ.png',
-    facePath: 'assets/images/ISFJ_face.png',
+    imagePath: 'assets/images/ISFJ_male.png',
+    facePath: null,
   },
   turns: [
     {

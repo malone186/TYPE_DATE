@@ -14,8 +14,8 @@ export const maleEpisodeEstp: BlindDate = {
     intro: '벽은 다리로 오르는 거예요. 그거 하나만 알려드리고 시작할게요. 아, 내기 하나 하실래요?',
     tags: ['#클라이밍', '#내기중독', '#직진화법', '#포장마차단골', '#체력만렙'],
     isUnlocked: true,
-    imagePath: 'assets/images/ESTP.png',
-    facePath: 'assets/images/ESTP_face.png',
+    imagePath: null,
+    facePath: null,
   },
   turns: [
     {

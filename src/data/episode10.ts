@@ -12,7 +12,7 @@ export const episode10: BlindDate = {
     intro: '챙기는 게 특기예요. 근데 오늘은 저도 좀 챙겨줘요',
     tags: ['#우리반', '#홈베이킹', '#생일요정', '#다이어리', '#파스타'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/ESFJ.png',
     facePath: null,
   },
   turns: [

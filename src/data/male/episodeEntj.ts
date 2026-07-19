@@ -14,7 +14,7 @@ export const maleEpisodeEntj: BlindDate = {
     intro: '결론부터 말할게요. 오늘 세 시간 비워놨습니다. 연장은 환영이에요',
     tags: ['#결론부터', '#스타트업대표', '#십오분단위캘린더', '#국밥원픽', '#자기인식가능'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/ENTJ_male.png',
     facePath: null,
   },
   turns: [

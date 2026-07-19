@@ -14,7 +14,7 @@ export const maleEpisodeIsfp: BlindDate = {
     intro: '말주변이 없어서 사진으로 대신할 때가 많아요. 오늘은 말로 해볼게요',
     tags: ['#필름사진', '#빛수집가', '#작업실겸카페', '#새벽산책', '#과묵한데다정'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/ISFP_male.png',
     facePath: null,
   },
   turns: [

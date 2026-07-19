@@ -555,7 +555,7 @@ export const episode12: BlindDate = {
     },
   ],
   openingScript: [
-    { sender: 'system', text: '도심이 한눈에 내려다보이는 루프탑 카페. 해 질 무렵, 하은이 난간 쪽 테이블에서 먼저 손을 흔든다', isSystemNote: true },
+    { sender: 'system', text: '한남동, 도심이 한눈에 내려다보이는 루프탑 카페. 해 질 무렵, 하은이 난간 쪽 테이블에서 먼저 손을 흔든다', isSystemNote: true },
     { sender: '하은', text: '{name}씨! 여기예요 ㅎㅎ 찾기 어렵지 않았어요?' },
     { sender: 'system', text: '하은이 자리에서 일어나 전망이 보이는 쪽 의자를 빼준다', isSystemNote: true },
     { sender: '하은', text: '이쪽으로 앉으세요. 저는 이 뷰 자주 봐서, 오늘은 {name}씨가 보셔야죠' },

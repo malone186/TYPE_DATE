@@ -555,7 +555,7 @@ export const episode11: BlindDate = {
     },
   ],
   openingScript: [
-    { sender: 'system', text: '홍대 골목의 보드게임 카페. 벽면 가득한 게임 상자들 사이, 연우는 구석 테이블에서 룰북을 읽고 있다', isSystemNote: true },
+    { sender: 'system', text: '합정 골목의 보드게임 카페. 벽면 가득한 게임 상자들 사이, 연우는 구석 테이블에서 룰북을 읽고 있다', isSystemNote: true },
     { sender: '연우', text: '{name}씨 맞죠? 안녕하세요, 연우예요' },
     { sender: 'system', text: '룰북을 덮고 일어나 살짝 어색한 목례를 한다', isSystemNote: true },
     { sender: 'me', text: '안녕하세요! 근데 벌써 게임 고르고 계셨어요?' },

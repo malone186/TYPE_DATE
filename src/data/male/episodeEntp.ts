@@ -14,7 +14,7 @@ export const maleEpisodeEntp: BlindDate = {
     intro: '말 긴 사람 싫어해요. 근데 오늘은 제가 길어질 예정이라 미리 사과할게요',
     tags: ['#카피라이터', '#티키타카', '#한줄요약병', '#간판수집가', '#반박은애정'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/ENTP_male.png',
     facePath: null,
   },
   turns: [

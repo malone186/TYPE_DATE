@@ -14,7 +14,7 @@ export const maleEpisodeEsfj: BlindDate = {
     intro: '잘 챙기는 게 직업이라 오늘도 챙길 것 같은데, 부담 갖지 말고 편하게 받아주세요',
     tags: ['#호텔리어', '#서비스만렙', '#물잔각도', '#리액션장인', '#모임총무'],
     isUnlocked: true,
-    imagePath: 'assets/images/ESFJ.png',
+    imagePath: 'assets/images/ESFJ_male.png',
     facePath: null,
   },
   turns: [
