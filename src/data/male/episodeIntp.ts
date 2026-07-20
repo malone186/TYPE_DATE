@@ -14,7 +14,7 @@ export const maleEpisodeIntp: BlindDate = {
     intro: '제 가설인데요, 소개팅은 경쟁이 아니라 협력 게임이에요. 오늘 그거 검증하러 나왔어요',
     tags: ['#게임개발', '#가설검증', '#보드게임', '#위키토끼굴', '#악의없는직설'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/INTP_male.png',
     facePath: null,
   },
   turns: [

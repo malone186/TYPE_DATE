@@ -14,7 +14,7 @@ export const maleEpisodeIstj: BlindDate = {
     intro: '약속 시간은 지킵니다. 재미는 보장 못 하는데, 노력은 하고 있어요. 수칙에 적어놨거든요',
     tags: ['#약사', '#개국2년차', '#메모광', '#단골어르신', '#변수싫어함'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/ISTJ_male.png',
     facePath: null,
   },
   turns: [

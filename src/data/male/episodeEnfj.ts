@@ -14,7 +14,7 @@ export const maleEpisodeEnfj: BlindDate = {
     intro: '질문은 잘하는데, 오늘은 제 얘기를 해보려고요. 잘 안 되면 그건 그거대로 재밌을 거예요',
     tags: ['#심리상담사', '#경청장인', '#직업병주의', '#티하우스', '#비밀엄수'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/ENFJ_male.png',
     facePath: null,
   },
   turns: [

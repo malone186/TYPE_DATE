@@ -12,8 +12,8 @@ export const episode4: BlindDate = {
     intro: '할 말은 하는 편이에요. 대신 뒤끝은 없어요',
     tags: ['#헬스', '#맛집리스트', '#플래너', '#테니스', '#와인'],
     isUnlocked: true,
-    imagePath: 'assets/images/yujin.png',
-    facePath: 'assets/images/yujin_face.png',
+    imagePath: 'assets/images/ESTJ_female.png',
+    facePath: 'assets/images/ESTJ_female_face.png',
   },
   turns: [
     {

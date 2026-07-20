@@ -12,8 +12,8 @@ export const episode1: BlindDate = {
     intro: '아이디어는 넘치는데 마감은 항상 빠듯해요 🔥 퇴근하면 딴 사람 됩니다',
     tags: ['#필름카메라', '#즉흥여행', '#카페투어', '#플리마켓', '#맛집탐방'],
     isUnlocked: true,
-    imagePath: 'assets/images/jisu.png',
-    facePath: 'assets/images/jisu_face.png',
+    imagePath: 'assets/images/ENFP_female.png',
+    facePath: 'assets/images/ENFP_female_face.png',
   },
   turns: [
     {

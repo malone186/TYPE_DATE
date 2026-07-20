@@ -14,7 +14,7 @@ export const maleEpisodeInfj: BlindDate = {
     intro: '말이 많은 편은 아니에요. 대신 들은 건 오래 기억해요. 그게 제 직업이기도 하고요',
     tags: ['#다큐PD', '#심야북카페', '#관찰형', '#한마디파', '#편집실인간'],
     isUnlocked: true,
-    imagePath: null,
+    imagePath: 'assets/images/INFJ_male.png',
     facePath: null,
   },
   turns: [

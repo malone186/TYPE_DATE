@@ -12,8 +12,8 @@ export const episode2: BlindDate = {
     intro: '차갑다는 말 많이 들어요. 근데 사실 그게 싫어요',
     tags: ['#독서', '#전시회', '#체스', '#블랙커피', '#계획여행'],
     isUnlocked: true,
-    imagePath: 'assets/images/seoyun.png',
-    facePath: 'assets/images/seoyun_face.png',
+    imagePath: 'assets/images/INTJ_female.png',
+    facePath: 'assets/images/INTJ_female_face.png',
   },
   turns: [
     {
