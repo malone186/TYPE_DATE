@@ -3,6 +3,7 @@ import {
   Animated,
   Image,
   ImageBackground,
+  ImageSourcePropType,
   Pressable,
   StyleSheet,
   Text,
@@ -66,10 +67,12 @@ export function GlowBackground({
   children,
   showLogoWatermark = false,
   photoBackground = false,
+  photoSource,
 }: {
   children: React.ReactNode;
   showLogoWatermark?: boolean;
   photoBackground?: boolean;
+  photoSource?: ImageSourcePropType; // 없으면 기본 배경(background.png) 사용
 }) {
   const c = useColors();
   const isDark = useIsDark();
@@ -91,7 +94,7 @@ export function GlowBackground({
       {photoBackground && (
         <>
           <Image
-            source={backgroundImage}
+            source={photoSource ?? backgroundImage}
             resizeMode="cover"
             style={[StyleSheet.absoluteFill, { width: '100%', height: '100%' }]}
           />

@@ -22,6 +22,7 @@ import {
 } from '../widgets/common';
 import { ChoiceList } from '../widgets/ChoiceList';
 import { LikeEffectOverlay } from '../widgets/LikeEffectOverlay';
+import { imageSource } from '../assets/images';
 
 // Flutter screens/blind_date_chat_screen.dart 이식.
 
@@ -299,7 +300,7 @@ export function BlindDateChatScreen({
     openingDone && npcMessageRevealed && session.lastChoice == null && !showEffect;
 
   return (
-    <GlowBackground photoBackground>
+    <GlowBackground photoBackground photoSource={imageSource(character.backgroundPath ?? undefined)}>
       <SafeAreaView style={{ flex: 1 }}>
         {/* 헤더 — 배경 그라디언트 위에 떠 있는 느낌으로, 별도 배경 없이 투명하게 */}
         <View style={{ paddingHorizontal: 16, paddingVertical: 12 }}>
