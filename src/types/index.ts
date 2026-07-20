@@ -12,6 +12,7 @@ export interface TDCharacter {
   isUnlocked: boolean;
   imagePath?: string | null; // 원본 asset 경로 문자열 (image registry 키로 사용)
   facePath?: string | null; // 얼굴 위주 크롭 — 프로필 사진용
+  backgroundPath?: string | null; // 소개팅 장소 배경 — 채팅 화면 photoBackground용
 }
 
 export interface Choice {

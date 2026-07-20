@@ -55,6 +55,7 @@ const registry: Record<string, ImageSourcePropType> = {
   'assets/images/logo.png': require('../../assets/images/logo.png'),
   'assets/images/logo_mark.png': require('../../assets/images/logo_mark.png'),
   'assets/images/background.png': require('../../assets/images/background.png'),
+  'assets/images/ESFP_background.jpg': require('../../assets/images/ESFP_background.jpg'),
 };
 
 export function imageSource(path?: string | null): ImageSourcePropType | undefined {
