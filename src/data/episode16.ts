@@ -12,8 +12,8 @@ export const episode16: BlindDate = {
     intro: '시간은 아껴 써도, 진심은 아껴 쓰지 않아요',
     tags: ['#새벽수영', '#위스키', '#체스', '#야경', '#스타트업'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ENTJ_female.png',
+    facePath: 'assets/images/ENTJ_female_face.png',
   },
   turns: [
     {

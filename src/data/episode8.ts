@@ -12,8 +12,8 @@ export const episode8: BlindDate = {
     intro: '세상에서 제일 재미없는 말은 "원래 그래요"예요',
     tags: ['#사이드프로젝트', '#밸런스게임', '#수제버거', '#즉흥여행', '#토론환영'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ENTP_female.png',
+    facePath: 'assets/images/ENTP_female_face.png',
   },
   turns: [
     {

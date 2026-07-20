@@ -13,7 +13,7 @@ export const episode10: BlindDate = {
     tags: ['#우리반', '#홈베이킹', '#생일요정', '#다이어리', '#파스타'],
     isUnlocked: true,
     imagePath: 'assets/images/ESFJ.png',
-    facePath: null,
+    facePath: 'assets/images/ESFJ_face.png',
   },
   turns: [
     {

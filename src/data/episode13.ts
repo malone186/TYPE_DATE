@@ -12,8 +12,8 @@ export const episode13: BlindDate = {
     intro: '화려한 말은 못 해요. 대신 한 말은 지켜요',
     tags: ['#회계사', '#손글씨가계부', '#야구직관', '#경주여행', '#만년필'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ISTJ_female.png',
+    facePath: 'assets/images/ISTJ_female_face.png',
   },
   turns: [
     {

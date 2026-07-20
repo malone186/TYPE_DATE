@@ -12,8 +12,8 @@ export const episode14: BlindDate = {
     intro: '텐션을 무대에 두고 오는 법을 아직 못 배웠어요',
     tags: ['#뮤지컬', '#커튼콜', '#즉흥여행', '#사람관찰', '#대학로단골펍'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ESFP_female.png',
+    facePath: 'assets/images/ESFP_female_face.png',
   },
   turns: [
     {

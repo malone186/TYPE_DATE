@@ -12,8 +12,8 @@ export const episode15: BlindDate = {
     intro: '말보다 마음을 먼저 듣는 편이에요. 대신 한번 연 마음은 깊어요',
     tags: ['#차', '#필사', '#추리소설', '#골목산책', '#일요일은혼자'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/INFJ_female.png',
+    facePath: 'assets/images/INFJ_female_face.png',
   },
   turns: [
     {

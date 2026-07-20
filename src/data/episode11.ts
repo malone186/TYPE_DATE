@@ -12,8 +12,8 @@ export const episode11: BlindDate = {
     intro: '말이 없는 게 아니라, 고르고 있는 거예요',
     tags: ['#보드게임', '#AI연구', '#SF소설', '#새벽코딩', '#아이스아메리카노'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/INTP_female.png',
+    facePath: 'assets/images/INTP_female_face.png',
   },
   turns: [
     {

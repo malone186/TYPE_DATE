@@ -12,8 +12,8 @@ export const episode12: BlindDate = {
     intro: '질문이 많은 편이에요. 대신 끝까지 들어요',
     tags: ['#강연기획', '#문장수집가', '#식탁회담', '#노을맛집', '#질문부자'],
     isUnlocked: true,
-    imagePath: null,
-    facePath: null,
+    imagePath: 'assets/images/ENFJ_female.png',
+    facePath: 'assets/images/ENFJ_female_face.png',
   },
   turns: [
     {
