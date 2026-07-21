@@ -35,7 +35,7 @@ export const maleEpisodeIsfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '삼십 분 일찍 와서 기다린 사람이 사과부터 하는 건 계산이 안 맞는데요. 오늘 시우 씨 사과 금지령 내릴게요',
+          text: '삼십 분 일찍 와서 기다린 사람이 사과부터 하는 건 계산이 안 맞는데요. 오늘 시우씨 사과 금지령 내릴게요',
           primaryAxis: 'I',
           secondaryAxis: 'T',
           likeScore: 1,
@@ -43,7 +43,7 @@ export const maleEpisodeIsfj: BlindDate = {
         },
         {
           label: 'C',
-          text: '옷에 털은 훈장이죠. 근데 그 코커스패니얼은 왜 시우 씨만 보면 도망가요? 사연이 있을 것 같은데요',
+          text: '옷에 털은 훈장이죠. 근데 그 코커스패니얼은 왜 시우씨만 보면 도망가요? 사연이 있을 것 같은데요',
           primaryAxis: 'E',
           secondaryAxis: 'T',
           likeScore: 1,
@@ -118,7 +118,7 @@ export const maleEpisodeIsfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '세 시간이면 그날 대기 환자도 밀렸을 거 아니에요. 시우 씨 그날 점심은 먹었어요?',
+          text: '세 시간이면 그날 대기 환자도 밀렸을 거 아니에요. 시우씨 그날 점심은 먹었어요?',
           primaryAxis: 'F',
           secondaryAxis: 'S',
           likeScore: 1,
@@ -193,7 +193,7 @@ export const maleEpisodeIsfj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '저는 쉬는 날 스케줄을 꽉 채우는 편이거든요. 시우 씨도 가끔은 사람들 틈에 나와야 환기되지 않아요?',
+          text: '저는 쉬는 날 스케줄을 꽉 채우는 편이거든요. 시우씨도 가끔은 사람들 틈에 나와야 환기되지 않아요?',
           primaryAxis: 'E',
           secondaryAxis: 'J',
           likeScore: -1,
@@ -258,7 +258,7 @@ export const maleEpisodeIsfj: BlindDate = {
         },
         {
           label: 'D',
-          text: '시우 씨 슬픔에도 순서를 만들어줘요. 다음에 그런 날엔 저한테 전화해서 걔가 어떤 애였는지 얘기해줘요. 제가 들을게요',
+          text: '시우씨 슬픔에도 순서를 만들어줘요. 다음에 그런 날엔 저한테 전화해서 걔가 어떤 애였는지 얘기해줘요. 제가 들을게요',
           primaryAxis: 'F',
           secondaryAxis: 'E',
           likeScore: 1,
@@ -366,11 +366,11 @@ export const maleEpisodeIsfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '너무 좋았어요, 완전 힐링이었어요. 시우 씨 같은 사람 진짜 처음 봐요',
+          text: '너무 좋았어요, 완전 힐링이었어요. 시우씨 같은 사람 진짜 처음 봐요',
           primaryAxis: 'F',
           secondaryAxis: 'P',
           likeScore: -1,
-          npcReaction: '좋았다, 힐링, 처음. 세 개 붙으면 빈말 확률이 높다고 아까 말씀드렸는데요. 하나만 구체적으로 부탁해도 될까요.',
+          npcReaction: '좋았다, 힐링, 처음. 세 개 붙으면 빈말 확률이 높더라고요. 하나만 구체적으로 부탁해도 될까요.',
         },
         {
           label: 'C',

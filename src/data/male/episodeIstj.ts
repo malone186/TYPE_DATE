@@ -193,7 +193,7 @@ export const maleEpisodeIstj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '그럼 다음 일요일엔 즉흥 당일치기 어때요? 아침에 눈 떠서 끌리는 데로 가는 거예요. 제가 데려가 줄게요',
+          text: '그럼 다음 일요일엔 즉흥 당일치기 어때요? 아침에 눈 떠서 끌리는 대로 가는 거예요. 제가 데려가 줄게요',
           primaryAxis: 'E',
           secondaryAxis: 'P',
           likeScore: -1,
@@ -209,7 +209,7 @@ export const maleEpisodeIstj: BlindDate = {
         },
         {
           label: 'C',
-          text: '십 년 코스면 그 국밥집은 이제 가족이겠는데요. 다음에 그 코스에 저도 초대해줘요. 일정 미리 주시면 맞출게요',
+          text: '그 정도 단골이면 그 국밥집은 이제 가족이겠는데요. 다음에 그 코스에 저도 초대해줘요. 일정 미리 주시면 맞출게요',
           primaryAxis: 'E',
           secondaryAxis: 'J',
           likeScore: 1,

@@ -76,7 +76,7 @@ export const maleEpisodeIntp: BlindDate = {
         },
         {
           label: 'B',
-          text: '저 같으면 그냥 그 자리에서 신발 백 번쯤 날려보고 놔뒀을 텐데, 그걸 굳이 3주 야근하면서 잡으려 한 거예요?',
+          text: '저 같으면 그냥 그 자리에서 신발 백 번쯤 날려보고 놔뒀을 텐데, 그걸 굳이 잡으려고 한 거예요?',
           primaryAxis: 'S',
           secondaryAxis: 'P',
           likeScore: -1,
@@ -126,7 +126,7 @@ export const maleEpisodeIntp: BlindDate = {
         },
         {
           label: 'C',
-          text: '그럼 오늘 보드게임은 되겠네요. 이건 현오 씨가 만든 게 아니니까, 구조 말고 그냥 놀 수 있는 거 아니에요?',
+          text: '그럼 오늘 보드게임은 되겠네요. 이건 현오씨가 만든 게 아니니까, 구조 말고 그냥 놀 수 있는 거 아니에요?',
           primaryAxis: 'F',
           secondaryAxis: 'S',
           likeScore: 1,
@@ -242,7 +242,7 @@ export const maleEpisodeIntp: BlindDate = {
         },
         {
           label: 'B',
-          text: '그건 현오 씨만의 잘못은 아니에요. 힘들면 힘들다고 그 사람이 더 명확하게 말했어야죠',
+          text: '그건 현오씨만의 잘못은 아니에요. 힘들면 힘들다고 그 사람이 더 명확하게 말했어야죠',
           primaryAxis: 'T',
           secondaryAxis: 'I',
           likeScore: -1,
@@ -258,7 +258,7 @@ export const maleEpisodeIntp: BlindDate = {
         },
         {
           label: 'D',
-          text: '파고드는 게 현오 씨가 아끼는 방식이었던 거잖아요. 방향이 사람이 아니라 문제를 향해 있었을 뿐이지. 그럼 방식을 버릴 게 아니라 방향만 바꾸면 되는 거 아니에요',
+          text: '파고드는 게 현오씨가 아끼는 방식이었던 거잖아요. 방향이 사람이 아니라 문제를 향해 있었을 뿐이지. 그럼 방식을 버릴 게 아니라 방향만 바꾸면 되는 거 아니에요',
           primaryAxis: 'F',
           secondaryAxis: 'I',
           likeScore: 1,
@@ -292,7 +292,7 @@ export const maleEpisodeIntp: BlindDate = {
         },
         {
           label: 'C',
-          text: '근데 방금 그 승률 공개도 심리전일 수 있잖아요. 방심시키는 용도로요. 저는 현오 씨 눈 말고 카드 내는 손을 볼게요',
+          text: '근데 방금 그 승률 공개도 심리전일 수 있잖아요. 방심시키는 용도로요. 저는 현오씨 눈 말고 카드 내는 손을 볼게요',
           primaryAxis: 'N',
           secondaryAxis: 'I',
           likeScore: 1,
@@ -358,7 +358,7 @@ export const maleEpisodeIntp: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '판단은 보류할게요. 데이터가 세 시간치밖에 없는데 결론부터 내리는 건 현오 씨 원칙에도 안 맞잖아요',
+          text: '판단은 보류할게요. 데이터가 세 시간치밖에 없는데 결론부터 내리는 건 현오씨 원칙에도 안 맞잖아요',
           primaryAxis: 'T',
           secondaryAxis: 'J',
           likeScore: -1,

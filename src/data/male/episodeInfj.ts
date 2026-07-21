@@ -63,7 +63,7 @@ export const maleEpisodeInfj: BlindDate = {
       turnNumber: 2,
       isPlayerInitiated: false,
       npcMessage:
-        '지난달까지 제주에서 해녀 할머니들을 찍었어요. 최고참 할머니가 카메라만 켜면 입을 닫으세요. 삼 주를 그냥 옆에서 물질 구경만 했어요. 사주 차에 갑자기 그러시더라고요. 뭍의 총각은 밥은 먹고 다니냐. 그 한 마디 받으려고 한 달을 기다린 거예요.',
+        '지난달까지 제주에서 해녀 할머니들을 찍었어요. 최고참 할머니가 카메라만 켜면 입을 닫으세요. 삼 주를 그냥 옆에서 물질 구경만 했어요. 사 주 차에 갑자기 그러시더라고요. 뭍의 총각은 밥은 먹고 다니냐. 그 한 마디 받으려고 한 달을 기다린 거예요.',
       monologue: '한 마디를 한 달 기다리는 직업이라니. 오늘 세 시간이 이 사람한텐 초스피드겠다.',
       choices: [
         {
@@ -118,7 +118,7 @@ export const maleEpisodeInfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '그럼 해원 씨는 방송에 못 나간 부분의 보관소네요. 편집이 버리는 게 아니라 혼자 짊어지는 거였구나',
+          text: '그럼 해원씨는 방송에 못 나간 부분의 보관소네요. 편집이 버리는 게 아니라 혼자 짊어지는 거였구나',
           primaryAxis: 'T',
           secondaryAxis: 'N',
           likeScore: 1,
@@ -229,7 +229,7 @@ export const maleEpisodeInfj: BlindDate = {
       turnNumber: 6,
       isPlayerInitiated: false,
       npcMessage:
-        '이 얘기는 질문지 마흔 개에도 없던 건데. 저는 사람을 오래 들여다보는 게 일이잖아요. 카메라 뒤는 안전해요. 근데 누가 저를 그렇게 들여다보려고 하면 도망가고 싶어져요. 보이는 쪽은 서 본 적이 없어서요. 그래서 연애를 잘 시작을 못 해요. 시작하면 다 보일 테니까.',
+        '이 얘기는 질문지 마흔 개에도 없던 건데. 저는 사람을 오래 들여다보는 게 일이잖아요. 카메라 뒤는 안전해요. 근데 누가 저를 그렇게 들여다보려고 하면 도망가고 싶어져요. 보이는 쪽은 서 본 적이 없어서요. 그래서 연애를 잘 시작 못 해요. 시작하면 다 보일 테니까.',
       monologue: '남을 찍는 사람이 찍히는 건 무섭다고 한다. 렌즈 뒤가 이 사람의 집이었구나.',
       choices: [
         {
@@ -317,7 +317,7 @@ export const maleEpisodeInfj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '관찰당한 줄 알았으면 긴장했을 텐데, 지나고 들으니 좋네요. 그럼 저도 하나 말하면, 저는 아까부터 해원 씨가 책 모서리 만지작거리는 거 보고 있었어요',
+          text: '관찰당한 줄 알았으면 긴장했을 텐데, 지나고 들으니 좋네요. 그럼 저도 하나 말하면, 저는 아까부터 해원씨가 책 모서리 만지작거리는 거 보고 있었어요',
           primaryAxis: 'E',
           secondaryAxis: 'F',
           likeScore: 1,
@@ -370,7 +370,7 @@ export const maleEpisodeInfj: BlindDate = {
           primaryAxis: 'F',
           secondaryAxis: 'J',
           likeScore: 1,
-          npcReaction: '제 문법으로 답해주시네요. 마지막 컷이 남는다는 말, 한 말이 저인데 오늘은 듣는 쪽이 더 좋은 줄 몰랐어요.',
+          npcReaction: '제 문법으로 답해주시네요. 마지막 컷이 남는다는 말, 한 게 저인데 오늘은 듣는 쪽이 더 좋은 줄 몰랐어요.',
         },
         {
           label: 'C',
@@ -378,7 +378,7 @@ export const maleEpisodeInfj: BlindDate = {
           primaryAxis: 'F',
           secondaryAxis: 'P',
           likeScore: -1,
-          npcReaction: '다 좋았다는 답은 인터뷰에서 제일 쓸 데가 없는 답이에요. 어디가요, 한 군데만 다시 물을게요.',
+          npcReaction: '다 좋았다는 답은 인터뷰에서 제일 쓸 데가 없는 답이에요. 어디가 좋았어요? 한 군데만 다시 물을게요.',
         },
         {
           label: 'D',

@@ -313,7 +313,7 @@ export const maleEpisodeIsfp: BlindDate = {
       isPlayerInitiated: false,
       npcMessage:
         '전에 만나던 사람이 헤어질 때 그러더라고요. 너는 나를 좋아하는 건지 관찰하는 건지 모르겠다고. 저는 좋아하면 그 사람을 오래 봐요. 근데 말을 안 하니까, 보는 게 전부인 사람처럼 보였나 봐요. 그 사람 사진첩에서 제일 잘 나온 사진들, 다 제가 찍은 건데. 그 말은 끝까지 못 했어요.',
-      monologue: '칭찬이 드문 사람의 좋아한다는, 셔터 소리로 오는 거였구나.',
+      monologue: '칭찬이 드문 사람의 좋아한다는 말은, 셔터 소리로 오는 거였구나.',
       choices: [
         {
           label: 'A',

@@ -35,7 +35,7 @@ export const maleEpisodeEnfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '두 시간 이직 상담은 진짜 고생했네요. 저는 오늘 이안 씨 얘기가 궁금해서 왔어요. 듣는 사람 말고 말하는 사람 해봐요',
+          text: '두 시간 이직 상담은 진짜 고생했네요. 저는 오늘 이안씨 얘기가 궁금해서 왔어요. 듣는 사람 말고 말하는 사람 해봐요',
           primaryAxis: 'E',
           secondaryAxis: 'F',
           likeScore: 1,
@@ -276,7 +276,7 @@ export const maleEpisodeEnfj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '세 번째가 제일 부드러운 거 방금 저도 느꼈어요. 다구 열두 벌 구경도 궁금하니까, 다음엔 이안 씨가 직접 우려줘요',
+          text: '세 번째가 제일 부드러운 거 방금 저도 느꼈어요. 다구 열두 벌 구경도 궁금하니까, 다음엔 이안씨가 직접 우려줘요',
           primaryAxis: 'S',
           secondaryAxis: 'E',
           likeScore: 1,
@@ -317,7 +317,7 @@ export const maleEpisodeEnfj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '저 말로 하는 거 잘해요. 서운하면 그날 말하는 편이에요. 대신 이안 씨도 읽어주기 말고 말해줘요. 둔한 사람 둘이서 대화로 풀면 되죠',
+          text: '저 말로 하는 거 잘해요. 서운하면 그날 말하는 편이에요. 대신 이안씨도 읽어주기 말고 말해줘요. 둔한 사람 둘이서 대화로 풀면 되죠',
           primaryAxis: 'E',
           secondaryAxis: 'F',
           likeScore: 1,

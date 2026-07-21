@@ -89,7 +89,7 @@ export const maleEpisodeEsfp: BlindDate = {
           primaryAxis: 'S',
           secondaryAxis: 'P',
           likeScore: 1,
-          npcReaction: '재기만 했으면 그 표정은 그냥 회식 얘기로 끝났겠죠. 저지른 덕에 지금 여기 있는 거고요.',
+          npcReaction: '재보기만 했으면 그 표정은 그냥 회식 얘기로 끝났겠죠. 저지른 덕에 지금 여기 있는 거고요.',
         },
         {
           label: 'D',
@@ -251,7 +251,7 @@ export const maleEpisodeEsfp: BlindDate = {
         },
         {
           label: 'C',
-          text: '아까부터 봤는데, 도윤 씨 손님 얘기할 때 표정이 진짜였어요. 억지로 웃는 사람 표정이 아니에요. 즐거웠으니까 그 여운이 무서운 거예요',
+          text: '아까부터 봤는데, 도윤씨 손님 얘기할 때 표정이 진짜였어요. 억지로 웃는 사람 표정이 아니에요. 즐거웠으니까 그 여운이 무서운 거예요',
           primaryAxis: 'F',
           secondaryAxis: 'E',
           likeScore: 1,
@@ -259,7 +259,7 @@ export const maleEpisodeEsfp: BlindDate = {
         },
         {
           label: 'D',
-          text: '그 얘기를 저한테 해줘서 오히려 고마워요. 빈 것 같다고 말할 수 있는 사람은 안 비어 있어요. 도윤 씨는 매일 그 빈 카페를 도망치지 않고 마주하고 있잖아요',
+          text: '그 얘기를 저한테 해줘서 오히려 고마워요. 빈 것 같다고 말할 수 있는 사람은 안 비어 있어요. 도윤씨는 매일 그 빈 카페를 도망치지 않고 마주하고 있잖아요',
           primaryAxis: 'F',
           secondaryAxis: 'I',
           likeScore: 1,

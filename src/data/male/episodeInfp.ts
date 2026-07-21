@@ -11,7 +11,7 @@ export const maleEpisodeInfp: BlindDate = {
     job: "독립서점 '밑줄' 주인 겸 일러스트레이터",
     location: '후암동',
     mbti: 'INFP',
-    intro: '말이 느린 편이에요. 느린 거지 없는 게 아니에요. 오늘은 문 닫은 서점에서 천천히 얘기해요',
+    intro: '말이 느린 편이에요. 느린 거지 없는 게 아니에요. 오늘은 문 닫은 서점에서 천천히 얘기해요.',
     tags: ['#독립서점', '#일러스트', '#손님관찰', '#후암동산책', '#말은느리지만'],
     isUnlocked: true,
     imagePath: 'assets/images/INFP_male.png',
@@ -31,7 +31,7 @@ export const maleEpisodeInfp: BlindDate = {
           primaryAxis: 'E',
           secondaryAxis: 'T',
           likeScore: -1,
-          npcReaction: '문에 사정이 있어 하루 쉽니다, 붙여놨어요. 저희 단골들은 그 메모 보고 오히려 무슨 사정인지 궁금해할 사람들이라 괜찮아요.',
+          npcReaction: '문에 ‘사정이 있어 하루 쉽니다’ 붙여놨어요. 저희 단골들은 그 메모 보고 오히려 무슨 사정인지 궁금해할 사람들이라 괜찮아요.',
         },
         {
           label: 'B',
@@ -126,7 +126,7 @@ export const maleEpisodeInfp: BlindDate = {
         },
         {
           label: 'C',
-          text: '에이, 그냥 라면을 진짜 좋아하시는 거 아니에요? 넉 달이면 라면 책만 넉 권인데, 그 정도면 라면 도사죠',
+          text: '에이, 그냥 라면을 진짜 좋아하시는 거 아니에요? 넉 달이면 라면 책만 네 권인데, 그 정도면 라면 도사죠',
           primaryAxis: 'F',
           secondaryAxis: 'S',
           likeScore: -1,

@@ -317,7 +317,7 @@ export const maleEpisodeIntj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '우산 챙기라는 말이 그러니까 보고 싶다는 말이잖아요. 저는 번역돼요. 대신 저는 보고 싶으면 보고 싶다고 말할 거예요. 옆에서 배우실 기회도 드리고요',
+          text: '우산 챙기라는 말이 그러니까 보고 싶다는 말이잖아요. 저한테는 번역돼요. 대신 저는 보고 싶으면 보고 싶다고 말할 거예요. 옆에서 배우실 기회도 드리고요',
           primaryAxis: 'E',
           secondaryAxis: 'F',
           likeScore: 1,
@@ -432,7 +432,7 @@ export const maleEpisodeIntj: BlindDate = {
       title: '다정한 번역가',
       summary: '밝고 표현이 빨라요. 무뚝뚝한 말도 온기로 번역하는 타입.',
       goodPoint: '우산 챙기라는 말을 보고 싶다는 말로 번역해줬어요. 시혁의 언어를 알아듣는 사람은 정말 드물어요.',
-      badPoint: '감탄만 크면 시혁의 하중 계산에 빈말로 걸러져요. 뭐가 좋았는지 하나만 구체적으로 말하면 돼요.',
+      badPoint: '감탄만 크면 시혁의 하중 계산에서 빈말로 걸러져요. 뭐가 좋았는지 하나만 구체적으로 말하면 돼요.',
       compatibilityStars: '★★★★☆',
       compatibilityComment: '속도는 다른데 방향이 같아요. 시혁의 단문 뒤에 붙은 마음을 소리 내 읽어주는 조합이에요.',
       endingMessages: {

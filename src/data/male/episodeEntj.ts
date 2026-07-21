@@ -80,7 +80,7 @@ export const maleEpisodeEntj: BlindDate = {
           primaryAxis: 'S',
           secondaryAxis: 'J',
           likeScore: 1,
-          npcReaction: '정확해요. 제가 투자자 앞에서 삼십 분 걸려 설명하는 걸 한 문장으로 하시네요. 스카웃하고 싶은데 오늘은 참을게요.',
+          npcReaction: '정확해요. 제가 투자자 앞에서 삼십 분 걸려 설명하는 걸 한 문장으로 하시네요. 스카우트하고 싶은데 오늘은 참을게요.',
         },
         {
           label: 'C',
@@ -126,7 +126,7 @@ export const maleEpisodeEntj: BlindDate = {
         },
         {
           label: 'C',
-          text: '너무 안쓰럽다. 대표님들은 다 그렇게 외로운 자리인가 봐요',
+          text: '너무 안쓰럽다. 대표라는 게 다 그렇게 외로운 자리인가 봐요',
           primaryAxis: 'F',
           secondaryAxis: 'N',
           likeScore: -1,
@@ -250,7 +250,7 @@ export const maleEpisodeEntj: BlindDate = {
         },
         {
           label: 'C',
-          text: '그럼 오늘 이 저녁은요? 회식 아니잖아요. 도현 씨 지금 이 년 만에 저녁다운 저녁 먹고 있는 거네요',
+          text: '그럼 오늘 이 저녁은요? 회식 아니잖아요. 도현씨 지금 이 년 만에 저녁다운 저녁 먹고 있는 거네요',
           primaryAxis: 'F',
           secondaryAxis: 'E',
           likeScore: 1,
@@ -444,7 +444,7 @@ export const maleEpisodeEntj: BlindDate = {
       emoji: '📊',
       title: '맞받아치는 협상 파트너',
       summary: '적극적이고 논리가 서요. 밀리지 않고 받아치는 타입.',
-      goodPoint: '도현의 계산과 구조를 한 문장으로 요약해서, 스카웃하고 싶다는 말까지 끌어냈어요.',
+      goodPoint: '도현의 계산과 구조를 한 문장으로 요약해서, 스카우트하고 싶다는 말까지 끌어냈어요.',
       badPoint: '저녁 먹을 사람 얘기가 나올 땐 해결책과 분석을 멈춰야 해요. 도현이 원한 건 진단이 아니라 같이 앉아 있는 사람이에요.',
       compatibilityStars: '★★★☆☆',
       compatibilityComment: '회의 합은 역대급인데, 회의만 하다 끝날 위험도 역대급이에요. 둘 중 하나는 먼저 노트북을 덮어야 해요.',

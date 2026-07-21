@@ -103,7 +103,7 @@ export const maleEpisodeEsfj: BlindDate = {
     {
       turnNumber: 3,
       isPlayerInitiated: true,
-      playerPrompt: '잠깐만요. 아까부터 계속 제 얘기만 하고 있는 거 알아요? 준영 씨 얘기를 해봐요.',
+      playerPrompt: '잠깐만요. 아까부터 계속 제 얘기만 하고 있는 거 알아요? 준영씨 얘기를 해봐요.',
       npcMessage:
         '들켰네요. 이거 지적받은 거 처음이에요. 손님 얘기 듣는 게 일이다 보니, 화제가 저한테 넘어오면 저도 모르게 패스를 해요. 제 얘기 시작하면 상대가 지루할까 봐요. 근데 웃긴 게, 그러고 소개팅이 끝나면 상대가 저에 대해 아는 건 물잔 각도밖에 없는 거예요.',
       monologue: '질문을 질문으로 받아치는 솜씨가 수준급이다. 오늘은 안 넘어가준다.',
@@ -118,7 +118,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '지루할 리가요. 준영 씨 얘기라면 뭐든 재밌을 것 같은데요',
+          text: '지루할 리가요. 준영씨 얘기라면 뭐든 재밌을 것 같은데요',
           primaryAxis: 'F',
           secondaryAxis: 'N',
           likeScore: -1,
@@ -134,7 +134,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'D',
-          text: '그럼 오늘은 물잔 각도 말고 하나 더 가져갈래요. 준영 씨가 요즘 제일 자주 먹는 야식부터요',
+          text: '그럼 오늘은 물잔 각도 말고 하나 더 가져갈래요. 준영씨가 요즘 제일 자주 먹는 야식부터요',
           primaryAxis: 'F',
           secondaryAxis: 'S',
           likeScore: 1,
@@ -201,7 +201,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '저는 쉬는 날 계획 없이 혼자 걷는 편인데, 준영 씨는 그 메모 안 남겼으면 잠이 안 왔을 거잖아요. 그냥 그런 사람인 거죠',
+          text: '저는 쉬는 날 계획 없이 혼자 걷는 편인데, 준영씨는 그 메모 안 남겼으면 잠이 안 왔을 거잖아요. 그냥 그런 사람인 거죠',
           primaryAxis: 'I',
           secondaryAxis: 'P',
           likeScore: 1,
@@ -217,7 +217,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'D',
-          text: '저는 모임은 하나면 충분한 사람인데, 그 하나는 확실하게 챙겨요. 준영 씨한테도 정산 안 시키는 모임 하나쯤은 있어야 하지 않아요?',
+          text: '저는 모임은 하나면 충분한 사람인데, 그 하나는 확실하게 챙겨요. 준영씨한테도 정산 안 시키는 모임 하나쯤은 있어야 하지 않아요?',
           primaryAxis: 'I',
           secondaryAxis: 'J',
           likeScore: 1,
@@ -234,11 +234,11 @@ export const maleEpisodeEsfj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '지금 그 얘기를 저한테 했잖아요. 예약도 정산도 필요 없는 자리에서요. 그럼 오늘 저한테 준영 씨는 총무가 아니라 그냥 준영 씨였던 건데요',
+          text: '지금 그 얘기를 저한테 했잖아요. 예약도 정산도 필요 없는 자리에서요. 그럼 오늘 저한테 준영씨는 총무가 아니라 그냥 준영씨였던 건데요',
           primaryAxis: 'F',
           secondaryAxis: 'E',
           likeScore: 1,
-          npcReaction: '그냥 준영 씨. 그 말을 팔 년 만에 들은 것 같아요. 잠깐만요, 이런 건 티 안 내는 게 직업인데 오늘은 잘 안 되네요.',
+          npcReaction: '그냥 준영씨. 그 말을 팔 년 만에 들은 것 같아요. 잠깐만요, 이런 건 티 안 내는 게 직업인데 오늘은 잘 안 되네요.',
         },
         {
           label: 'B',
@@ -258,7 +258,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'D',
-          text: '특별한 사람이 되는 건 백 명한테는 못 해요. 한 명한테만 되는 거예요. 준영 씨는 그 한 명을 아직 못 만난 거지, 못 되는 사람이 아니에요',
+          text: '특별한 사람이 되는 건 백 명한테는 못 해요. 한 명한테만 되는 거예요. 준영씨는 그 한 명을 아직 못 만난 거지, 못 되는 사람이 아니에요',
           primaryAxis: 'F',
           secondaryAxis: 'I',
           likeScore: 1,
@@ -284,7 +284,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'B',
-          text: '그 찌개 먹어보고 싶은데요. 직원 식당은 못 들어갈 테니까, 다음엔 준영 씨가 아는 김치찌개 노포로 가요',
+          text: '그 찌개 먹어보고 싶은데요. 직원 식당은 못 들어갈 테니까, 다음엔 준영씨가 아는 김치찌개 노포로 가요',
           primaryAxis: 'S',
           secondaryAxis: 'E',
           likeScore: 1,
@@ -292,7 +292,7 @@ export const maleEpisodeEsfj: BlindDate = {
         },
         {
           label: 'C',
-          text: '12만 원 코스보다 그 찌개 묘사에 군침이 도는 건 준영 씨가 말을 잘해서예요. 그래서 고기예요, 참치예요?',
+          text: '12만 원 코스보다 그 찌개 묘사에 군침이 도는 건 준영씨가 말을 잘해서예요. 그래서 고기예요, 참치예요?',
           primaryAxis: 'S',
           secondaryAxis: 'I',
           likeScore: 1,
@@ -358,7 +358,7 @@ export const maleEpisodeEsfj: BlindDate = {
       choices: [
         {
           label: 'A',
-          text: '정리하면, 처음 한 시간은 매니저님이었고 그다음부터는 그냥 준영 씨였어요. 저는 후반부가 좋았고, 다음엔 후반부부터 시작했으면 해요',
+          text: '정리하면, 처음 한 시간은 매니저님이었고 그다음부터는 그냥 준영씨였어요. 저는 후반부가 좋았고, 다음엔 후반부부터 시작했으면 해요',
           primaryAxis: 'T',
           secondaryAxis: 'J',
           likeScore: 1,
@@ -394,7 +394,7 @@ export const maleEpisodeEsfj: BlindDate = {
   openingScript: [
     { sender: 'system', text: '광화문의 한 호텔 27층 라운지 바. 통유리 너머로 경복궁 지붕과 퇴근길 불빛이 겹친다. 입구에 서자 안쪽 테이블에서 한 남자가 일어선다', isSystemNote: true },
     { sender: '준영', text: '{name}씨죠? 준영입니다. 이쪽으로 잡아뒀어요. 창가인데 바람은 안 닿는 자리예요' },
-    { sender: 'me', text: '안녕하세요. 여기가 준영 씨 일하시는 호텔이라고 들었어요' },
+    { sender: 'me', text: '안녕하세요. 여기가 준영씨 일하시는 호텔이라고 들었어요' },
     { sender: '준영', text: '네, 홈그라운드 반칙인 건 아는데, 이 시간에 광화문에서 여기가 제일 예뻐서요. 오늘은 저도 손님으로 앉아 있을게요' },
     { sender: 'me', text: '자리에 앉기도 전에 의자가 반 박자 먼저 빠졌다. 이게 말로만 듣던 서비스인가.', isMonologue: true },
     { sender: 'system', text: '테이블 위 물잔 두 개가 라벨을 정면으로 향한 채 정확히 대칭으로 놓여 있다', isSystemNote: true },

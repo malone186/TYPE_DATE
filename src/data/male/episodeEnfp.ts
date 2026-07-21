@@ -118,7 +118,7 @@ export const maleEpisodeEnfp: BlindDate = {
         },
         {
           label: 'B',
-          text: '그래도 하준 씨 영상 보는 사람들한테는 그 노을이 진짜가 되잖아요. 낭만적인 일이에요',
+          text: '그래도 하준씨 영상 보는 사람들한테는 그 노을이 진짜가 되잖아요. 낭만적인 일이에요',
           primaryAxis: 'F',
           secondaryAxis: 'N',
           likeScore: -1,
@@ -300,7 +300,7 @@ export const maleEpisodeEnfp: BlindDate = {
         },
         {
           label: 'D',
-          text: '유명한 데 말고 논두렁을 기억하는 거 좋네요. 하준 씨 영상이 왜 되는지 알 것 같아요. 남들이 안 보는 데를 보는 거잖아요',
+          text: '유명한 데 말고 논두렁을 기억하는 거 좋네요. 하준씨 영상이 왜 되는지 알 것 같아요. 남들이 안 보는 데를 보는 거잖아요',
           primaryAxis: 'N',
           secondaryAxis: 'I',
           likeScore: 1,
@@ -312,12 +312,12 @@ export const maleEpisodeEnfp: BlindDate = {
       turnNumber: 8,
       isPlayerInitiated: false,
       npcMessage:
-        '연애 얘기 하나 해도 되나. 저 전에 만난 사람한테 제일 많이 들은 말이, 너는 내 얘기 안 듣는 것 같아, 였어요. 제가 화제를 빨리 바꾸니까요. 근데 억울한 게, 저 다 기억하거든요. 그 사람이 스치듯 말한 떡볶이집, 두 달 뒤에 데려갔어요. 듣는 방식이 다른 것뿐인데 형식이 아니라서 자꾸 오해를 사요.',
+        '연애 얘기 하나 해도 되나. 저 전에 만난 사람한테 제일 많이 들은 말이, 너는 내 얘기 안 듣는 것 같아, 였어요. 제가 화제를 빨리 바꾸니까요. 근데 억울한 게, 저 다 기억하거든요. 그 사람이 스치듯 말한 떡볶이집, 두 달 뒤에 데려갔어요. 듣는 방식이 다른 것뿐인데 티 나는 형식이 아니라서 자꾸 오해를 사요.',
       monologue: '화제를 바꾸는 게 안 듣는 게 아니라는 항변. 오늘 세 시간을 겪어보니 무슨 말인지 알겠다.',
       choices: [
         {
           label: 'A',
-          text: '그건 그래도 하준 씨가 고쳐야죠. 듣고 있다는 표시를 해주는 게 대화의 기본 아니에요? 리액션도 기술이에요',
+          text: '그건 그래도 하준씨가 고쳐야죠. 듣고 있다는 표시를 해주는 게 대화의 기본 아니에요? 리액션도 기술이에요',
           primaryAxis: 'E',
           secondaryAxis: 'T',
           likeScore: -1,
@@ -325,7 +325,7 @@ export const maleEpisodeEnfp: BlindDate = {
         },
         {
           label: 'B',
-          text: '두 달 전 떡볶이집을 기억하는 사람이 안 듣는 사람일 리가요. 저 오늘 하준 씨가 화제 바꿀 때마다 제 얘기가 재료가 되는 게 좋았어요',
+          text: '두 달 전 떡볶이집을 기억하는 사람이 안 듣는 사람일 리가요. 저 오늘 하준씨가 화제 바꿀 때마다 제 얘기가 재료가 되는 게 좋았어요',
           primaryAxis: 'E',
           secondaryAxis: 'F',
           likeScore: 1,
@@ -333,7 +333,7 @@ export const maleEpisodeEnfp: BlindDate = {
         },
         {
           label: 'C',
-          text: '화제 전환이 빠른 거랑 안 듣는 건 다르죠. 다음 화제가 앞 얘기랑 이어져 있으면 듣고 있었다는 증거예요. 오늘 보니까 하준 씨는 이어져 있던데요',
+          text: '화제 전환이 빠른 거랑 안 듣는 건 다르죠. 다음 화제가 앞 얘기랑 이어져 있으면 듣고 있었다는 증거예요. 오늘 보니까 하준씨는 이어져 있던데요',
           primaryAxis: 'I',
           secondaryAxis: 'T',
           likeScore: 1,
