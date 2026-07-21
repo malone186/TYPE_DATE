@@ -15,7 +15,7 @@ export const maleEpisodeEnfp: BlindDate = {
     tags: ['#여행유튜버', '#구독자8만', '#즉흥동선', '#화제전환장인', '#로케이션헌팅'],
     isUnlocked: true,
     imagePath: 'assets/images/ENFP_male.png',
-    facePath: null,
+    facePath: 'assets/images/ENFP_male_face.png',
   },
   turns: [
     {

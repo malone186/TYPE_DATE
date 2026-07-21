@@ -15,7 +15,7 @@ export const maleEpisodeEntp: BlindDate = {
     tags: ['#카피라이터', '#티키타카', '#한줄요약병', '#간판수집가', '#반박은애정'],
     isUnlocked: true,
     imagePath: 'assets/images/ENTP_male.png',
-    facePath: null,
+    facePath: 'assets/images/ENTP_male_face.png',
   },
   turns: [
     {

@@ -15,7 +15,7 @@ export const maleEpisodeEstp: BlindDate = {
     tags: ['#클라이밍', '#내기중독', '#직진화법', '#포장마차단골', '#체력만렙'],
     isUnlocked: true,
     imagePath: 'assets/images/ESTP_male.png',
-    facePath: null,
+    facePath: 'assets/images/ESTP_male_face.png',
   },
   turns: [
     {

@@ -15,7 +15,7 @@ export const maleEpisodeEsfj: BlindDate = {
     tags: ['#호텔리어', '#서비스만렙', '#물잔각도', '#리액션장인', '#모임총무'],
     isUnlocked: true,
     imagePath: 'assets/images/ESFJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/ESFJ_male_face.png',
   },
   turns: [
     {

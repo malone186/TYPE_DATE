@@ -15,7 +15,7 @@ export const maleEpisodeIstp: BlindDate = {
     tags: ['#커스텀바이크', '#공구는제자리', '#새벽라이딩', '#무심한배려', '#관찰력한방'],
     isUnlocked: true,
     imagePath: 'assets/images/ISTP_male.png',
-    facePath: null,
+    facePath: 'assets/images/ISTP_male_face.png',
   },
   turns: [
     {

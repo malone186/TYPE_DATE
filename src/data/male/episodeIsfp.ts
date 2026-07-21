@@ -15,7 +15,7 @@ export const maleEpisodeIsfp: BlindDate = {
     tags: ['#필름사진', '#빛수집가', '#작업실겸카페', '#새벽산책', '#과묵한데다정'],
     isUnlocked: true,
     imagePath: 'assets/images/ISFP_male.png',
-    facePath: null,
+    facePath: 'assets/images/ISFP_male_face.png',
   },
   turns: [
     {

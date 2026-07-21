@@ -15,7 +15,7 @@ export const maleEpisodeEnfj: BlindDate = {
     tags: ['#심리상담사', '#경청장인', '#직업병주의', '#티하우스', '#비밀엄수'],
     isUnlocked: true,
     imagePath: 'assets/images/ENFJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/ENFJ_male_face.png',
   },
   turns: [
     {

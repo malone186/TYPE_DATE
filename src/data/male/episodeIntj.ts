@@ -15,7 +15,7 @@ export const maleEpisodeIntj: BlindDate = {
     tags: ['#건축설계', '#도면', '#의자수집', '#단문', '#사전답사'],
     isUnlocked: true,
     imagePath: 'assets/images/INTJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/INTJ_male_face.png',
   },
   turns: [
     {

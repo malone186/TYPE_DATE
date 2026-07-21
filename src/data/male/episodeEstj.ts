@@ -15,7 +15,7 @@ export const maleEpisodeEstj: BlindDate = {
     tags: ['#전략기획', '#힙지로단골', '#주문의정석', '#계획형인간', '#사전협의체'],
     isUnlocked: true,
     imagePath: 'assets/images/ESTJ.png',
-    facePath: null,
+    facePath: 'assets/images/ESTJ_male_face.png',
   },
   turns: [
     {

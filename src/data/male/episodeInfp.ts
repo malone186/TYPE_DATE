@@ -15,7 +15,7 @@ export const maleEpisodeInfp: BlindDate = {
     tags: ['#독립서점', '#일러스트', '#손님관찰', '#후암동산책', '#말은느리지만'],
     isUnlocked: true,
     imagePath: 'assets/images/INFP_male.png',
-    facePath: null,
+    facePath: 'assets/images/INFP_male_face.png',
   },
   turns: [
     {

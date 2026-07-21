@@ -15,7 +15,7 @@ export const maleEpisodeEntj: BlindDate = {
     tags: ['#결론부터', '#스타트업대표', '#십오분단위캘린더', '#국밥원픽', '#자기인식가능'],
     isUnlocked: true,
     imagePath: 'assets/images/ENTJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/ENTJ_male_face.png',
   },
   turns: [
     {

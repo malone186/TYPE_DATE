@@ -15,7 +15,7 @@ export const maleEpisodeIntp: BlindDate = {
     tags: ['#게임개발', '#가설검증', '#보드게임', '#위키토끼굴', '#악의없는직설'],
     isUnlocked: true,
     imagePath: 'assets/images/INTP_male.png',
-    facePath: null,
+    facePath: 'assets/images/INTP_male_face.png',
   },
   turns: [
     {

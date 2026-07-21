@@ -15,7 +15,7 @@ export const maleEpisodeIstj: BlindDate = {
     tags: ['#약사', '#개국2년차', '#메모광', '#단골어르신', '#변수싫어함'],
     isUnlocked: true,
     imagePath: 'assets/images/ISTJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/ISTJ_male_face.png',
   },
   turns: [
     {

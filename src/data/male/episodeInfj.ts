@@ -15,7 +15,7 @@ export const maleEpisodeInfj: BlindDate = {
     tags: ['#다큐PD', '#심야북카페', '#관찰형', '#한마디파', '#편집실인간'],
     isUnlocked: true,
     imagePath: 'assets/images/INFJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/INFJ_male_face.png',
   },
   turns: [
     {

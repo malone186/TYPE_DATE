@@ -15,7 +15,7 @@ export const maleEpisodeIsfj: BlindDate = {
     tags: ['#수의사', '#기억력장인', '#사과가버릇', '#다리세개초코', '#진상보호자생존기'],
     isUnlocked: true,
     imagePath: 'assets/images/ISFJ_male.png',
-    facePath: null,
+    facePath: 'assets/images/ISFJ_male_face.png',
   },
   turns: [
     {
