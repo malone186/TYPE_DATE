@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
+import { Asset } from 'expo-asset';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { useStore } from './src/state/store';
 import { useColors, useIsDark } from './src/theme/useColors';
+import { allImages } from './src/assets/images';
 
 function Root() {
   const c = useColors();
@@ -30,11 +32,16 @@ export default function App() {
     'Pretendard-Bold': require('./assets/fonts/Pretendard-Bold.ttf'),
   });
 
+  // 화면 전환 시 사진이 뜨는 지연을 없애기 위해 시작 시 전체 이미지를 미리 캐싱한다.
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   useEffect(() => {
     loadPersisted();
+    Asset.loadAsync(allImages)
+      .catch(() => {})
+      .finally(() => setImagesLoaded(true));
   }, []);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !imagesLoaded) return null;
 
   return (
     <SafeAreaProvider>

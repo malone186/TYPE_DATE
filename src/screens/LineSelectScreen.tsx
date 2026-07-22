@@ -6,7 +6,7 @@ import { RootStackParamList } from '../navigation/types';
 import { useColors } from '../theme/useColors';
 import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
-import { GlowBackground, PhoneStatusBar, ThemeToggleButton } from '../widgets/common';
+import { GlowBackground, ThemeToggleButton } from '../widgets/common';
 import { useStore } from '../state/store';
 import { LINE_DATA, LineKey } from '../data';
 
@@ -23,7 +23,6 @@ export function LineSelectScreen({ navigation, route }: NativeStackScreenProps<R
   return (
     <GlowBackground>
       <SafeAreaView style={{ flex: 1 }}>
-        <PhoneStatusBar />
         <View style={{ flex: 1, paddingHorizontal: 24 }}>
           <View style={{ alignSelf: 'flex-end' }}>
             <ThemeToggleButton />

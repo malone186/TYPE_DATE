@@ -7,7 +7,7 @@ import { RootStackParamList } from '../navigation/types';
 import { useColors } from '../theme/useColors';
 import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
-import { CoralButton, GlowBackground, PhoneStatusBar, ThemeToggleButton } from '../widgets/common';
+import { CoralButton, GlowBackground, ThemeToggleButton } from '../widgets/common';
 import { useStore } from '../state/store';
 import { lineData } from '../data';
 import { imageSource } from '../assets/images';
@@ -33,9 +33,19 @@ export function CharacterSelectScreen({ navigation }: NativeStackScreenProps<Roo
   return (
     <GlowBackground>
       <SafeAreaView style={{ flex: 1 }}>
-        <PhoneStatusBar />
         <View style={{ flex: 1, paddingHorizontal: 16 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 8 }}>
+            <Pressable
+              onPress={() =>
+                navigation.canGoBack()
+                  ? navigation.goBack()
+                  : navigation.navigate('LineSelect', { next: 'CharacterSelect' })
+              }
+              hitSlop={8}
+              style={{ paddingRight: 12 }}
+            >
+              <MaterialIcons name="arrow-back-ios" size={20} color={c.textPrimary} />
+            </Pressable>
             <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>소개팅 상대</Text>
             <View style={{ flex: 1 }} />
             <ThemeToggleButton />

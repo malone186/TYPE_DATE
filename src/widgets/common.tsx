@@ -277,57 +277,6 @@ export function TypingIndicator() {
   );
 }
 
-/// 아이폰 상단 상태바 모방 — 시간 / 신호 / 데이터 / 배터리
-export function PhoneStatusBar() {
-  const c = useColors();
-  const fg = c.textPrimary;
-  const [time, setTime] = useState(formatNow());
-  useEffect(() => {
-    const t = setInterval(() => setTime(formatNow()), 20000);
-    return () => clearInterval(t);
-  }, []);
-  return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 24, paddingRight: 20, paddingTop: 6, paddingBottom: 2 }}>
-      <Text style={{ fontSize: 15, fontFamily: 'Pretendard-Bold', letterSpacing: 0.2, color: fg }}>{time}</Text>
-      <View style={{ flex: 1 }} />
-      <MaterialIcons name="signal-cellular-alt" size={16} color={fg} />
-      <View style={{ width: 6 }} />
-      <MaterialIcons name="wifi" size={16} color={fg} />
-      <View style={{ width: 6 }} />
-      <BatteryIndicator color={fg} level={0.8} />
-    </View>
-  );
-}
-
-function formatNow(): string {
-  const now = new Date();
-  return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-}
-
-function BatteryIndicator({ color, level }: { color: string; level: number }) {
-  return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Text style={{ fontSize: 13, fontFamily: 'Pretendard-SemiBold', color }}>{Math.round(level * 100)}%</Text>
-      <View style={{ width: 4 }} />
-      <View
-        style={{
-          width: 24,
-          height: 12,
-          padding: 2,
-          borderRadius: 3.5,
-          borderWidth: 1,
-          borderColor: withAlpha(color, 0.5),
-          justifyContent: 'center',
-        }}
-      >
-        <View style={{ width: 20 * Math.max(0, Math.min(1, level)), height: '100%', backgroundColor: color, borderRadius: 1.5 }} />
-      </View>
-      <View style={{ width: 1 }} />
-      <View style={{ width: 2, height: 4, backgroundColor: withAlpha(color, 0.5), borderTopRightRadius: 1, borderBottomRightRadius: 1 }} />
-    </View>
-  );
-}
-
 /// 공통 코랄 CTA 버튼
 export function CoralButton({
   label,

@@ -37,9 +37,9 @@ export function PrologueScreen({ navigation }: NativeStackScreenProps<RootStackP
       <KakaoChatView
         contactName={data.prologueContact}
         lines={data.prologueLines}
-        showStatusBar={line === 'female'}
         completeButtonLabel="다음"
         onComplete={() => setStep('onboarding')}
+        onBack={navigation.canGoBack() ? () => navigation.goBack() : undefined}
       />
     );
   }

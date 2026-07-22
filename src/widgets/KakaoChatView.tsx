@@ -12,7 +12,7 @@ import { TypeDateTextStyles } from '../theme/textStyles';
 import { withAlpha } from '../theme/colors';
 import { useColors } from '../theme/useColors';
 import { ChatLine } from '../types';
-import { GlowBackground, MonologuePill, PhoneStatusBar, ThemeToggleButton, TypingIndicator, CoralButton } from './common';
+import { GlowBackground, MonologuePill, ThemeToggleButton, TypingIndicator, CoralButton } from './common';
 
 // Flutter widgets/kakao_chat_view.dart 이식.
 // 프롤로그/에필로그용 카카오톡 모방 채팅 뷰. 기본 자동 진행, "건너뛰기" 누르면 탭 진행 모드.
@@ -22,13 +22,13 @@ export function KakaoChatView({
   lines,
   onComplete,
   completeButtonLabel,
-  showStatusBar = false,
+  onBack,
 }: {
   contactName: string;
   lines: ChatLine[];
   onComplete: () => void;
   completeButtonLabel?: string | null;
-  showStatusBar?: boolean;
+  onBack?: () => void;
 }) {
   const c = useColors();
   const [visibleCount, setVisibleCount] = useState(1);
@@ -138,10 +138,15 @@ export function KakaoChatView({
   return (
     <GlowBackground showLogoWatermark>
       <SafeAreaView style={{ flex: 1 }}>
-        {showStatusBar && <PhoneStatusBar />}
         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 14 }}>
-          <MaterialIcons name="arrow-back-ios" size={16} color={c.textPrimary} />
-          <View style={{ width: 12 }} />
+          {onBack && (
+            <>
+              <Pressable onPress={onBack} hitSlop={8}>
+                <MaterialIcons name="arrow-back-ios" size={16} color={c.textPrimary} />
+              </Pressable>
+              <View style={{ width: 12 }} />
+            </>
+          )}
           <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>{contactName}</Text>
           <View style={{ flex: 1 }} />
           {!skipMode ? (
