@@ -56,8 +56,8 @@ export function KakaoChatView({
   })();
 
   const delayFor = (line: ChatLine): number => {
-    if (line.isSystemNote) return 1400;
-    return Math.max(700, Math.min(2200, 450 + line.text.length * 28));
+    if (line.isSystemNote) return 1000;
+    return Math.max(500, Math.min(1600, 320 + line.text.length * 20));
   };
 
   const nextIsNpcMessage = (): boolean => {
@@ -88,11 +88,11 @@ export function KakaoChatView({
     let preDelay: number;
     if (nextIsNpcMessage()) {
       setTyping(true);
-      preDelay = 700;
+      preDelay = 500;
     } else if (nextIsMyMessage()) {
-      preDelay = 400;
-    } else {
       preDelay = 300;
+    } else {
+      preDelay = 250;
     }
 
     timer.current = setTimeout(() => {

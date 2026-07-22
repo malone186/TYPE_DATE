@@ -35,7 +35,7 @@ function applyName(text: string, userName: string): string {
 
 /// 메시지 길이에 비례한 "입력 중..." 표시 시간 — 카카오톡 대화창과 같은 리듬을 주기 위함.
 function typingDelayFor(text: string): number {
-  return Math.max(900, Math.min(2600, 500 + text.length * 32));
+  return Math.max(600, Math.min(1800, 350 + text.length * 22));
 }
 
 /// 선택지 표시 순서를 턴마다 무작위로 섞는다 — 데이터상 좋은 답이 앞자리에 몰려 있어도
@@ -157,8 +157,8 @@ export function BlindDateChatScreen({
         advanceTimer.current = setTimeout(() => {
           if (!mounted.current) return;
           startNpcTyping(t.npcMessage);
-        }, 700);
-      }, 500);
+        }, 500);
+      }, 350);
     } else {
       startNpcTyping(t.npcMessage);
     }
@@ -190,7 +190,7 @@ export function BlindDateChatScreen({
         } else {
           advanceTurn();
         }
-      }, 900);
+      }, 650);
     }, typingDelayFor(reactionText));
   };
 
@@ -213,14 +213,16 @@ export function BlindDateChatScreen({
     }
     const next = closingLinesRef.current[closingRevealCountRef.current];
     const isDialogue = !next.isSystemNote && !next.isMonologue;
-    if (isDialogue) setClosingTyping(true);
-    const preDelay = isDialogue ? typingDelayFor(next.text) : 300;
+    // "입력 중..."은 상대(NPC) 대사에만 — 주인공(me) 대사는 짧은 딜레이 후 바로 표시
+    const isNpcDialogue = isDialogue && next.sender !== 'me';
+    if (isNpcDialogue) setClosingTyping(true);
+    const preDelay = isNpcDialogue ? typingDelayFor(next.text) : isDialogue ? 400 : 250;
     typingTimer.current = setTimeout(() => {
       if (!mounted.current) return;
       setClosingTyping(false);
       setClosingReveal(closingRevealCountRef.current + 1);
       scrollToBottom();
-      const holdMs = isDialogue ? 700 : 1100;
+      const holdMs = isDialogue ? 500 : 800;
       advanceTimer.current = setTimeout(() => {
         if (!mounted.current) return;
         scheduleClosingLine();
@@ -234,19 +236,21 @@ export function BlindDateChatScreen({
       advanceTimer.current = setTimeout(() => {
         if (!mounted.current) return;
         setOpeningDone(true);
-      }, 900);
+      }, 650);
       return;
     }
     const next = opening[openingRevealCountRef.current];
     const isDialogue = !next.isSystemNote && !next.isMonologue;
-    if (isDialogue) setOpeningTyping(true);
-    const preDelay = isDialogue ? typingDelayFor(next.text) : 250;
+    // "입력 중..."은 상대(NPC) 대사에만 — 주인공(me) 대사는 짧은 딜레이 후 바로 표시
+    const isNpcDialogue = isDialogue && next.sender !== 'me';
+    if (isNpcDialogue) setOpeningTyping(true);
+    const preDelay = isNpcDialogue ? typingDelayFor(next.text) : isDialogue ? 400 : 250;
     typingTimer.current = setTimeout(() => {
       if (!mounted.current) return;
       setOpeningTyping(false);
       setOpeningReveal(openingRevealCountRef.current + 1);
       scrollToBottom();
-      const holdMs = isDialogue ? 700 : 1100;
+      const holdMs = isDialogue ? 500 : 800;
       advanceTimer.current = setTimeout(() => {
         if (!mounted.current) return;
         scheduleOpeningLine();
