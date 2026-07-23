@@ -19,7 +19,7 @@ import { TypeDateTextStyles } from '../theme/textStyles';
 import { useColors, useIsDark } from '../theme/useColors';
 import { useStore } from '../state/store';
 import { TDCharacter } from '../types';
-import { backgroundImage, imageSource, logoMarkImage } from '../assets/images';
+import { imageSource, logoMarkImage } from '../assets/images';
 
 // Flutter widgets/common.dart 이식.
 
@@ -91,10 +91,10 @@ export function GlowBackground({
         end={{ x: 1, y: 1 }}
         style={StyleSheet.absoluteFill}
       />
-      {photoBackground && (
+      {photoBackground && photoSource != null && (
         <>
           <Image
-            source={photoSource ?? backgroundImage}
+            source={photoSource}
             resizeMode="cover"
             style={[StyleSheet.absoluteFill, { width: '100%', height: '100%' }]}
           />

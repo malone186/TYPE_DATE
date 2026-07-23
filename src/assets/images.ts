@@ -89,4 +89,3 @@ export const allImages = Object.values(registry) as number[];
 
 export const logoImage = registry['assets/images/logo.png'];
 export const logoMarkImage = registry['assets/images/logo_mark.png'];
-export const backgroundImage = registry['assets/images/background.png'];
