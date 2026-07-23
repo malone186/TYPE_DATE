@@ -77,6 +77,16 @@ const registry: Record<string, ImageSourcePropType> = {
   'assets/images/ENFJ_background.png': require('../../assets/images/ENFJ_background.jpg'),
   'assets/images/ENTJ_background.png': require('../../assets/images/ENTJ_background.jpg'),
   'assets/images/ENTP_background.png': require('../../assets/images/ENTP_background.jpg'),
+  'assets/images/ESFJ_background.jpg': require('../../assets/images/ESFJ_background.jpg'),
+  'assets/images/ESTJ_background.jpg': require('../../assets/images/ESTJ_background.jpg'),
+  'assets/images/ESTP_background.jpg': require('../../assets/images/ESTP_background.jpg'),
+  'assets/images/INFJ_background.jpg': require('../../assets/images/INFJ_background.jpg'),
+  'assets/images/INFP_background.jpg': require('../../assets/images/INFP_background.jpg'),
+  'assets/images/INTP_background.jpg': require('../../assets/images/INTP_background.jpg'),
+  'assets/images/ISFJ_background.jpg': require('../../assets/images/ISFJ_background.jpg'),
+  'assets/images/ISFP_background.jpg': require('../../assets/images/ISFP_background.jpg'),
+  'assets/images/ISTJ_background.jpg': require('../../assets/images/ISTJ_background.jpg'),
+  'assets/images/ISTP_background.jpg': require('../../assets/images/ISTP_background.jpg'),
 };
 
 export function imageSource(path?: string | null): ImageSourcePropType | undefined {

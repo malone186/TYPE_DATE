@@ -16,6 +16,7 @@ export const maleEpisodeIstp: BlindDate = {
     isUnlocked: true,
     imagePath: 'assets/images/ISTP_male.png',
     facePath: 'assets/images/ISTP_male_face.png',
+    backgroundPath: 'assets/images/ISTP_background.jpg',
   },
   turns: [
     {

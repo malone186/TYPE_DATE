@@ -150,8 +150,19 @@ export function KakaoChatView({
           <Text style={TypeDateTextStyles.screenTitle(c.textPrimary)}>{contactName}</Text>
           <View style={{ flex: 1 }} />
           {!skipMode ? (
-            <Pressable onPress={enableSkipMode} style={{ padding: 6 }}>
-              <Text style={TypeDateTextStyles.caption(c.textMuted)}>건너뛰기</Text>
+            <Pressable
+              onPress={enableSkipMode}
+              hitSlop={4}
+              style={({ pressed }) => ({
+                paddingVertical: 6,
+                paddingHorizontal: 12,
+                borderRadius: 999,
+                borderWidth: 1,
+                borderColor: withAlpha(c.accentCoral, pressed ? 0.9 : 0.6),
+                backgroundColor: withAlpha(c.surface, pressed ? 0.9 : 0.7),
+              })}
+            >
+              <Text style={TypeDateTextStyles.caption(c.accentCoral)}>건너뛰기 ⏭</Text>
             </Pressable>
           ) : (
             <View style={{ paddingHorizontal: 8 }}>

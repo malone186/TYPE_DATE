@@ -16,6 +16,7 @@ export const maleEpisodeIsfj: BlindDate = {
     isUnlocked: true,
     imagePath: 'assets/images/ISFJ_male.png',
     facePath: 'assets/images/ISFJ_male_face.png',
+    backgroundPath: 'assets/images/ISFJ_background.jpg',
   },
   turns: [
     {
